@@ -16,7 +16,7 @@ import java.util.UUID;
 public class StringUUID
 {
 
-   public String getUUID()
+   public static String getUUID()
    {
       UUID uuid = UUID.randomUUID();
       return uuid.toString();

@@ -45,7 +45,7 @@ public class Date
     * @param year Sets the month with an integer
     * @param hour Sets the hour with an integer
     * @param minute Sets the minute with an integer
-    * @param second Sets the secon with an integer
+    * @param second Sets the second with an integer
     */
    public Date(int day, int month, int year, int hour, int minute, int second)
    {
@@ -102,7 +102,7 @@ public class Date
    }
    
    /**
-    * Check if the argument date is before object date
+    * Check if the argument date is before input object date
     * @param other date as a date object
     * @return boolean value based on if the input object is before this object
     */
