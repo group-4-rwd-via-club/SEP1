@@ -9,12 +9,17 @@ public class PlayerList
     * @Version 1
     */
    private ArrayList<Player> players;
-
+/**
+ * No-argument constructor initializing the PlayerList.
+ */
    public PlayerList()
    {
       players = new ArrayList<Player>();
    }
-
+/**
+ * Adds a player to the list
+ * @param player the player to add to the list
+ */
    public void addPlayer(Player player)
    {
       players.add(player);
@@ -22,6 +27,7 @@ public class PlayerList
 
    /**
     * remove individual player
+    * @param player the player to remove to the list
     */
    public void removePlayer(Player player)
    {
@@ -29,8 +35,9 @@ public class PlayerList
    }
 
    /**
-    * update and change individual player's detail TODO: make an exception class
-    * for update player
+    * update and change individual player's detail
+    *  TODO: make an exception class for update player
+    *  
     */
    public void updatePlayer(Player player)
    {
@@ -44,9 +51,11 @@ public class PlayerList
 
    }
 
-   /*
-    * search player by keyword
-    */
+    /**
+     * 
+     * @param keyword
+     * @return
+     */
    public Player getPlayer(String keyword)
    {
       Player result = new Player();
