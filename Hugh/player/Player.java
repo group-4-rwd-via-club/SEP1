@@ -1,124 +1,64 @@
 package player;
 
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Arrays;
-
+/**
+ * 
+ * @author hmci
+ * @version 0.1
+ */
 public class Player
 {
-   private String name;
+   private int id;
+   private String firstName;
+   private String middleName;
+   private String lastName;
    private int number;
-   private String shirt;
+   private String shirtText;
    private String position;
-   // Jesper says there is another way to do "Status"
-   // calling it status to reduce confusion with value "available"
-   // name can be changed if unacceptable
-   private String[] status = {"Available", "Injured"
-         , "Suspended", "Other"};
-   private int matches;
+   private String[] status = {"Available", "Injured", "Suspended", "Other"};
+   private Status status;
+   private int matchesInARow;
+   private String idFile = "C:\\Users\\hmci\\Documents\\GitHub\\SEP1\\Hugh\\player\\playerId.bin";
    
-   public Player(String name, int number, String shirt
-         , String position)
+   public Player(String firstName, String middleName, String lastName,
+         int number, String shirtText, String position, int matchesInARow)
    {
-      this.name = name;
+      this.firstName = firstName;
+      this.middleName = middleName;
+      this.lastName = lastName;
       this.number = number;
-      this.shirt = shirt;
+      this.shirtText = shirtText;
       this.position = position;
-      // to fix array
-      status = new String[0];
-      this.matches = 0;
-   }
-   
-   public Player()
-   {
-      this.name = "";
-      this.number = 0;
-      this.shirt = "";
-      this.position = "";
-      // to fix array
-      this.status = null;
-      this.matches = 0;
-   }
-
-   public String getName()
-   {
-      return name;
-   }
-
-   public void setName(String name)
-   {
-      this.name = name;
-   }
-
-   public int getNumber()
-   {
-      return number;
-   }
-
-   public void setNumber(int number)
-   {
-      this.number = number;
-   }
-
-   public String getShirt()
-   {
-      return shirt;
-   }
-
-   public void setShirt(String shirt)
-   {
-      this.shirt = shirt;
-   }
-
-   public String getPosition()
-   {
-      return position;
-   }
-
-   public void setPosition(String position)
-   {
-      this.position = position;
-   }
-
-   public String[] getStatus()
-   {
-      return status;
-   }
-
-   public void setStatus(String[] status)
-   {
-      this.status = status;
-   }
-
-   public int getMatches()
-   {
-      return matches;
-   }
-
-   public void setMatches(int matches)
-   {
-      this.matches = matches;
-   }
-   
-   public boolean copy(Object obj)
-   {
-      if(!(obj instanceof Player))
+      availability = status[0];
+      this.matchesInARow = matchesInARow;
+      id = 0;
+      
+      
+      Status.Injured.toString();
+      
+      if(playerList.size() > 0)
       {
-         return false;
+         id = playerList.get(playerList.size() - 1).getId() + 1;
       }
-      Player other = (Player)obj;
-      return this.name.equalsIgnoreCase(other.name)
-            && this.number == other.number
-            && this.shirt.equalsIgnoreCase(other.shirt)
-            && this.position.equalsIgnoreCase(other.position)
-            // to fix array
-            && this.status.equals(other.status)
-            && this.matches == other.matches;
+      else
+      {
+         id = 01;
+      }
+      
    }
-
-
-   public String toString()
+   public int setId()
    {
-      return "Player [name=" + name + ", number=" + number + ", shirt=" + shirt
-            + ", position=" + position + ", status=" + Arrays.toString(status)
-            + ", matches=" + matches + "]";
+      if(!(id<=0))
+      {
+         
+      }
    }
+   
 }
