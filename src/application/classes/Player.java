@@ -1,7 +1,11 @@
 package application.classes;
 
 import java.util.Arrays;
-
+/**
+ * Class which contains all player information
+ * @author Group-4
+ *@version 1
+ */
 public class Player
 {
    private String id;
@@ -12,7 +16,11 @@ public class Player
    private String preferredPosition;
    private int matchesInRow;
    private Availability availability;
-
+/**
+ * 2arg constructor to initialize fields:firstname, lastname
+ * @param firstname
+ * @param lastname
+ */
    public Player(String firstname, String lastname)
    {
       this.firstname = firstname;
@@ -29,6 +37,11 @@ public class Player
       this.shirtName = shirtName;
       this.preferredPosition = preferredPosition;
 
+   }
+
+   public Player()
+   {
+      // TODO Auto-generated constructor stub
    }
 
    public String getId()
