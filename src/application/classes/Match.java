@@ -114,9 +114,29 @@ public class Match
       }
       
       /**
+       * Method to set the date of the match.
+       * @param takes Date class as input.
+       */
+      
+      public void setDate(Date other)
+      {
+         this.date = other;
+      }
+      
+      /**
+       * Gets the date of the match if any.
+       * @return the date of the match as Date object.
+       */
+      
+      public Date getDate()
+      {
+         return this.date;
+      }
+      
+      /**
        * Method to check if input argument and current object is the same.
        * @param takes Match as input object
-       * @returns boolean value based on if the object is equal
+       * @returns boolean value based on if the object is equal to this.
        */
       public boolean equals(Object obj)
       {
@@ -125,7 +145,8 @@ public class Match
          
          Match other = (Match) obj;
          return this.id.equals(other.id) && this.opponent.equals(other.opponent)
-               && this.location.equals(other.location) && this.score.equals(other.score);
+               && this.location.equals(other.location) && this.score.equals(other.score)
+               && this.date.equals(other.date);
          
          
       }

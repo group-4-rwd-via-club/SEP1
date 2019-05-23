@@ -45,7 +45,7 @@ public class Date
     * @param year Sets the month with an integer
     * @param hour Sets the hour with an integer
     * @param minute Sets the minute with an integer
-    * @param second Sets the secon with an integer
+    * @param second Sets the second with an integer
     */
    public Date(int day, int month, int year, int hour, int minute, int second)
    {
@@ -101,15 +101,38 @@ public class Date
       return new Date(day, month, year, hour, minute, second);
    }
    
-   public boolean isFutureDate()
+   /**
+    * Check if the argument date is before input object date
+    * @param other date as a date object
+    * @return boolean value based on if the input object is before this object
+    */
+   public boolean isBefore(Date other)
    {
-      
+        if (other.year <= this.year) 
+         {         
+            if (other.month <= this.month)
+            {            
+               if (other.day < this.day || other.month < this.month )
+               {               
+                  return true;
+               }
+            }
+         }
+         return false;
+         
    }
    
+   
+   /**
+    * Checks if value stored in dateclass is today
+    * @returns boolean value based on if values represents today.
+    */
    public boolean isToday()
    {
-      
+      LocalDateTime now = LocalDateTime.now();
+      return this.day == now.getDayOfMonth() && this.month == now.getMonthValue() && this.year == now.getYear();
    }
+
    
    /**
     * returns currents fields as a norminal string format:
