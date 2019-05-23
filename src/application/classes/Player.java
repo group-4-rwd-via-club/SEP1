@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class Player
 {
+   private String id;
    private String name;
    private int number;
    private String shirt;
@@ -96,6 +97,9 @@ public class Player
    public void setMatches(int matches)
    {
       this.matches = matches;
+   }
+   public String getId() {
+      return this.id;
    }
    
    public boolean copy(Object obj)
