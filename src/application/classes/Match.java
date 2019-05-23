@@ -116,7 +116,7 @@ public class Match
       /**
        * Method to check if input argument and current object is the same.
        * @param takes Match as input object
-       * @returns boolean value based on if the object is equal
+       * @returns boolean value based on if the object is equal to this.
        */
       public boolean equals(Object obj)
       {
