@@ -1,14 +1,16 @@
 package application.classes;
 
 import java.util.Arrays;
+
 /**
  * Class which contains all player information
+ * 
  * @author Group-4
- *@version 1
+ * @version 1
  */
 public class Player
 {
-   private String id;
+   private String id = StringUUID.getUUID();
    private String firstname;
    private String lastname;
    private int number;
@@ -16,11 +18,13 @@ public class Player
    private String preferredPosition;
    private int matchesInRow;
    private Availability availability;
-/**
- * 2arg constructor to initialize fields:firstname, lastname
- * @param firstname
- * @param lastname
- */
+
+   /**
+    * 2arg constructor to initialize fields:firstname, lastname
+    * 
+    * @param firstname
+    * @param lastname
+    */
    public Player(String firstname, String lastname)
    {
       this.firstname = firstname;
@@ -36,7 +40,20 @@ public class Player
       this.number = number;
       this.shirtName = shirtName;
       this.preferredPosition = preferredPosition;
+      StringUUID id = new StringUUID();
+      this.id = id.getUUID();
+   }
 
+   public Player(Player player)
+   {
+      this.id = player.id;
+      this.firstname = player.firstname;
+      this.lastname = player.lastname;
+      this.number = player.number;
+      this.shirtName=player.shirtName;
+      this.preferredPosition=player.preferredPosition;
+      this.matchesInRow=player.matchesInRow;
+      this.availability=player.availability;
    }
 
    public Player()
@@ -47,11 +64,6 @@ public class Player
    public String getId()
    {
       return id;
-   }
-
-   public void setId(String id)
-   {
-      this.id = id;
    }
 
    public String getFirstname()
@@ -113,8 +125,6 @@ public class Player
    {
       return availability;
    }
-
- 
 
    @Override
    public String toString()
