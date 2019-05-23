@@ -31,6 +31,11 @@ public class Player
       this.lastname = lastname;
    }
 
+   /**
+    * 5arg constructor to initialize
+    * :firstname,lastname,shirtName,preferredPosition
+    */
+
    public Player(String firstname, String lastname, int number,
          String shirtName, String preferredPosition)
    {
@@ -50,10 +55,10 @@ public class Player
       this.firstname = player.firstname;
       this.lastname = player.lastname;
       this.number = player.number;
-      this.shirtName=player.shirtName;
-      this.preferredPosition=player.preferredPosition;
-      this.matchesInRow=player.matchesInRow;
-      this.availability=player.availability;
+      this.shirtName = player.shirtName;
+      this.preferredPosition = player.preferredPosition;
+      this.matchesInRow = player.matchesInRow;
+      this.availability = player.availability;
    }
 
    public Player()
