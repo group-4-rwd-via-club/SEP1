@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class Player
 {
-   private String id = StringUUID.getUUID();
+   private String id;
    private String firstname;
    private String lastname;
    private int number;
@@ -29,6 +29,9 @@ public class Player
    {
       this.firstname = firstname;
       this.lastname = lastname;
+
+      StringUUID id = new StringUUID();
+      this.id = id.getUUID();
    }
 
    public Player(String firstname, String lastname, int number,
@@ -40,13 +43,13 @@ public class Player
       this.number = number;
       this.shirtName = shirtName;
       this.preferredPosition = preferredPosition;
+
       StringUUID id = new StringUUID();
       this.id = id.getUUID();
    }
 
    public Player(Player player)
    {
-      this.id = player.id;
       this.firstname = player.firstname;
       this.lastname = player.lastname;
       this.number = player.number;
@@ -54,11 +57,15 @@ public class Player
       this.preferredPosition=player.preferredPosition;
       this.matchesInRow=player.matchesInRow;
       this.availability=player.availability;
+
+      StringUUID id = new StringUUID();
+      this.id = id.getUUID();
    }
 
    public Player()
    {
-      // TODO Auto-generated constructor stub
+      StringUUID id = new StringUUID();
+      this.id = id.getUUID();
    }
 
    public String getId()

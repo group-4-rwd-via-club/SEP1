@@ -8,11 +8,11 @@ public class Availability
    public boolean isPlayerAvailable() {
       return true;
    }
-   public String getUnavailableType() {
+   public UnavailableType getUnavailableType() {
       return  injuryType;
    }
+   // TODO: Needs to be rewritten
    public String getUnavailableTimeframe() {
-      
-      
+      return "";
    }
 }
