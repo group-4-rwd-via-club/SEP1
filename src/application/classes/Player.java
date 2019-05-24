@@ -4,13 +4,13 @@ import java.util.Arrays;
 
 /**
  * Class which contains all player information
- * 
+ *
  * @author Group-4
  * @version 1
  */
 public class Player
 {
-   private String id = StringUUID.getUUID();
+   private String id;
    private String firstname;
    private String lastname;
    private int number;
@@ -21,7 +21,7 @@ public class Player
 
    /**
     * 2arg constructor to initialize fields:firstname, lastname
-    * 
+    *
     * @param firstname
     * @param lastname
     */
@@ -29,6 +29,9 @@ public class Player
    {
       this.firstname = firstname;
       this.lastname = lastname;
+
+      StringUUID id = new StringUUID();
+      this.id = id.getUUID();
    }
 
    /**
@@ -45,25 +48,29 @@ public class Player
       this.number = number;
       this.shirtName = shirtName;
       this.preferredPosition = preferredPosition;
+
       StringUUID id = new StringUUID();
       this.id = id.getUUID();
    }
 
    public Player(Player player)
    {
-      this.id = player.id;
       this.firstname = player.firstname;
       this.lastname = player.lastname;
       this.number = player.number;
-      this.shirtName = player.shirtName;
-      this.preferredPosition = player.preferredPosition;
-      this.matchesInRow = player.matchesInRow;
-      this.availability = player.availability;
+      this.shirtName=player.shirtName;
+      this.preferredPosition=player.preferredPosition;
+      this.matchesInRow=player.matchesInRow;
+      this.availability=player.availability;
+
+      StringUUID id = new StringUUID();
+      this.id = id.getUUID();
    }
 
    public Player()
    {
-      // TODO Auto-generated constructor stub
+      StringUUID id = new StringUUID();
+      this.id = id.getUUID();
    }
 
    public String getId()
