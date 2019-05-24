@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * Class which contains all player information
- * 
+ *
  * @author Group-4
  * @version 1
  */
@@ -21,7 +21,7 @@ public class Player
 
    /**
     * 2arg constructor to initialize fields:firstname, lastname
-    * 
+    *
     * @param firstname
     * @param lastname
     */
@@ -33,6 +33,11 @@ public class Player
       StringUUID id = new StringUUID();
       this.id = id.getUUID();
    }
+
+   /**
+    * 5arg constructor to initialize
+    * :firstname,lastname,shirtName,preferredPosition
+    */
 
    public Player(String firstname, String lastname, int number,
          String shirtName, String preferredPosition)
