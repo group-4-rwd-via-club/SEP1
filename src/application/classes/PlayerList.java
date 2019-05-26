@@ -5,21 +5,28 @@ import java.util.ArrayList;
 public class PlayerList
 {
    /**
+    * PlayerList class respresent a class with contains all the players included
+    * in the program.
+    * 
     * @author Group 4
     * @Version 1
     */
    private ArrayList<Player> players;
-/**
- * No-argument constructor initializing the PlayerList.
- */
+
+   /**
+    * No-argument constructor initializing the PlayerList.
+    */
    public PlayerList()
    {
       players = new ArrayList<Player>();
    }
-/**
- * Adds a player to the list
- * @param player the player to add to the list
- */
+
+   /**
+    * Adds a player to the list
+    * 
+    * @param player
+    *           the player to add to the list
+    */
    public void addPlayer(Player player)
    {
       players.add(player);
@@ -27,7 +34,9 @@ public class PlayerList
 
    /**
     * remove individual player
-    * @param player the player to remove to the list
+    * 
+    * @param player
+    *           the player to remove to the list
     */
    public void removePlayer(Player player)
    {
@@ -35,30 +44,43 @@ public class PlayerList
    }
 
    /**
-    * update and change individual player's detail
-    *  TODO: make an exception class for update player
-    *  
+    * update and change individual player's detail TODO: make an exception class
+    * for update player
+    * 
+    * @param player
+    *           from Player class as input
     */
    public void updatePlayer(Player player)
    {
-      for (int i = 0; i < players.size(); i++)
+
+      try
       {
-         if (players.get(i).getId().equals(player.getId()))
+         for (int i = 0; i < players.size(); i++)
          {
-            players.set(i, player);
+            if (players.get(i).getId().equals(player.getId()))
+            {
+               players.set(i, player);
+            }
          }
+      }
+      catch (NullPointerException e)
+      {
+         System.out.println("IO Error closing file ");
       }
 
    }
 
-    /**
-     * 
-     * @param keyword
-     * @return
-     */
+   /**
+    * Get a player
+    * 
+    * @param keyword
+    *           search a player by keyword
+    * @return result with player's detail
+    */
    public Player getPlayer(String keyword)
    {
       Player result = new Player();
+
       for (int i = 0; i < players.size(); i++)
       {
          if ((keyword.equals(players)))
