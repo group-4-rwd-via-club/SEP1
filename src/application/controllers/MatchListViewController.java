@@ -1,22 +1,19 @@
 package application.controllers;
 
-import application.views.MatchListViewClass;
+import application.classes.Date;
+import application.classes.Match;
+import application.classes.MatchList;
+import application.classes.MatchType;
 import application.views.MatchViewClass;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import javax.xml.soap.Node;
-import java.io.IOException;
+import java.util.ArrayList;
 
 public class MatchListViewController {
     @FXML
@@ -49,8 +46,34 @@ public class MatchListViewController {
                 MatchViewClass mt = new MatchViewClass();
                 mt.start(new Stage());
         });
+
+        TestMethod();
     }
 
+    private void TestMethod()
+    {
+
+        Match match1 = new Match("opponent", MatchType.cup, "Horsens");
+        match1.setDate(new Date().getToday());
+        match1.setScore("WE WON");
+
+
+
+
+        ArrayList<Match> na = new ArrayList<>();
+        na.add(match1);
+        updateTableContent(na);
+
+    }
+
+    private void updateTableContent(ArrayList<Match> matchList)
+    {
+
+        ObservableList<Match> data = FXCollections.observableArrayList();
+        data.addAll(matchList);
+
+        tableView.setItems(data);
+    }
 
 
 }
