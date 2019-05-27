@@ -13,11 +13,9 @@ public class PlayerViewClass extends Application
     {
         try
         {
-            VBox root = (VBox) FXMLLoader
-                    .load(getClass().getResource("PlayerView.fxml"));
+            VBox root = (VBox) FXMLLoader.load(getClass().getResource("PlayerView.fxml"));
             Scene scene = new Scene(root, 400, 400);
-            scene.getStylesheets()
-                    .add(getClass().getResource("application.css").toExternalForm());
+
             primaryStage.setScene(scene);
             primaryStage.show();
         }
