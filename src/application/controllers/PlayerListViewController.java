@@ -80,23 +80,6 @@ public class PlayerListViewController
       
       
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
 
    }
 }
