@@ -23,6 +23,5 @@ public class PlayerViewController {
     private void initialize()
     {
 
-        exampleText.setText("TEST");
     }
 }
