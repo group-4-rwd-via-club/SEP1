@@ -1,17 +1,22 @@
 package application.controllers;
 
+import application.classes.MatchType;
 import application.classes.Player;
-
+import application.classes.PlayerList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
+import java.text.DecimalFormat;
 
 public class MatchViewController
 {  
+   private DecimalFormat x2digits = new DecimalFormat("00");
+   
    // The reference of saveButton will be injected by the FXML loader
    @FXML
    private Button saveButton;
@@ -28,6 +33,19 @@ public class MatchViewController
    @FXML
    private Button deleteButton;
    
+   // The reference of pitchButton will be injected by the FXML loader
+   @FXML
+   private Button pitchButton;
+   
+   // The reference of benchButton will be injected by the FXML loader
+   @FXML
+   private Button benchButton;
+
+// The reference of getPlayerButton will be injected by the FXML loader
+   @FXML
+   private Button getButton;
+
+   
    // The reference of dateField will be injected by the FXML loader
    @FXML
    private DatePicker dateField;
@@ -38,45 +56,80 @@ public class MatchViewController
    
    // The reference of typeField will be injected by the FXML loader
    @FXML
-   private ComboBox<String> typeField;
+   private ComboBox<MatchType> typeField;
    
    // The reference of locationField will be injected by the FXML loader
    @FXML
    private TextField locationField;
    
+// The reference of viaScoreField will be injected by the FXML loader
+   @FXML
+   private ComboBox<String> viaScoreField;
+   
+// The reference of oppScoreField will be injected by the FXML loader
+   @FXML
+   private ComboBox<String> oppScoreField;
+
    // The reference of meetHourField will be injected by the FXML loader
    @FXML
-   private ComboBox<int[]> meetHourField;
+   private ComboBox<String> meetHourField;
    
    // The reference of meetMinuteField will be injected by the FXML loader
    @FXML
-   private ComboBox<int[]> meetMinuteField;
+   private ComboBox<String> meetMinuteField;
    
 // The reference of startHourField will be injected by the FXML loader
    @FXML
-   private ComboBox<int[]> startHourField;
+   private ComboBox<String> startHourField;
    
    // The reference of meetMinuteField will be injected by the FXML loader
    @FXML
-   private ComboBox<int[]> startMinuteField;
+   private ComboBox<String> startMinuteField;
    
-   // The reference of pitchField will be injected by the FXML loader
+   // The reference of assignedField will be injected by the FXML loader
    @FXML
-   private ListView<Player> pitchField;
-   
-// The reference of benchField will be injected by the FXML loader
-   @FXML
-   private ListView<Player> benchField;
+   private TableView<Player> assignedField;
    
 // The reference of availableField will be injected by the FXML loader
    @FXML
-   private ListView<Player> availableField;
-
+   private TableView<Player> availableField;
 
    @FXML
    private void initialize()
    {
-
+      //New match
+      typeField.getItems().addAll(MatchType.none, MatchType.friendly, MatchType.cup, MatchType.league);
+      typeField.getSelectionModel().selectFirst();
+      
+      getButton.setDisable(true);
+      
+      viaScoreField.setDisable(true);
+      oppScoreField.setDisable(true);
+     
+      createComboBox(meetHourField, 24);
+      createComboBox(meetMinuteField, 60);
+      createComboBox(startHourField, 24);
+      createComboBox(startMinuteField, 60);
+      createComboBox(viaScoreField, 100);
+      createComboBox(oppScoreField, 100);
+   }
+   
+   private void createComboBox(ComboBox<String> field, int number) {
+      for (int i = 0; i < number; i++) {
+         field.getItems().add(x2digits.format(i));
+      }
+   }
+   
+   public void typeSelect(ActionEvent e) {
+      if (typeField.getValue().toString().equals("none")) {
+         getButton.setDisable(true);
+      } else {
+         getButton.setDisable(false);
+      }
+   }
+   
+   public void getAllPlayers(ActionEvent e) {
+      
    }
 
 }
