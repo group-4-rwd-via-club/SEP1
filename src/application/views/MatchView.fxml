@@ -22,11 +22,19 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="cancelButton" mnemonicParsing="false" prefWidth="70.0" text="Cancel" />
-            <Button fx:id="printButton" mnemonicParsing="false" prefWidth="70.0" text="Print" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" prefWidth="70.0" text="Cancel">
+               <HBox.margin>
+                  <Insets left="7.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="printButton" mnemonicParsing="false" prefWidth="70.0" text="Print">
+               <HBox.margin>
+                  <Insets left="7.0" />
+               </HBox.margin>
+            </Button>
             <Label alignment="BOTTOM_LEFT" text="Pitch:">
                <HBox.margin>
-                  <Insets left="22.0" />
+                  <Insets left="10.0" />
                </HBox.margin>
             </Label>
             <Label text="Available:">
