@@ -65,9 +65,18 @@ public class PlayerList
       }
       catch (NullPointerException e)
       {
-         System.out.println("IO Error closing file ");
+         System.out.println("Error closing file ");
       }
 
+   }
+   
+
+   @Override
+   public String toString()
+   {if(players.size()==0) {
+      return "No Player in the list";
+   }else {
+      return "PlayerList [players=" + players + "]";}
    }
 
    /**
@@ -86,10 +95,20 @@ public class PlayerList
          if ((keyword.equals(players)))
          {
             result = players.get(i);
+         }else {
+            System.out.println("Type the right name");
          }
 
       }
       return result;
    }
+
+   @Override
+   public boolean equals(Object obj)
+   {
+       
+      return super.equals(obj);
+   }
+   
 
 }
