@@ -52,7 +52,10 @@ public class Player
       StringUUID id = new StringUUID();
       this.id = id.getUUID();
    }
-
+   /**
+    * 1agr constructor which initialize:
+    * Player firstname,lastname ,shirtName ,preferredPosition, matchesInRow ,availability
+    */
    public Player(Player player)
    {
       this.firstname = player.firstname;
@@ -66,78 +69,124 @@ public class Player
       StringUUID id = new StringUUID();
       this.id = id.getUUID();
    }
-
+   /**
+    * Empty constructor which initialize:
+    * Player id
+    */
    public Player()
    {
       StringUUID id = new StringUUID();
       this.id = id.getUUID();
    }
-
+   /**
+    * Gets the ID for the current player.
+    * @returns private field ID.
+    */
    public String getId()
    {
       return id;
    }
-
+ /**
+  * get firstname
+  * @return firstname as a string 
+  */
    public String getFirstname()
    {
       return firstname;
    }
-
+/**
+ * sets the firstname 
+ * @param firstname as a string
+ */
    public void setFirstname(String firstname)
    {
       this.firstname = firstname;
    }
-
+/**
+ * get the  lastname 
+ * @return lastname as string 
+ */
    public String getLastname()
    {
       return lastname;
    }
-
+/**
+ * sets the lastname
+ * @param lastname as string
+ */
    public void setLastname(String lastname)
    {
       this.lastname = lastname;
    }
-
+/**
+ * get players number
+ * @return number as int
+ */
    public int getNumber()
    {
       return number;
    }
-
+/** set players number
+ * 
+ * @param number as int
+ */
    public void setNumber(int number)
    {
       this.number = number;
    }
-
+/**
+ * get ShirtName
+ * @return shirtName as string
+ */
    public String getShirtName()
    {
       return shirtName;
    }
-
+/**
+ * set shirtName 
+ * @param shirtName 
+ */
    public void setShirtName(String shirtName)
    {
       this.shirtName = shirtName;
    }
-
+/**
+ * get PreferredPosition
+ * @return preferredPosition as string
+ */
    public String getPreferredPosition()
    {
       return preferredPosition;
    }
-
+/**
+ * set preferredPosition
+ * @param preferredPosition as String
+ */
    public void setPreferredPosition(String preferredPosition)
    {
       this.preferredPosition = preferredPosition;
    }
-
+/**
+ * get MatchesInRow
+ * @return matchesInRow as int
+ */
    public int getMatchesInRow()
    {
       return matchesInRow;
    }
 
+   /**
+    * get Availability from Availability class
+    * @return availability
+    */
    public Availability getAvailability()
    {
       return availability;
    }
 
+   /**
+    * output data as String
+    */
    @Override
    public String toString()
    {
@@ -146,7 +195,12 @@ public class Player
             + ", preferredPosition=" + preferredPosition + ", matchesInRow="
             + matchesInRow + "]";
    }
-
+/**
+ * Method to check if input argument and current object is the same.
+ * @param takes Player as input object
+ * @return boolean valus based  if the object is equal to this.
+ * 
+ */
    public boolean equals(Object obj)
    {
       if (!(obj instanceof Player))
