@@ -1,9 +1,22 @@
 package application.controllers;
 
+import application.views.MatchListViewClass;
+import application.views.MatchViewClass;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+import javax.xml.soap.Node;
+import java.io.IOException;
 
 public class MatchListViewController {
     @FXML
@@ -22,6 +35,7 @@ public class MatchListViewController {
     @FXML
     private TableView tableView;
 
+
     // Add a public no-args constructor
     public MatchListViewController()
     {
@@ -31,8 +45,12 @@ public class MatchListViewController {
     @FXML
     private void initialize()
     {
-        searchText.setText("TEST");
+        addButton.setOnAction(o -> {
+                MatchViewClass mt = new MatchViewClass();
+                mt.start(new Stage());
+        });
     }
+
 
 
 }
