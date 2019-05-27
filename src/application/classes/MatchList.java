@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class MatchList
 {
-   public ArrayList<Match> matches;
+   private ArrayList<Match> matches;
    
    /**
     * Empty constructor which initialize matches arraylist.
@@ -44,7 +44,15 @@ public class MatchList
          return matches.get(index);
       return null;
    }
-   
+
+   /**
+    * returns a list of all matches in the system
+    * @return returns an arraylist of all matches
+    */
+   public ArrayList<Match> getAllMatches()
+   {
+      return matches;
+   }
    
    /**
     * Get a array list of all previous matches from today.

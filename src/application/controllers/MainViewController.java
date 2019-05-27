@@ -1,5 +1,6 @@
 package application.controllers;
 
+import application.classes.VIAClubManagement;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
