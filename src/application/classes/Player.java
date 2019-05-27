@@ -48,7 +48,7 @@ public class Player
       this.number = number;
       this.shirtName = shirtName;
       this.preferredPosition = preferredPosition;
-
+      this.availability = new Availability();
       StringUUID id = new StringUUID();
       this.id = id.getUUID();
    }

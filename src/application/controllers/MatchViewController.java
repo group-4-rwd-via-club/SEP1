@@ -140,7 +140,9 @@ public class MatchViewController
       ArrayList<Player> availablePlayers = new ArrayList<Player>();
       if (typeField.getValue().toString().equals("friendly")) {
          for (Player player : allPlayers) {
-            if (player.getAvailability().equals(UnavailableType.none) || 
+            /*if (player.getAvailability() == null)
+               continue;*/
+            if (player.getAvailability().equals(UnavailableType.none) ||
                   player.getAvailability().equals(UnavailableType.suspended)){
                availablePlayers.add(player);
             }
