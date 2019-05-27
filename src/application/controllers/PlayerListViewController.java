@@ -9,15 +9,15 @@ public class PlayerListViewController
 {
    @FXML
    // The reference of searchText will be injected by the FXML loader
-   private TextField searchText;
+   private TextField searchplayer;
 
    // The reference of addButton will be injected by the FXML loader
    @FXML
-   private Button addButton;
+   private Button add ;
 
    // The reference of printButton will be injected by the FXML loader
    @FXML
-   private Button printButton;
+   private Button print ;
 
    // The reference of tableView will be injected by the FXML loader
    @FXML
@@ -32,6 +32,6 @@ public class PlayerListViewController
    @FXML
    private void initialize()
    {
-       searchText.setText("TEST");
+       searchplayer.setText("TEST");
    }
 }
