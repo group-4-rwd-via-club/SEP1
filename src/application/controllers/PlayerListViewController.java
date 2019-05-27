@@ -41,11 +41,11 @@ public class PlayerListViewController
 
    @FXML
    private void initialize()
-   
-   {
-      PlayerList p=new PlayerList();
 
-      searchplayer.setText("TEST");
+   {
+      PlayerList p = new PlayerList();
+
+   
 
       // add
       add.setOnAction(event -> {
@@ -62,19 +62,41 @@ public class PlayerListViewController
                public void handle(MouseEvent e)
                {
 
-               
-                  
-                  
                   Alert alert = new Alert(AlertType.INFORMATION);
                   alert.setTitle("Players");
                   alert.setHeaderText(null);
-                  alert.setContentText(p.toString());
+               
+                     alert.setContentText(p.toString());
+                  
                   alert.showAndWait();
 
                }
             }
 
       );
+      
+      // search by keyword
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
 
    }
 }

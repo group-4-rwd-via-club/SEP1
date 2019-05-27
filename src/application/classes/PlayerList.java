@@ -73,8 +73,10 @@ public class PlayerList
 
    @Override
    public String toString()
-   {
-      return "PlayerList [players=" + players + "]";
+   {if(players.size()==0) {
+      return "No Player in the list";
+   }else {
+      return "PlayerList [players=" + players + "]";}
    }
 
    /**
@@ -100,5 +102,13 @@ public class PlayerList
       }
       return result;
    }
+
+   @Override
+   public boolean equals(Object obj)
+   {
+       
+      return super.equals(obj);
+   }
+   
 
 }
