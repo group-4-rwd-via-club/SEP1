@@ -93,6 +93,8 @@ public class PlayerList
          if ((keyword.equals(players)))
          {
             result = players.get(i);
+         }else {
+            System.out.println("Type the right name");
          }
 
       }
