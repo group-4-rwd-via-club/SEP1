@@ -44,7 +44,7 @@ public class Match
       {
          this.matchRoster = new PlayerList();
          this.date = new Date();
-         this.matchType = MatchType.None;
+         this.matchType = MatchType.none;
       }
       
       /**
