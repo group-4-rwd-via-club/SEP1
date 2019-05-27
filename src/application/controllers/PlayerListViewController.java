@@ -23,7 +23,10 @@ public class PlayerListViewController
    @FXML
    private TableView tableView;
 
- 
+ public  PlayerListViewController()
+{
+    
+}
 
 
    @FXML
