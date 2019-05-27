@@ -98,7 +98,7 @@ public class MatchViewController
    @FXML
    private void initialize()
    {
-      
+
       //New match
       typeField.getItems().addAll(MatchType.none, MatchType.friendly, MatchType.cup, MatchType.league);
       typeField.getSelectionModel().selectFirst();

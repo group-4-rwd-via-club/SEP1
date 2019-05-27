@@ -73,6 +73,7 @@ public class MatchListViewController {
                 String id = ((Match) tableView.getSelectionModel().getSelectedItem()).getId();
                 System.out.println(id);
                 MatchViewClass mt = new MatchViewClass(id);
+                mt.start(new Stage());
             }
         });
 
