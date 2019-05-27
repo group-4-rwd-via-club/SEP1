@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="application.controllers.PlayerListViewController">
     <children>
       <HBox alignment="CENTER_LEFT" blendMode="MULTIPLY" prefHeight="31.0" prefWidth="689.0">
          <children>
@@ -31,15 +31,15 @@
             <TextField fx:id="searchplayer" />
          </children>
       </HBox>
-      <TableView prefHeight="222.0" prefWidth="598.0">
+      <TableView prefHeight="320.0" prefWidth="580.0">
         <columns>
-          <TableColumn fx:id="firstname" prefWidth="75.0" text="FirstName" />
-          <TableColumn fx:id="lastname" prefWidth="75.0" text=" LastName" />
-            <TableColumn fx:id="shirt" prefWidth="75.0" text=" Shirt" />
-            <TableColumn fx:id="position" prefWidth="75.0" text="Position " />
-            <TableColumn fx:id="status" prefWidth="75.0" text="Status" />
-            <TableColumn fx:id="matches" prefWidth="75.0" text="Matches" />
-            <TableColumn prefWidth="75.0" text="  " />
+          <TableColumn fx:id="firstname" prefWidth="118.0" text="FirstName" />
+          <TableColumn fx:id="lastname" prefWidth="94.0" text=" LastName" />
+            <TableColumn fx:id="shirt" prefWidth="88.0" text=" Shirt" />
+            <TableColumn fx:id="position" prefWidth="88.0" text="Position " />
+            <TableColumn fx:id="status" text="Status" />
+            <TableColumn fx:id="matches" prefWidth="107.0" text="Matches" />
+            <TableColumn minWidth="0.0" prefWidth="0.0" text="  " />
         </columns>
       </TableView>
    </children>

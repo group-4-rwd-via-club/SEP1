@@ -1,9 +1,16 @@
 package application.controllers;
 
+import application.views.MatchListViewClass;
+import application.views.MatchViewClass;
+import application.views.PlayerViewClass;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+
 
 public class PlayerListViewController
 {
@@ -33,5 +40,13 @@ public class PlayerListViewController
    private void initialize()
    {
        searchplayer.setText("TEST");
+       
+       
+       add.setOnAction(event ->{
+          PlayerViewClass  open = new  PlayerViewClass ();
+          open.start(new Stage());
+       });
+       
+       
    }
 }
