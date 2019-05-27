@@ -1,6 +1,8 @@
 package application.classes;
 
 
+import java.util.UUID;
+
 /**
  *  Class which contains all match information regarding a match.
  * @author Group-4
@@ -16,7 +18,7 @@ public class Match
       private PlayerList matchRoster;
       private Date date;
       private MatchType matchType;
-      
+
       /**
        * Constructor to initialize fields: Opponent, Match type and the location
        * for the match.
@@ -33,6 +35,7 @@ public class Match
          
          this.matchRoster = new PlayerList();
          this.date = new Date();
+         this.id = StringUUID.getUUID();
          
       }
       
@@ -45,6 +48,7 @@ public class Match
          this.matchRoster = new PlayerList();
          this.date = new Date();
          this.matchType = MatchType.none;
+         this.id = StringUUID.getUUID();
       }
       
       /**
@@ -77,7 +81,7 @@ public class Match
       
       /**
        * Sets location as a string and takes string as argument.
-       * @param Takes location as a string input.
+       * @param inputs location as a string input.
        */
       
       public void setLocation(String location)
@@ -120,7 +124,8 @@ public class Match
       
       public void setDate(Date other)
       {
-         this.date = other;
+
+          this.date = other;
       }
       
       /**
@@ -132,23 +137,53 @@ public class Match
       {
          return this.date;
       }
-      
+
+        /**
+        * Returns match type
+        * @return match type as enum
+        */
+        public MatchType getMatchType()
+        {
+        return this.matchType;
+        }
+
+        /**
+        * Sets roster of players in the match.
+        * @param takes list of players
+        */
+        public void setRoster(PlayerList playerList)
+        {
+            this.matchRoster = playerList;
+        }
+
+        /**
+        * Gets a playerlist of all playerrs associated with the match
+        * @return
+        */
+        public PlayerList getRoster()
+        {
+            return this.matchRoster;
+        }
+
+
+
       /**
        * Method to check if input argument and current object is the same.
        * @param takes Match as input object
        * @returns boolean value based on if the object is equal to this.
        */
+
       public boolean equals(Object obj)
       {
          if (!(obj instanceof Match))
             return false;
-         
+
          Match other = (Match) obj;
-         return this.id.equals(other.id) && this.opponent.equals(other.opponent)
+         return this.opponent.equals(other.opponent)
                && this.location.equals(other.location) && this.score.equals(other.score)
                && this.date.equals(other.date);
-         
-         
+
+
       }
       
 }

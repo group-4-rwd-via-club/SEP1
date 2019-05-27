@@ -133,13 +133,22 @@ public class Date
       return this.day == now.getDayOfMonth() && this.month == now.getMonthValue() && this.year == now.getYear();
    }
 
-   
+   /**
+    * Returns current fields, except hour minute second, as norminal string in format:
+    * yyyy-mm-dd
+    * @return
+    */
+   public String toStringShort()
+   {
+      return String.format("%d-%02d-%02d", year, month, day);
+   }
    /**
     * returns currents fields as a norminal string format:
-    * dd-mm-yy HH:mm:ss
+    * yyyy-mm-dd HH:mm:ss
     */
    public String toString()
    {
       return String.format("%d-%02d-%02d %02d:%02d:%02d", year, month, day, hour, minute, second);
    }
+
 }

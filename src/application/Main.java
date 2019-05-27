@@ -1,27 +1,45 @@
 package application;
 	
+import application.classes.VIAClubManagement;
 import javafx.application.Application;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
+import javafx.stage.StageStyle;
 
 
 public class Main extends Application {
+
+	public VIAClubManagement VIAClubManagement;
+
 	@Override
 	public void start(Stage primaryStage) {
+
+
+		VIAClubManagement = new VIAClubManagement();
+
+
 		try {
-			TabPane root = (TabPane)FXMLLoader.load(getClass().getResource("views/MainView.fxml"));
+
+			VBox root = (VBox) FXMLLoader.load(getClass().getResource("views/MainView.fxml"));
+			root.setFillWidth(true);
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
+			primaryStage.setResizable(false); // Disallow resize of window
+
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
+
 		launch(args);
 	}
 }
