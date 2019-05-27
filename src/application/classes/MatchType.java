@@ -6,8 +6,8 @@ package application.classes;
  * @version 1
  */
 public enum MatchType {
-   None,
-   Friendly,
-   Cup,
-   League
+   none,
+   friendly,
+   cup,
+   league
 }
