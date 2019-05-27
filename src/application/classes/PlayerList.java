@@ -65,9 +65,16 @@ public class PlayerList
       }
       catch (NullPointerException e)
       {
-         System.out.println("IO Error closing file ");
+         System.out.println("Error closing file ");
       }
 
+   }
+   
+
+   @Override
+   public String toString()
+   {
+      return "PlayerList [players=" + players + "]";
    }
 
    /**
