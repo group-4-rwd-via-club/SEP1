@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root prefHeight="283.0" prefWidth="628.0" type="VBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefHeight="401.0" prefWidth="501.0" type="VBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PlayerListViewController">
    <children>
       <MenuBar prefHeight="0.0" prefWidth="790.0">
         <menus>
@@ -39,7 +39,7 @@
       </MenuBar>
       <HBox alignment="CENTER_LEFT" blendMode="MULTIPLY" prefHeight="31.0" prefWidth="689.0">
          <children>
-            <Button defaultButton="true" mnemonicParsing="false" prefHeight="23.0" prefWidth="49.0" text="Add">
+            <Button fx:id="add" defaultButton="true" mnemonicParsing="false" prefHeight="23.0" prefWidth="49.0" text="Add">
                <font>
                   <Font name="Arial Bold" size="12.0" />
                </font>
@@ -47,23 +47,23 @@
                   <Insets left="11.0" right="11.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="23.0" prefWidth="49.0" text="Print">
+            <Button fx:id="print" mnemonicParsing="false" prefHeight="23.0" prefWidth="49.0" text="Print">
                <opaqueInsets>
                   <Insets left="1.0" />
                </opaqueInsets>
             </Button>
             <Label text="     SearchPlayer:   " />
-            <TextField />
+            <TextField fx:id="searchplayer" />
          </children>
       </HBox>
       <TableView prefHeight="222.0" prefWidth="598.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="FirstName" />
-          <TableColumn prefWidth="75.0" text=" LastName" />
-            <TableColumn prefWidth="75.0" text=" Shirt" />
-            <TableColumn prefWidth="75.0" text="Position " />
-            <TableColumn prefWidth="75.0" text="Status" />
-            <TableColumn prefWidth="75.0" text="Matches" />
+          <TableColumn fx:id="firstname" prefWidth="75.0" text="FirstName" />
+          <TableColumn fx:id="lastname" prefWidth="75.0" text=" LastName" />
+            <TableColumn fx:id="shirt" prefWidth="75.0" text=" Shirt" />
+            <TableColumn fx:id="position" prefWidth="75.0" text="Position " />
+            <TableColumn fx:id="status" prefWidth="75.0" text="Status" />
+            <TableColumn fx:id="matches" prefWidth="75.0" text="Matches" />
             <TableColumn prefWidth="75.0" text="  " />
         </columns>
       </TableView>
