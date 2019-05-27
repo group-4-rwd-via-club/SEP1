@@ -1,8 +1,13 @@
 package application.controllers;
 
+import application.classes.Match;
 import application.classes.MatchType;
 import application.classes.Player;
 import application.classes.PlayerList;
+import application.classes.UnavailableType;
+import application.classes.VIAClubManagement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,6 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class MatchViewController
 {  
@@ -128,8 +134,33 @@ public class MatchViewController
       }
    }
    
-   public void getAllPlayers(ActionEvent e) {
-      
+   public void getPlayers(ActionEvent e) {
+      System.out.println("Start");
+      ArrayList<Player> allPlayers = VIAClubManagement.system.playerList.getAllPlayers();
+      ArrayList<Player> availablePlayers = new ArrayList<Player>();
+      if (typeField.getValue().toString().equals("friendly")) {
+         for (Player player : allPlayers) {
+            if (player.getAvailability().equals(UnavailableType.none) || 
+                  player.getAvailability().equals(UnavailableType.suspended)){
+               availablePlayers.add(player);
+            }
+         }
+      } else {
+         for (Player player : allPlayers) {
+            if (player.getAvailability().equals(UnavailableType.none)){
+               availablePlayers.add(player);
+            }
+         }
+      }
+      System.out.println("LIST is NULL");
+      if (availablePlayers != null) {
+         System.out.println("SETLIST");
+         ObservableList<Player> data = FXCollections.observableArrayList();
+         data.addAll();
+
+
+         availableField.setItems(data);
+     }
    }
 
 }
