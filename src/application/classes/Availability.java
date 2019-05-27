@@ -33,6 +33,7 @@ public class Availability
    public boolean isPlayerAvailable() {
       return injuryType == UnavailableType.none;
    }
+
    public UnavailableType getUnavailableType() {
       return  injuryType;
    }

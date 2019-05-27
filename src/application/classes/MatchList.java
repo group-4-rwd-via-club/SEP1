@@ -89,6 +89,22 @@ public class MatchList
       return todayMatches;
    
    }
+
+   /**
+    * Looks for match with input ID, if it finds the match with the ID it
+    * returns the match object. Else it returns null value.
+    * @param id parameter string id which is the uuid generated when the object is created.
+    * @return returns match object or null if it cant find the object based on the id.
+    */
+   public Match getMatchById(String id)
+   {
+      for (Match match : matches)
+      {
+         if (match.getId() == id)
+            return match;
+      }
+      return null;
+   }
    
    /**
     * Add a match to the array list. Takes a match as input.

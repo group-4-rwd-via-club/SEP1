@@ -3,6 +3,7 @@ package application.controllers;
 import application.classes.MatchType;
 import application.classes.Player;
 import application.classes.PlayerList;
+import application.views.MatchViewClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -97,6 +98,7 @@ public class MatchViewController
    @FXML
    private void initialize()
    {
+      
       //New match
       typeField.getItems().addAll(MatchType.none, MatchType.friendly, MatchType.cup, MatchType.league);
       typeField.getSelectionModel().selectFirst();

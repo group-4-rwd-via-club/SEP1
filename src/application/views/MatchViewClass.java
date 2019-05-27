@@ -10,6 +10,16 @@ import javafx.stage.Stage;
 
 public class MatchViewClass extends Application {
 
+
+    public static String matchId;
+
+    public MatchViewClass(){}
+
+    public MatchViewClass(String id)
+    {
+        this.matchId = id;
+    }
+
     @Override
     public void start(Stage primaryStage) {
         try {
