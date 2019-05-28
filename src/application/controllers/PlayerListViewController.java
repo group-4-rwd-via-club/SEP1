@@ -124,7 +124,7 @@ public class PlayerListViewController
       
        }
    
-   
+   // from JH
    private ObservableList<Player> filteredData = FXCollections.observableArrayList();
    private void setFilteredData(String keyword)
    {
