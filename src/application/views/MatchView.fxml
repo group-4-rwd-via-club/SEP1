@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minWidth="700.0" prefHeight="400.0" prefWidth="950.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.MatchViewController">
+<VBox minWidth="700.0" prefHeight="400.0" prefWidth="1050.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.MatchViewController">
    <children>
       <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="5.0" prefWidth="700.0" spacing="5.0">
          <children>
@@ -148,21 +148,22 @@
                <children>
                   <TableView fx:id="assignedField" prefHeight="329.0" prefWidth="300.0">
                     <columns>
-                      <TableColumn prefWidth="55.0" text="Nr." />
-                      <TableColumn prefWidth="169.0" text="Name" />
-                        <TableColumn prefWidth="75.0" text="Pos." />
+                      <TableColumn fx:id="assignedNumber" prefWidth="30.0" text="Nr." />
+                      <TableColumn fx:id="assignedName" prefWidth="200.0" text="Name" />
+                        <TableColumn fx:id="assignedPosition" prefWidth="75.0" text="Pos." />
                     </columns>
                   </TableView>
                </children>
             </VBox>
             <VBox prefHeight="263.0" prefWidth="7.0" />
-            <VBox prefHeight="321.0" prefWidth="300.0">
+            <VBox prefHeight="310.0" prefWidth="404.0">
                <children>
-                  <TableView fx:id="availableField" prefHeight="324.0" prefWidth="300.0">
+                  <TableView fx:id="availableField" prefHeight="339.0" prefWidth="404.0">
                     <columns>
-                      <TableColumn prefWidth="55.0" text="Nr." />
-                      <TableColumn prefWidth="169.0" text="Name" />
-                        <TableColumn prefWidth="75.0" text="Pos." />
+                      <TableColumn fx:id="availableNumber" prefWidth="30.0" text="Nr." />
+                      <TableColumn fx:id="availableName" prefWidth="216.0" text="Name" />
+                        <TableColumn fx:id="availablePrefPosition" prefWidth="75.0" text="Pos." />
+                        <TableColumn fx:id="playedInRow" prefWidth="81.0" text="Played in row" />
                     </columns>
                   </TableView>
                </children>
