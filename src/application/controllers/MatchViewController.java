@@ -4,6 +4,7 @@ import application.Main;
 import application.classes.MatchType;
 import application.classes.Player;
 import application.classes.PlayerList;
+import application.classes.VIAClubManagement;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -146,14 +147,17 @@ public class MatchViewController
       //new match end
    }
 
-   private PlayerList playerList;
+
+
+   private VIAClubManagement viaClubManagement;
    /**
     * No args constructor to initialise local playerList
     *
     */
    public MatchViewController()
    {
-      playerList = Main.VIAClubManagement.getPlayerList();
+      viaClubManagement = new VIAClubManagement();
+
    }
 
 
@@ -176,7 +180,7 @@ public class MatchViewController
    }
 
    public void getAvailablePlayers() {
-      ArrayList<Player> allPlayers = playerList.getAllPlayers();
+      ArrayList<Player> allPlayers = viaClubManagement.getPlayerList().getAllPlayers();
       availablePlayers = new ArrayList<Player>();
       if (typeField.getValue().toString().equals("friendly")) {
          for (Player player : allPlayers) {
@@ -214,7 +218,7 @@ public class MatchViewController
 
    private void updateAvailableTableContent()
    {
-      if (playerList != null) {
+      if (viaClubManagement.getPlayerList() != null) {
 
          availableData.clear();
          availableData.addAll(availablePlayers);
