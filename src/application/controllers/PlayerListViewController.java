@@ -121,8 +121,9 @@ public class PlayerListViewController
       status = new TableColumn<Availability, String>();
       
       table.setEditable(true);
-      table.setItems(data);
-      table.getColumns().addAll(firstname,lastname,number,shirt,position,status);
+      // this errors out the entire app
+      //table.setItems(data);
+      //table.getColumns().addAll(firstname,lastname,number,shirt,position,status);
       
       
       
