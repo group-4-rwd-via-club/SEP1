@@ -137,32 +137,32 @@ public class MatchViewController
    public void getPlayers(ActionEvent e) {
       System.out.println("Start");
       ArrayList<Player> allPlayers = VIAClubManagement.system.playerList.getAllPlayers();
-      ArrayList<Player> availablePlayers = new ArrayList<Player>();
-      if (typeField.getValue().toString().equals("friendly")) {
-         for (Player player : allPlayers) {
-            /*if (player.getAvailability() == null)
-               continue;*/
-            if (player.getAvailability().equals(UnavailableType.none) ||
-                  player.getAvailability().equals(UnavailableType.suspended)){
-               availablePlayers.add(player);
-            }
-         }
-      } else {
-         for (Player player : allPlayers) {
-            if (player.getAvailability().equals(UnavailableType.none)){
-               availablePlayers.add(player);
-            }
-         }
-      }
-      System.out.println("LIST is NULL");
-      if (availablePlayers != null) {
-         System.out.println("SETLIST");
-         ObservableList<Player> data = FXCollections.observableArrayList();
-         data.addAll();
-
-
-         availableField.setItems(data);
-     }
+//      ArrayList<Player> availablePlayers = new ArrayList<Player>();
+//      if (typeField.getValue().toString().equals("friendly")) {
+//         for (Player player : allPlayers) {
+//            /*if (player.getAvailability() == null)
+//               continue;*/
+//            if (player.getAvailability().equals(UnavailableType.none) ||
+//                  player.getAvailability().equals(UnavailableType.suspended)){
+//               availablePlayers.add(player);
+//            }
+//         }
+//      } else {
+//         for (Player player : allPlayers) {
+//            if (player.getAvailability().equals(UnavailableType.none)){
+//               availablePlayers.add(player);
+//            }
+//         }
+//      }
+//      System.out.println("LIST is NULL");
+//      if (availablePlayers != null) {
+//         System.out.println("SETLIST");
+//         ObservableList<Player> data = FXCollections.observableArrayList();
+//         data.addAll();
+//
+//
+//         availableField.setItems(data);
+//     }
    }
 
 }
