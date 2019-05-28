@@ -1,6 +1,7 @@
 package application.classes;
 
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -166,24 +167,41 @@ public class Match
         }
 
 
+        /**
+         * ToString method which returns values of all fields as String.
+         * @returns string with all fields
+         */
+        public String toString() {
+            return "Match{" +
+                    "id='" + id + '\'' +
+                    ", opponent='" + opponent + '\'' +
+                    ", location='" + location + '\'' +
+                    ", score='" + score + '\'' +
+                    ", matchRoster=" + matchRoster +
+                    ", date=" + date +
+                    ", matchType=" + matchType +
+                    '}';
+        }
 
-      /**
+    /**
        * Method to check if input argument and current object is the same.
        * @param takes Match as input object
        * @returns boolean value based on if the object is equal to this.
        */
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
 
-      public boolean equals(Object obj)
-      {
-         if (!(obj instanceof Match))
-            return false;
+            Match other = (Match) o;
 
-         Match other = (Match) obj;
-         return this.opponent.equals(other.opponent)
-               && this.location.equals(other.location) && this.score.equals(other.score)
-               && this.date.equals(other.date);
+            if (!Objects.equals(id, other.id)) return false;
+            if (!Objects.equals(opponent, other.opponent)) return false;
+            if (!Objects.equals(location, other.location)) return false;
+            if (!Objects.equals(score, other.score)) return false;
+            if (!Objects.equals(matchRoster, other.matchRoster)) return false;
+            if (!Objects.equals(date, other.date)) return false;
+            return matchType == other.matchType;
+        }
 
 
-      }
-      
 }
