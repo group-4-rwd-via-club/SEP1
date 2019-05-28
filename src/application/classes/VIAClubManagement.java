@@ -46,7 +46,7 @@ public class VIAClubManagement {
         // TODO: autocomplete virker ikke
         // Players
         Player player1 = new Player("firstname1", "lastname1", 1, "Player1","Bench");
-        player1.getAvailability().setUnavailableType(UnavailableType.injured);
+        player1.getAvailability().setUnavailableType(UnavailableType.suspended);
         Player player2 = new Player("firstname2", "lastname2", 2, "Player2","Field");
         Player player3 = new Player("firstname3", "lastname3", 3, "Player3","Field");
         Player player4 = new Player("firstname4", "lastname4", 4, "Player4","Field");
