@@ -126,7 +126,12 @@ public class PlayerListViewController
       //table.getColumns().addAll(firstname,lastname,number,shirt,position,status);
       
       
+      
+      
+      
        }
+   private void u
+   
    
    //search keyword from JH
    private ObservableList<Player> filteredData = FXCollections.observableArrayList();
