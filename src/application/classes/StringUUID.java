@@ -16,6 +16,12 @@ import java.util.UUID;
 public class StringUUID
 {
 
+   /**
+    * Static string that returns the random unique id.
+    * The method is static so it can be reached
+    * from all methods
+    * @returns a random id as a string
+    */
    public static String getUUID()
    {
       UUID uuid = UUID.randomUUID();
