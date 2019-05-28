@@ -43,7 +43,7 @@
                   <Insets left="192.0" />
                </HBox.margin>
             </Label>
-            <Button fx:id="getButton" mnemonicParsing="false" prefHeight="25.0" text="Get players">
+            <Button fx:id="getButton" mnemonicParsing="false" onAction="#getPlayers" prefHeight="25.0" text="Get players">
                <HBox.margin>
                   <Insets left="80.0" />
                </HBox.margin>
