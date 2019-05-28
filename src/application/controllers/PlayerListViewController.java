@@ -50,7 +50,7 @@ public class PlayerListViewController
    @FXML
    private TableColumn<Availability, String> status;
    
- 
+ //TODO How many matches a player were played
    
    
 
@@ -64,6 +64,11 @@ public class PlayerListViewController
 
    {
       PlayerList p = new PlayerList();
+      firstname = new TableColumn<Player, String>();
+      lastname= new TableColumn<Player, String>();
+      shirt = new TableColumn<Player, String>();
+      position = new TableColumn<Player, String>();
+      status = new TableColumn<Availability, String>();
 
       // add
       add.setOnAction(event -> {
