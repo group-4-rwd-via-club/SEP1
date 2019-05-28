@@ -2,12 +2,22 @@ package application.classes;
 
 import java.io.*;
 
+/**
+ * Class to save and load files in the system
+ * @author Group-4
+ * @version 1
+ */
 public class FileAdapter {
 
 
     private static final String FILE_NAME = "database.bin";
 
-    // Writes the given object to a file with the given file name
+    /**
+     * File writer, to write to the bin file
+     * @param obj takes object and writes it to the file
+     * @throws FileNotFoundException if file is not found, FileNotFoundException will be thrown.
+     * @throws IOException if problems writing to file occurs, this exception will be thrown.
+     */
     public void writeToFile(Object obj) throws FileNotFoundException, IOException
     {
         ObjectOutputStream writeToFile = null;
@@ -36,8 +46,12 @@ public class FileAdapter {
     }
 
 
-    // Reads the first object from the file with the given file name and returns it.
-    // Whoever calls the method will need to cast it from type Object to its real type
+    /**
+     * File reader, to read files from the bin file
+     * @return Object from the file (should be cast to VIAClubManagement).
+     * @throws FileNotFoundException if file is not found, FileNotFoundException will be thrown.
+     * @throws IOException if problems writing to file occurs, this exception will be thrown.
+     */
     public Object readObjectFromFile() throws FileNotFoundException, IOException, ClassNotFoundException
     {
         Object obj = null;
