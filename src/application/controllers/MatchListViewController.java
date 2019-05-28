@@ -1,7 +1,8 @@
 package application.controllers;
 
-
+import application.Main;
 import application.classes.Match;
+import application.classes.MatchList;
 import application.classes.VIAClubManagement;
 import application.views.MatchViewClass;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -52,9 +53,11 @@ public class MatchListViewController {
     private TableColumn<Match, String> matchResult;
 
 
+    private MatchList matchList;
+
     // Add a public no-args constructor
-    public MatchListViewController()
-    {
+    public MatchListViewController(){
+        matchList = Main.VIAClubManagement.getMatchList();
     }
 
 
@@ -67,7 +70,8 @@ public class MatchListViewController {
         });
 
         searchText.textProperty().addListener((obs, oldText, newText) -> {
-            setFilteredData(newText);
+            if (!oldText.equals(newText))
+                setFilteredData(newText);
         });
 
         tableView.setOnMousePressed(e -> {
@@ -101,13 +105,16 @@ public class MatchListViewController {
 
     private void updateTableContent()
     {
-        if (VIAClubManagement.system.matchList != null) {
+        if (matchList != null) {
 
             masterData.clear();
-            masterData.addAll(VIAClubManagement.system.matchList.getAllMatches());
+            masterData.addAll(matchList.getAllMatches());
 
         }
     }
+
+
+
 
     private ObservableList<Match> filteredData = FXCollections.observableArrayList();
     private void setFilteredData(String keyword)
@@ -121,8 +128,10 @@ public class MatchListViewController {
         // Clear after each keyword is being typed
         filteredData.clear();
 
+
+
         // loop through dataset to find keyword
-        for (Match match : VIAClubManagement.system.matchList.getAllMatches())
+        for (Match match : matchList.getAllMatches())
         {
             // Java String indexOf() The java string indexOf() method returns index of given character value or substring. If it is not found, it returns -1. The index counter starts from zero.
             if (match.toString().toLowerCase().indexOf(keyword.toLowerCase()) != -1)

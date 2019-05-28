@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="application.controllers.PlayerListViewController">
+<VBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PlayerListViewController">
     <children>
       <HBox alignment="CENTER_LEFT" blendMode="MULTIPLY" spacing="10.0">
          <children>
             <Button fx:id="add" mnemonicParsing="false" prefWidth="70.0" text="Add">
                <font>
-                  <Font name="Arial Bold" size="12.0" />
+                  <Font name="Arial" size="12.0" />
                </font>
                <HBox.margin>
                   <Insets />
@@ -27,7 +27,7 @@
                   <Insets left="1.0" />
                </opaqueInsets>
             </Button>
-            <Label text="Search Player:   " />
+            <Label text="Search: " />
             <TextField fx:id="searchplayer" />
          </children>
          <padding>
