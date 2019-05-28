@@ -4,6 +4,11 @@ import application.Main;
 import application.classes.MatchType;
 import application.classes.Player;
 import application.classes.PlayerList;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -16,6 +21,8 @@ import static application.classes.UnavailableType.*;
 public class MatchViewController
 {
    private DecimalFormat x2digits = new DecimalFormat("00");
+
+   private ArrayList<Player> availablePlayers;
 
    // The reference of saveButton will be injected by the FXML loader
    @FXML
@@ -89,6 +96,34 @@ public class MatchViewController
    @FXML
    private TableView<Player> availableField;
 
+   // The reference of availableNumberField will be injected by the FXML loader
+   @FXML
+   private TableColumn<Player, Integer> availableNumber;
+
+   // The reference of availableNameField will be injected by the FXML loader
+   @FXML
+   private TableColumn<Player, String> availableName;
+
+   // The reference of playedInRowField will be injected by the FXML loader
+   @FXML
+   private TableColumn<Player, Integer> playedInRow;
+
+   // The reference of availablePerfPositionField will be injected by the FXML loader
+   @FXML
+   private TableColumn<Player, String> availablePrefPosition;
+
+   // The reference of assignedNumberField will be injected by the FXML loader
+   @FXML
+   private TableColumn<Player, Integer> assignedNumber;
+
+   // The reference of assignednameField will be injected by the FXML loader
+   @FXML
+   private TableColumn<Player, String> assignedName;
+
+   // The reference of assignedNumberField will be injected by the FXML loader
+   @FXML
+   private TableColumn<Player, String> assignedPosition;
+
    @FXML
    private void initialize()
    {
@@ -99,6 +134,8 @@ public class MatchViewController
 
       viaScoreField.setDisable(true);
       oppScoreField.setDisable(true);
+      pitchButton.setDisable(true);
+      benchButton.setDisable(true);
 
       createComboBox(meetHourField, 24);
       createComboBox(meetMinuteField, 60);
@@ -106,6 +143,7 @@ public class MatchViewController
       createComboBox(startMinuteField, 60);
       createComboBox(viaScoreField, 100);
       createComboBox(oppScoreField, 100);
+      //new match end
    }
 
    private PlayerList playerList;
@@ -126,13 +164,20 @@ public class MatchViewController
    }
 
    public void typeSelect(ActionEvent e) {
-      if (!(typeField.getValue().toString().equals("none")))
-         getPlayers();
+      if (!(typeField.getValue().toString().equals("none"))){
+         getAvailablePlayers();
+         pitchButton.setDisable(false);
+         benchButton.setDisable(false);
+      } else {
+         masterData.clear();
+         pitchButton.setDisable(true);
+         benchButton.setDisable(true);
+      }
    }
 
-   public void getPlayers() {
+   public void getAvailablePlayers() {
       ArrayList<Player> allPlayers = playerList.getAllPlayers();
-      ArrayList<Player> availablePlayers = new ArrayList<Player>();
+      availablePlayers = new ArrayList<Player>();
       if (typeField.getValue().toString().equals("friendly")) {
          for (Player player : allPlayers) {
             /*if (player.getAvailability() == null)
@@ -149,8 +194,31 @@ public class MatchViewController
             }
          }
       }
-      //Run build table code here!
-      System.out.println(availablePlayers.size());  //Delete this line
+      initializeAvailableView();
    }
 
+   private ObservableList<Player> masterData = FXCollections.observableArrayList();
+
+   private void initializeAvailableView()
+   {
+      updateAvailableTableContent();
+
+      availableNumber.setCellValueFactory(cellData -> new SimpleObjectProperty<Integer>(cellData.getValue().getNumber()));
+      availableName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getShirtName()));
+      availablePrefPosition.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPreferredPosition()));
+      playedInRow.setCellValueFactory(cellData -> new SimpleObjectProperty<Integer>(cellData.getValue().getNumber()));
+
+      availableField.setItems(masterData);
+   }
+
+
+   private void updateAvailableTableContent()
+   {
+      if (playerList != null) {
+
+         masterData.clear();
+         masterData.addAll(availablePlayers);
+
+      }
+   }
 }
