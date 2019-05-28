@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -23,7 +24,21 @@ public class MatchViewController
 {
    private DecimalFormat x2digits = new DecimalFormat("00");
 
+   private VIAClubManagement viaClubManagement;
+
    private ArrayList<Player> availablePlayers;
+   private ArrayList<Player> assignedPlayers;
+
+   private ObservableList<Player> availableData = FXCollections.observableArrayList();
+   private ObservableList<Player> assignedData = FXCollections.observableArrayList();
+
+   private ContextMenu assignMenu = new ContextMenu();
+   private MenuItem assignGoalkeeper = new MenuItem("Assign as goalkeeper");
+   private MenuItem assignDefence = new MenuItem("Assign as defence");
+   private MenuItem assignMidfield = new MenuItem("Assign as midfield");
+   private MenuItem assignForward = new MenuItem("Assign as forward");
+   private MenuItem assignBench = new MenuItem("Assign to bench");
+
 
    // The reference of saveButton will be injected by the FXML loader
    @FXML
@@ -36,14 +51,6 @@ public class MatchViewController
    // The reference of printButton will be injected by the FXML loader
    @FXML
    private Button printButton;
-
-   // The reference of deleteButton will be injected by the FXML loader
-   @FXML
-   private Button deleteButton;
-
-   // The reference of pitchButton will be injected by the FXML loader
-   @FXML
-   private Button pitchButton;
 
    // The reference of benchButton will be injected by the FXML loader
    @FXML
@@ -128,28 +135,38 @@ public class MatchViewController
    @FXML
    private void initialize()
    {
-
       //New match
       typeField.getItems().addAll(MatchType.none, MatchType.friendly, MatchType.cup, MatchType.league);
       typeField.getSelectionModel().selectFirst();
 
       viaScoreField.setDisable(true);
       oppScoreField.setDisable(true);
-      pitchButton.setDisable(true);
-      benchButton.setDisable(true);
 
-      createComboBox(meetHourField, 24);
-      createComboBox(meetMinuteField, 60);
-      createComboBox(startHourField, 24);
-      createComboBox(startMinuteField, 60);
-      createComboBox(viaScoreField, 100);
-      createComboBox(oppScoreField, 100);
+      assignComboBox(meetHourField, 24);
+      assignComboBox(meetMinuteField, 60);
+      assignComboBox(startHourField, 24);
+      assignComboBox(startMinuteField, 60);
+      assignComboBox(viaScoreField, 100);
+      assignComboBox(oppScoreField, 100);
+
+      assignedPlayers = new ArrayList<Player>();
+
+      availableField.setOnMousePressed(e -> {
+         if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
+            if (availableField.getSelectionModel().getSelectedItem() != null)
+            assignPlayer(availableField.getSelectionModel().getSelectedItem());
+         }
+      });
+
+      assignedField.setOnMousePressed(e -> {
+         if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
+            if (assignedField.getSelectionModel().getSelectedItem() != null)
+            unAssignPlayer(assignedField.getSelectionModel().getSelectedItem());
+         }
+      });
       //new match end
    }
 
-
-
-   private VIAClubManagement viaClubManagement;
    /**
     * No args constructor to initialise local playerList
     *
@@ -160,25 +177,43 @@ public class MatchViewController
 
    }
 
-
-   private void createComboBox(ComboBox<String> field, int number) {
+   /**
+    * Assigns values to a ComboBox
+    * @param field to select the individual combobox
+    * @param number of values to contain in two-digit format
+    */
+   private void assignComboBox(ComboBox<String> field, int number) {
       for (int i = 0; i < number; i++) {
          field.getItems().add(x2digits.format(i));
       }
    }
 
+   /**
+    * Action event listener to get the selected match type - Removes players if no type is selected
+    * @param e
+    */
    public void typeSelect(ActionEvent e) {
       if (!(typeField.getValue().toString().equals("none"))){
+         if (typeField.getValue().toString().equals("cup") ||
+                 typeField.getValue().toString().equals("league")) {
+            removeSuspendedPlayers();
+         }
          getAvailablePlayers();
-         pitchButton.setDisable(false);
-         benchButton.setDisable(false);
       } else {
          availableData.clear();
-         pitchButton.setDisable(true);
-         benchButton.setDisable(true);
+         if (assignedPlayers.size() > 0){
+            for (int i = 0; i < assignedPlayers.size(); i++){
+               availablePlayers.add(assignedPlayers.get(i));
+               assignedPlayers.remove(assignedPlayers.get(i));
+            }
+         }
+         assignedData.clear();
       }
    }
 
+   /**
+    * gets available players dependent on the match type
+    */
    public void getAvailablePlayers() {
       ArrayList<Player> allPlayers = viaClubManagement.getPlayerList().getAllPlayers();
       availablePlayers = new ArrayList<Player>();
@@ -186,14 +221,16 @@ public class MatchViewController
          for (Player player : allPlayers) {
             /*if (player.getAvailability() == null)
                continue;*/
-            if (player.getAvailability().getUnavailableType().equals(none) ||
-                    player.getAvailability().getUnavailableType().equals(suspended)){
+            if ((player.getAvailability().getUnavailableType().equals(none) ||
+                    player.getAvailability().getUnavailableType().equals(suspended)) &&
+                    (!(assignedPlayers.contains(player)))){
                availablePlayers.add(player);
             }
          }
       } else {
          for (Player player : allPlayers) {
-            if (player.getAvailability().getUnavailableType().equals(none)){
+            if (player.getAvailability().getUnavailableType().equals(none) &&
+                    (!(assignedPlayers.contains(player)))){
                availablePlayers.add(player);
             }
          }
@@ -201,8 +238,9 @@ public class MatchViewController
       initializeAvailableView();
    }
 
-   private ObservableList<Player> availableData = FXCollections.observableArrayList();
-
+   /**
+    * Initializes table view of available players
+    */
    private void initializeAvailableView()
    {
       updateAvailableTableContent();
@@ -215,7 +253,9 @@ public class MatchViewController
       availableField.setItems(availableData);
    }
 
-
+   /**
+    * Updates the table content of available players
+    */
    private void updateAvailableTableContent()
    {
       if (viaClubManagement.getPlayerList() != null) {
@@ -225,4 +265,71 @@ public class MatchViewController
 
       }
    }
+
+   /**
+    * Initializes table view of assigned players
+    */
+   private void initializeAssignedView()
+   {
+      updateAssignedTableContent();
+
+      assignedNumber.setCellValueFactory(cellData -> new SimpleObjectProperty<Integer>(cellData.getValue().getNumber()));
+      assignedName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getShirtName()));
+      assignedPosition.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPreferredPosition()));
+
+      assignedField.setItems(assignedData);
+   }
+
+   /**
+    * Updates the table content of assigned players
+    */
+   private void updateAssignedTableContent()
+   {
+      if (availablePlayers != null) {
+
+         assignedData.clear();
+         assignedData.addAll(assignedPlayers);
+
+      }
+   }
+
+   /**
+    * Assigns a player to a match
+    * @param player
+    */
+   private void assignPlayer(Player player){
+      // More Code Goes Here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      assignedPlayers.add(player);
+      availablePlayers.remove(player);
+      updateAvailableTableContent();
+      initializeAssignedView();
+   }
+
+   /**
+    * Unassigns a player from a match
+    * @param player
+    */
+   private void unAssignPlayer(Player player){
+      assignedPlayers.remove(player);
+      availablePlayers.add(player);
+      updateAvailableTableContent();
+      initializeAssignedView();
+   }
+
+   /**
+    * Unassigns an unavailable player from a match
+    */
+   private void removeSuspendedPlayers(){
+      if (assignedPlayers.size() > 0){
+         for (Player player : assignedPlayers){
+            if (!(player.getAvailability().isPlayerAvailable())){
+               unAssignPlayer(player);
+            }
+         }
+      }
+   }
+
+
+
+
 }
