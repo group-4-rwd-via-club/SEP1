@@ -40,9 +40,9 @@ public class MatchViewController
    @FXML
    private Button printButton;
 
-   // The reference of benchButton will be injected by the FXML loader
+   // The reference of deleteButton will be injected by the FXML loader
    @FXML
-   private Button benchButton;
+   private Button deleteButton;
 
    // The reference of dateField will be injected by the FXML loader
    @FXML
@@ -133,6 +133,7 @@ public class MatchViewController
 
       viaScoreField.setDisable(true);
       oppScoreField.setDisable(true);
+      deleteButton.setDisable(true);
 
       assignComboBox(meetHourField, 24);
       assignComboBox(meetMinuteField, 60);
