@@ -1,7 +1,5 @@
 package application.classes;
 
-import java.util.Arrays;
-
 /**
  * Class which contains all player information
  *
