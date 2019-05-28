@@ -131,7 +131,7 @@ public class MatchViewController
    }
 
    public void getPlayers() {
-      ArrayList<Player> allPlayers = VIAClubManagement.system.playerList.getAllPlayers();
+      ArrayList<Player> allPlayers = playerList.getAllPlayers();
       ArrayList<Player> availablePlayers = new ArrayList<Player>();
       if (typeField.getValue().toString().equals("friendly")) {
          for (Player player : allPlayers) {
