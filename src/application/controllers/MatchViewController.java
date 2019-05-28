@@ -149,6 +149,10 @@ public class MatchViewController
             if (availableField.getSelectionModel().getSelectedItem() != null)
             assignPlayer(availableField.getSelectionModel().getSelectedItem());
          }
+         if (e.isSecondaryButtonDown()){
+            // needs code!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            System.out.println("RightClick"); // delete this
+         }
       });
 
       assignedField.setOnMousePressed(e -> {
@@ -159,7 +163,7 @@ public class MatchViewController
          if (e.isSecondaryButtonDown()){
 
             // needs code!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            System.out.println("RightClick");
+            System.out.println("RightClick"); // delete this
          }
       });
       //new match end
