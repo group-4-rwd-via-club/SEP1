@@ -10,8 +10,8 @@ package application.classes;
 
 public class VIAClubManagement {
 
-    private MatchList matchList;
-    private PlayerList playerList;
+    private static MatchList matchList;
+    private static PlayerList playerList;
 
 
     /**

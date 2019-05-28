@@ -4,6 +4,7 @@ import application.Main;
 import application.classes.MatchType;
 import application.classes.Player;
 import application.classes.PlayerList;
+import application.classes.VIAClubManagement;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -108,14 +109,14 @@ public class MatchViewController
       createComboBox(oppScoreField, 100);
    }
 
-   private PlayerList playerList;
+   private VIAClubManagement viaClubManagement;
    /**
     * No args constructor to initialise local playerList
     *
     */
    public MatchViewController()
    {
-      playerList = Main.VIAClubManagement.getPlayerList();
+      viaClubManagement = new VIAClubManagement();
    }
 
 
@@ -131,7 +132,7 @@ public class MatchViewController
    }
 
    public void getPlayers() {
-      ArrayList<Player> allPlayers = playerList.getAllPlayers();
+      ArrayList<Player> allPlayers = viaClubManagement.getPlayerList().getAllPlayers();
       ArrayList<Player> availablePlayers = new ArrayList<Player>();
       if (typeField.getValue().toString().equals("friendly")) {
          for (Player player : allPlayers) {
