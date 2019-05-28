@@ -4,8 +4,11 @@ public class VIAClubManagement {
 
     private MatchList matchList;
     private PlayerList playerList;
+
+
     /**
-     * Empty constructor which initialize the class.
+     * Empty constructor which initialize matchlist and playerlist.
+     * Runs load method to get all saved data
      */
     public VIAClubManagement()
     {

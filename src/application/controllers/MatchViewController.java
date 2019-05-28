@@ -1,25 +1,18 @@
 package application.controllers;
 
-import application.classes.Match;
+import application.Main;
 import application.classes.MatchType;
 import application.classes.Player;
 import application.classes.PlayerList;
-import application.classes.UnavailableType;
-import application.classes.VIAClubManagement;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import application.views.MatchViewClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+
+// TODO: All classes and methods needs JavaDoc
 public class MatchViewController
 {  
    private DecimalFormat x2digits = new DecimalFormat("00");
@@ -121,7 +114,18 @@ public class MatchViewController
       createComboBox(viaScoreField, 100);
       createComboBox(oppScoreField, 100);
    }
-   
+
+   private PlayerList playerList;
+   /**
+    * No args constructor to initialise local playerList
+    *
+    */
+   public MatchViewController()
+   {
+      playerList = Main.VIAClubManagement.getPlayerList();
+   }
+
+
    private void createComboBox(ComboBox<String> field, int number) {
       for (int i = 0; i < number; i++) {
          field.getItems().add(x2digits.format(i));
@@ -138,7 +142,7 @@ public class MatchViewController
    
    public void getPlayers(ActionEvent e) {
       System.out.println("Start");
-      ArrayList<Player> allPlayers = VIAClubManagement.system.playerList.getAllPlayers();
+      ArrayList<Player> allPlayers = playerList.getAllPlayers();
 //      ArrayList<Player> availablePlayers = new ArrayList<Player>();
 //      if (typeField.getValue().toString().equals("friendly")) {
 //         for (Player player : allPlayers) {
