@@ -2,7 +2,7 @@ package application.classes;
 /**
  * Availability class containing the different types of injury and
  * @author Group-4
- * @version 1
+ * @version 2
  *
  */
 public class Availability
