@@ -49,6 +49,8 @@ public class VIAClubManagement {
         playerList.addPlayer(player4);
         playerList.addPlayer(player5);
         playerList.addPlayer(player6);
+        
+
 
 
         // Matches
