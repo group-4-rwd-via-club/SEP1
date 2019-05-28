@@ -2,21 +2,28 @@ package application.classes;
 
 public class VIAClubManagement {
 
-    public MatchList matchList;
-    public PlayerList playerList;
-    public static VIAClubManagement system;
+    private MatchList matchList;
+    private PlayerList playerList;
     /**
      * Empty constructor which initialize the class.
      */
     public VIAClubManagement()
     {
-        system = this;
         matchList = new MatchList();
         playerList = new PlayerList();
         load();
     }
 
 
+    public MatchList getMatchList()
+    {
+        return this.matchList;
+    }
+
+    public PlayerList getPlayerList()
+    {
+        return this.playerList;
+    }
 
     public void save()
     {
@@ -33,9 +40,10 @@ public class VIAClubManagement {
 
 
 
-
+        // TODO: autocomplete virker ikke
         // Players
         Player player1 = new Player("firstname1", "lastname1", 1, "Player1","Bench");
+        player1.getAvailability().setUnavailableType(UnavailableType.injured);
         Player player2 = new Player("firstname2", "lastname2", 2, "Player2","Field");
         Player player3 = new Player("firstname3", "lastname3", 3, "Player3","Field");
         Player player4 = new Player("firstname4", "lastname4", 4, "Player4","Field");
