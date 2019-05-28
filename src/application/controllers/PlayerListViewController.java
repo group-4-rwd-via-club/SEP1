@@ -1,5 +1,8 @@
 package application.controllers;
 
+import application.classes.Availability;
+import application.classes.Match;
+import application.classes.Player;
 import application.classes.PlayerList;
 import application.views.PlayerViewClass;
 import javafx.event.EventHandler;
@@ -7,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -29,6 +33,26 @@ public class PlayerListViewController
    // The reference of tableView will be injected by the FXML loader
    @FXML
    private TableView tableView;
+   
+   // table 
+   @FXML 
+   private TableColumn<Player, String> firstname;
+   
+   @FXML
+   private TableColumn<Player, String> lastname;
+   
+   @FXML
+   private TableColumn<Player, String> shirt;
+   
+   @FXML
+   private TableColumn<Player, String> position;
+   
+   @FXML
+   private TableColumn<Availability, String> status;
+   
+ 
+   
+   
 
    public PlayerListViewController()
    {
