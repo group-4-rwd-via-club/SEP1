@@ -149,7 +149,7 @@
                   <TableView fx:id="assignedField" prefHeight="329.0" prefWidth="300.0">
                     <columns>
                       <TableColumn fx:id="assignedNumber" prefWidth="30.0" text="Nr." />
-                      <TableColumn fx:id="assignedName" prefWidth="200.0" text="Name" />
+                      <TableColumn fx:id="assignedName" prefWidth="190.0" text="Name" />
                         <TableColumn fx:id="assignedPosition" prefWidth="75.0" text="Pos." />
                     </columns>
                   </TableView>
@@ -177,12 +177,6 @@
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="pitchButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Pitch">
-               <HBox.margin>
-                  <Insets left="555.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="benchButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Bench" />
          </children>
       </HBox>
    </children>
