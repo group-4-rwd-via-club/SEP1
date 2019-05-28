@@ -8,7 +8,8 @@ package application.classes;
 public class Availability
 {
    private UnavailableType injuryType;
-   private Date availability;
+   private Date availabilityDate;
+
    /**
     * No-argument constructor initializing the Availability.
     */
@@ -16,28 +17,64 @@ public class Availability
    {
       this.injuryType = injuryType.none;
    }
+
    /**
-    *
+    * Constructor taking injury type and a date
     * @param injurytype
     * @param date
     */
    public Availability(UnavailableType injurytype, Date date)
    {
       this.injuryType = injurytype;
-      this.availability = date;
+      this.availabilityDate = date;
    }
-/**
- * Public enumerable used to indicate a Unavailable type
- * @return return true
- */
+
+
+   /**
+    * Public enumerable used to indicate a Unavailable type
+    * @return return true
+    */
    public boolean isPlayerAvailable() {
       return injuryType == UnavailableType.none;
    }
-   public UnavailableType getUnavailableType() {
-      return  injuryType;
+
+   /**
+    * Get type of injury as Enum UnavailableType
+    * @return returns injurytype enum
+    */
+   public UnavailableType getUnavailableType()
+   {
+      return injuryType;
    }
-   // TODO: Needs to be rewritten
-   public String getUnavailableTimeframe() {
-      return "";
+
+   /**
+    * Set unavailable type by setting the enum UnavailableType as argument
+    * @param injuryType as UnavilableType enum
+    */
+   public void setUnavailableType(UnavailableType injuryType)
+   {
+      this.injuryType = injuryType;
    }
+
+   /**
+    * Get the date the player is available again.
+    * @return returns the date the player is available again as a Date object
+    */
+
+   public Date getUnavailableEnd()
+   {
+      return this.availabilityDate;
+   }
+
+   /**
+    * Set the date the unavailability ends.
+    * @param date parameter is being added to the private field date.
+    */
+
+   public void setUnavailableEnd(Date date)
+   {
+      this.availabilityDate = date;
+   }
+
+
 }

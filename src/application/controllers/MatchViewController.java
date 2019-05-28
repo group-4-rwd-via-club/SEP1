@@ -8,6 +8,7 @@ import application.classes.UnavailableType;
 import application.classes.VIAClubManagement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import application.views.MatchViewClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -103,6 +104,7 @@ public class MatchViewController
    @FXML
    private void initialize()
    {
+
       //New match
       typeField.getItems().addAll(MatchType.none, MatchType.friendly, MatchType.cup, MatchType.league);
       typeField.getSelectionModel().selectFirst();

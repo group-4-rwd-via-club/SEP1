@@ -13,7 +13,6 @@ public class MatchListViewClass extends Application {
         try {
             VBox root = (VBox) FXMLLoader.load(getClass().getResource("MatchListView.fxml"));
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch(Exception e) {

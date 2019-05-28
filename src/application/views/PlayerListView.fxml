@@ -37,8 +37,7 @@
             <Insets />
          </VBox.margin>
       </HBox>
-
-      <TableView prefHeight="323.0">
+      <TableView prefHeight="320.0" prefWidth="580.0">
         <columns>
           <TableColumn fx:id="firstname" prefWidth="118.0" text="FirstName" />
           <TableColumn fx:id="lastname" prefWidth="94.0" text=" LastName" />

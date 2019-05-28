@@ -7,11 +7,13 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -64,6 +66,15 @@ public class MatchListViewController {
         addButton.setOnAction(o -> {
                 MatchViewClass mt = new MatchViewClass();
                 mt.start(new Stage());
+        });
+
+        tableView.setOnMousePressed(e -> {
+            if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
+                String id = ((Match) tableView.getSelectionModel().getSelectedItem()).getId();
+                System.out.println(id);
+                MatchViewClass mt = new MatchViewClass(id);
+                mt.start(new Stage());
+            }
         });
 
         TestMethod();
