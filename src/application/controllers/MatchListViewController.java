@@ -1,5 +1,6 @@
 package application.controllers;
 
+
 import application.classes.Match;
 import application.classes.VIAClubManagement;
 import application.views.MatchViewClass;
@@ -13,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 
 public class MatchListViewController {
     @FXML
@@ -71,7 +73,6 @@ public class MatchListViewController {
         tableView.setOnMousePressed(e -> {
             if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
                 String id = ((Match) tableView.getSelectionModel().getSelectedItem()).getId();
-                System.out.println(id);
                 MatchViewClass mt = new MatchViewClass(id);
                 mt.start(new Stage());
             }

@@ -49,11 +49,6 @@ public class MatchViewController
    // The reference of benchButton will be injected by the FXML loader
    @FXML
    private Button benchButton;
-
-// The reference of getPlayerButton will be injected by the FXML loader
-   @FXML
-   private Button getButton;
-
    
    // The reference of dateField will be injected by the FXML loader
    @FXML
@@ -94,7 +89,7 @@ public class MatchViewController
    // The reference of meetMinuteField will be injected by the FXML loader
    @FXML
    private ComboBox<String> startMinuteField;
-   
+
    // The reference of assignedField will be injected by the FXML loader
    @FXML
    private TableView<Player> assignedField;
@@ -110,9 +105,7 @@ public class MatchViewController
       //New match
       typeField.getItems().addAll(MatchType.none, MatchType.friendly, MatchType.cup, MatchType.league);
       typeField.getSelectionModel().selectFirst();
-      
-      getButton.setDisable(true);
-      
+
       viaScoreField.setDisable(true);
       oppScoreField.setDisable(true);
      
@@ -131,14 +124,11 @@ public class MatchViewController
    }
    
    public void typeSelect(ActionEvent e) {
-      if (typeField.getValue().toString().equals("none")) {
-         getButton.setDisable(true);
-      } else {
-         getButton.setDisable(false);
-      }
+      if (!(typeField.getValue().toString().equals("none"))) 
+         getPlayers();
    }
-   
-   public void getPlayers(ActionEvent e) {
+
+   public void getPlayers() {
       ArrayList<Player> allPlayers = VIAClubManagement.system.playerList.getAllPlayers();
       ArrayList<Player> availablePlayers = new ArrayList<Player>();
       if (typeField.getValue().toString().equals("friendly")) {
@@ -157,7 +147,8 @@ public class MatchViewController
             }
          }
       }
-      System.out.println(availablePlayers.size());
+      //Run build table code here!
+      System.out.println(availablePlayers.size());  //Delete this line
    }
 
 }
