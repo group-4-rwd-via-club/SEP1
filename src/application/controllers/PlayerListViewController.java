@@ -105,8 +105,11 @@ public class PlayerListViewController
             }
 
       );
-
-      //TODO search by keyword
+      searchplayer.textProperty().addListener((obs, oldText, newText) -> {
+         if (!oldText.equals(newText))
+             setFilteredData(newText);
+     });
+  
       
       //list
       table = new TableView<>();
@@ -119,12 +122,12 @@ public class PlayerListViewController
       
       table.setEditable(true);
       table.setItems(data);
-      table.getColumns().addAll(firstname,lastname,shirt,position,status);
+      table.getColumns().addAll(firstname,lastname,number,shirt,position,status);
       
       
        }
    
-   // from JH
+   //search keyword from JH
    private ObservableList<Player> filteredData = FXCollections.observableArrayList();
    private void setFilteredData(String keyword)
    {
