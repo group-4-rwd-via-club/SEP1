@@ -169,7 +169,7 @@ public class MatchViewController
          pitchButton.setDisable(false);
          benchButton.setDisable(false);
       } else {
-         masterData.clear();
+         availableData.clear();
          pitchButton.setDisable(true);
          benchButton.setDisable(true);
       }
@@ -197,7 +197,7 @@ public class MatchViewController
       initializeAvailableView();
    }
 
-   private ObservableList<Player> masterData = FXCollections.observableArrayList();
+   private ObservableList<Player> availableData = FXCollections.observableArrayList();
 
    private void initializeAvailableView()
    {
@@ -208,7 +208,7 @@ public class MatchViewController
       availablePrefPosition.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPreferredPosition()));
       playedInRow.setCellValueFactory(cellData -> new SimpleObjectProperty<Integer>(cellData.getValue().getNumber()));
 
-      availableField.setItems(masterData);
+      availableField.setItems(availableData);
    }
 
 
@@ -216,8 +216,8 @@ public class MatchViewController
    {
       if (playerList != null) {
 
-         masterData.clear();
-         masterData.addAll(availablePlayers);
+         availableData.clear();
+         availableData.addAll(availablePlayers);
 
       }
    }
