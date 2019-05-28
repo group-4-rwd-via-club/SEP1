@@ -1,5 +1,7 @@
 package application.classes;
 
+import java.io.IOException;
+
 /**
  * VIAClubManagement class holds player lists and match lists.
  * It is also the class which contains file logic
@@ -13,6 +15,7 @@ public class VIAClubManagement {
     private static MatchList matchList;
     private static PlayerList playerList;
 
+    private FileAdapter fileAdapter;
 
     /**
      * Empty constructor which initialize matchlist and playerlist.
@@ -22,28 +25,74 @@ public class VIAClubManagement {
     {
         matchList = new MatchList();
         playerList = new PlayerList();
+
+        fileAdapter = new FileAdapter();
+
         load();
     }
 
-
+    /**
+     * Method to get the private field matchList.
+     * @return returns object MatchList
+     */
     public MatchList getMatchList()
     {
         return this.matchList;
     }
 
+    /**
+     * Method to get the private field playerList
+     * @return returns object PlayerList
+     */
     public PlayerList getPlayerList()
     {
         return this.playerList;
     }
 
+    /**
+     * Saves VIAClubManagement class onto a file
+     * Exception if theres an IO error.
+     */
     public void save()
     {
-        // TODO: Logic for saving to fileIO
+        //TODO: Uncommment the following part when adding and removing player / matches have been done.
+        // meanwhile just system.out.println to indicate the code have been run.
+        System.out.println("DATA HAVE BEEN SAVED.... not rly... lets pretend");
+       /* try
+        {
+            fileAdapter.writeToFile(this);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }*/
     }
 
+    /**
+     * Loads VIAClubManagement from database.bin file through FileAdapter.
+     * adds the loaded data into matchlist and playerlist
+     */
     public void load()
     {
-        // TODO: Logic for loading from fileIO
+        // TODO: uncomment this part when adding and removing player / matches have been done
+/*
+        try
+        {
+            VIAClubManagement vcm = (VIAClubManagement)fileAdapter.readObjectFromFile();
+            this.matchList = vcm.getMatchList();
+            this.playerList = vcm.getPlayerList();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        catch (ClassNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+*/
+
+
 
         // Test data loaded into the lists
         // Load test Data simulates data from file:
