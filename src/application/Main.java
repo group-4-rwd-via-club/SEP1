@@ -18,11 +18,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-
-
 		VIAClubManagement = new VIAClubManagement();
-
-
 		try {
 
 			VBox root = (VBox) FXMLLoader.load(getClass().getResource("views/MainView.fxml"));
