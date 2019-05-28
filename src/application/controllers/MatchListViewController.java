@@ -53,11 +53,12 @@ public class MatchListViewController {
     private TableColumn<Match, String> matchResult;
 
 
-    private MatchList matchList;
+    private VIAClubManagement viaClubManagement;
 
     // Add a public no-args constructor
-    public MatchListViewController(){
-        matchList = Main.VIAClubManagement.getMatchList();
+    public MatchListViewController()
+    {
+        viaClubManagement = new VIAClubManagement();
     }
 
 
@@ -105,10 +106,10 @@ public class MatchListViewController {
 
     private void updateTableContent()
     {
-        if (matchList != null) {
+        if (viaClubManagement.getMatchList() != null) {
 
             masterData.clear();
-            masterData.addAll(matchList.getAllMatches());
+            masterData.addAll(viaClubManagement.getMatchList().getAllMatches());
 
         }
     }
@@ -131,7 +132,7 @@ public class MatchListViewController {
 
 
         // loop through dataset to find keyword
-        for (Match match : matchList.getAllMatches())
+        for (Match match : viaClubManagement.getMatchList().getAllMatches())
         {
             // Java String indexOf() The java string indexOf() method returns index of given character value or substring. If it is not found, it returns -1. The index counter starts from zero.
             if (match.toString().toLowerCase().indexOf(keyword.toLowerCase()) != -1)
