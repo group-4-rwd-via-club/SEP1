@@ -1,10 +1,6 @@
 package application.controllers;
 
-import application.classes.Availability;
-import application.classes.Match;
-import application.classes.Player;
-import application.classes.PlayerList;
-import application.classes.VIAClubManagement;
+import application.classes.*;
 import application.views.MatchViewClass;
 import application.views.PlayerViewClass;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -69,10 +65,10 @@ public class PlayerListViewController
 
    @FXML
    private final ObservableList<Player> data = FXCollections.observableArrayList(
-               new Player("Haocheng", "Zhang", 10, "HZ", "RF"),
-               new Player("F1", "L1",1, "Player1", "RF")   ,
-               new Player("F2", "L2", 2, "Player2", "RM")     ,
-               new Player("F3", "l3", 3, "Player3", "CF")
+               new Player("Haocheng", "Zhang", 10, "HZ", PositionType.bench),
+               new Player("F1", "L1",1, "Player1", PositionType.forward)   ,
+               new Player("F2", "L2", 2, "Player2", PositionType.goalkeeper)     ,
+               new Player("F3", "l3", 3, "Player3", PositionType.defender)
 
          );
 
