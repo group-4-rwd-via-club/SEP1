@@ -222,10 +222,9 @@ public class Player
    @Override
    public String toString()
    {
-      return "Player ["  + "firstname=" + firstname + ", lastname="
-            + lastname + ", number=" + number + ", shirtName=" + shirtName
-            + ", preferredPosition=" + preferredPosition + ", matchesInRow="
-            + matchesInRow + "]";
+      return     firstname +" "+ lastname + "  number:" + number + ", shirtName:" + shirtName
+            + ", Position:" + preferredPosition + ", matchesInRow="
+            + matchesInRow + "\n";
    }
 /**
  * Method to check if input argument and current object is the same.
