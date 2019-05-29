@@ -2,21 +2,27 @@ package application.views;
 
 import application.controllers.PlayerViewController;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
+/**
+ * PlayerViewClass is default class for PlayerView.fxml ui.
+ * Added functionality includes public constructor with arguments as id for a specific player.
+ * @author Group-4
+ * @version 1
+ */
+
 public class PlayerViewClass extends Application
 {
    private String playerId;
 
-   public PlayerViewClass()
-   {
-
-   }
-
+   /**
+    * Public constructor which takes a player ID as argument and sets a private field
+    * @param id of a player
+    */
    public PlayerViewClass(String id)
    {
       this.playerId = id;

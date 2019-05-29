@@ -6,7 +6,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
+/**
+ * MatchViewClass is default class for the MatchListView.fxml
+ * @author Group-4
+ * @version 2
+ */
 public class MatchViewClass extends Application {
 
 
