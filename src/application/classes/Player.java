@@ -68,6 +68,31 @@ public class Player
       this.id = id.getUUID();
    }
    /**
+    * 7 agr constructor which initialize :
+    * id firstname lastname number shirtname preferredPosition matchInRow
+    * @param id
+    * @param firstname
+    * @param lastname
+    * @param number
+    * @param shirtName
+    * @param preferredPosition
+    * @param matchesInRow
+    */
+    
+   public Player(String id, String firstname, String lastname, int number,
+         String shirtName, String preferredPosition, int matchesInRow)
+   {
+      
+      this.id = id;
+      this.firstname = firstname;
+      this.lastname = lastname;
+      this.number = number;
+      this.shirtName = shirtName;
+      this.preferredPosition = preferredPosition;
+      this.matchesInRow = matchesInRow;
+   }
+
+   /**
     * Empty constructor which initialize:
     * Player id
     */
