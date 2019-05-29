@@ -56,13 +56,16 @@ public class PlayerListViewController
 
    @FXML
    private TableColumn<Availability, String> status;
+   
+   @FXML
+   private TableColumn<Match,Integer > matches;
 
    private PlayerList p;
 
    private VIAClubManagement viaClubManagement;
 
 
-   // TODO How many matches a player were played
+ 
 
    
  
