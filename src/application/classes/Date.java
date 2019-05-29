@@ -1,6 +1,8 @@
 package application.classes;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Class containing date with methods to get current date
@@ -121,7 +123,18 @@ public class Date
          return false;
          
    }
-   
+
+   /**
+    * Converts integer values of day month year to localDate object format.
+    * @return returns LocalDate object from private fields.
+    */
+   public LocalDate getAsLocalDate()
+      {
+         String dateAsString = String.format("%s/%s/%s", this.day,this.month,this.year);
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+         LocalDate localDate = LocalDate.parse(dateAsString, formatter);
+         return localDate;
+      }
    
    /**
     * Checks if value stored in dateclass is today

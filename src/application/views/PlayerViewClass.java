@@ -14,9 +14,9 @@ public class PlayerViewClass extends Application
         try
         {
             VBox root = (VBox) FXMLLoader.load(getClass().getResource("PlayerView.fxml"));
-            Scene scene = new Scene(root, 400, 400);
-
+            Scene scene = new Scene(root);
             primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
             primaryStage.show();
         }
         catch (Exception e)
