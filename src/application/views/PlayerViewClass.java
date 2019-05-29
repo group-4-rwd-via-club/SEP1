@@ -4,6 +4,7 @@ import application.controllers.PlayerViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -47,6 +48,8 @@ public class PlayerViewClass extends Application
 
 
          Scene scene = new Scene(root);
+         primaryStage.getIcons().add(new Image("application/logo_clear.png"));
+         primaryStage.setTitle("VIAClub - Manage player");
          primaryStage.setScene(scene);
          primaryStage.setResizable(false);
          primaryStage.show();
