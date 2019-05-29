@@ -196,6 +196,13 @@ public class Player implements Serializable
       return matchesInRow;
    }
 
+   public Player copy(){
+      return new Player (this.id, this.firstname, this.lastname, this.number,
+              this.shirtName, this.preferredPosition, this.matchesInRow);
+   }
+
+
+
    /**
     * get Availability from Availability class
     * @return availability

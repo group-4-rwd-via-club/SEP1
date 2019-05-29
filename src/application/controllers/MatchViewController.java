@@ -360,7 +360,7 @@ public class MatchViewController
             if ((player.getAvailability().getUnavailableType().equals(available) ||
                     player.getAvailability().getUnavailableType().equals(suspended)) &&
                     (!(assignedPlayers.contains(player)))){
-               availablePlayers.add(player);
+               availablePlayers.add(player.copy());
             }
          }
       } else {
