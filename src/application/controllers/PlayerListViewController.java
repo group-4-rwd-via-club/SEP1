@@ -4,6 +4,7 @@ import application.classes.*;
 import application.views.MatchViewClass;
 import application.views.PlayerViewClass;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,7 +36,7 @@ public class PlayerListViewController
 
    // The reference of tableView will be injected by the FXML loader
    @FXML
-   private TableView table;
+   private TableView<Player> table;
 
    // table
    @FXML
@@ -45,7 +46,7 @@ public class PlayerListViewController
    private TableColumn<Player, String> lastname;
 
    @FXML
-   private TableColumn<Player, Number> number;
+   private TableColumn<Player, Integer> number;
 
    @FXML
    private TableColumn<Player, String> shirt;
@@ -63,18 +64,14 @@ public class PlayerListViewController
 
    // TODO How many matches a player were played
 
-   @FXML
-   private final ObservableList<Player> data = FXCollections.observableArrayList(
-               new Player("Haocheng", "Zhang", 10, "HZ", PositionType.bench),
-               new Player("F1", "L1",1, "Player1", PositionType.forward)   ,
-               new Player("F2", "L2", 2, "Player2", PositionType.goalkeeper)     ,
-               new Player("F3", "l3", 3, "Player3", PositionType.defender)
-
-         );
+   
+ 
+    
 
 
    public PlayerListViewController()
    {
+      
       viaClubManagement = new VIAClubManagement();
    }
 
@@ -82,7 +79,8 @@ public class PlayerListViewController
    private void initialize()
 
    {
-      PlayerList p = new PlayerList();
+      PlayerList p = viaClubManagement.getPlayerList();
+      table=new TableView<Player>();
 
 
 
@@ -121,29 +119,13 @@ public class PlayerListViewController
 
 
 
-      //list
-//      table = new TableView<>();
-//      firstname = new TableColumn<Player, String>();
-//      lastname = new TableColumn<Player, String>();
-//
-//      shirt = new TableColumn<Player, String>();
-//      position = new TableColumn<Player, String>();
-//      status = new TableColumn<Availability, String>();
-//
-//      table.setEditable(true);
-
-
-//      table.setOnMousePressed(e -> {
-//         if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
-//             String id = ((Player) table.getSelectionModel().getSelectedItem()).getId();
-//             PlayerViewClass mt = new PlayerViewClass(id);
-//             mt.start(new Stage());
-//         }
-//     });
+  
 
 
 //      TODO implement table with players list
-//      initializeTableView();
+      initializeTableView();
+      //test
+      System.out.println(table.getItems().size());
 
 
 
@@ -161,7 +143,7 @@ public class PlayerListViewController
 
        firstname.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstname().toString()));
        lastname.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastname().toString()));
-       number.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getNumber()));
+       number.setCellValueFactory(cellData ->  new SimpleObjectProperty<Integer>(cellData.getValue().getNumber()));
        shirt.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getShirtName().toString()));
        position.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPreferredPosition().toString() ));
        status.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().toString()));
@@ -170,7 +152,8 @@ public class PlayerListViewController
    }
    private void updateTableContent()
    {
-       if (viaClubManagement.getMatchList() != null) {
+     
+       if (viaClubManagement.getPlayerList()!=null) {
 
            masterData.clear();
            masterData.addAll(viaClubManagement.getPlayerList().getAllPlayers());
@@ -196,7 +179,7 @@ public class PlayerListViewController
        if (keyword.isEmpty())
        {
            // set table data to the master data set.
-           table.setItems(data);
+           table.setItems(masterData);
        }
        // Clear after each keyword is being typed
        filteredData.clear();
@@ -204,17 +187,18 @@ public class PlayerListViewController
 
 
        // loop through dataset to find keyword
-       for (Player match : p.getAllPlayers())
+       for (Player player : p.getAllPlayers())
        {
            // Java String indexOf() The java string indexOf() method returns index of given character value or substring. If it is not found, it returns -1. The index counter starts from zero.
-           if (match.toString().toLowerCase().indexOf(keyword.toLowerCase()) != -1)
+           if (player.toString().toLowerCase().indexOf(keyword.toLowerCase()) != -1)
            {
                // added to filtered match list
-               filteredData.add(match);
+               filteredData.add(player);
            }
        }
        // set table data to filtered data.
        table.setItems(filteredData);
    }
+   
 
 }
