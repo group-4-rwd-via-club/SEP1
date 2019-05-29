@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PlayerListViewController">
+<VBox prefHeight="383.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PlayerListViewController">
     <children>
-      <HBox alignment="CENTER_LEFT" blendMode="MULTIPLY" spacing="10.0">
+      <HBox alignment="CENTER_LEFT" blendMode="MULTIPLY" prefHeight="43.0" prefWidth="821.0" spacing="10.0">
          <children>
             <Button fx:id="add" mnemonicParsing="false" prefWidth="70.0" text="Add">
                <font>
@@ -37,15 +37,15 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <TableView prefHeight="320.0" prefWidth="580.0">
+      <TableView fx:id="table" prefHeight="320.0" prefWidth="657.0">
         <columns>
-          <TableColumn fx:id="firstname" prefWidth="118.0" text="FirstName" />
-          <TableColumn fx:id="lastname" prefWidth="94.0" text=" LastName" />
-            <TableColumn fx:id="shirt" prefWidth="88.0" text=" Shirt" />
-            <TableColumn fx:id="position" prefWidth="88.0" text="Position " />
-            <TableColumn fx:id="status" text="Status" />
-            <TableColumn fx:id="matches" prefWidth="107.0" text="Matches" />
-            <TableColumn minWidth="0.0" prefWidth="0.0" text="  " />
+          <TableColumn fx:id="firstname" text="FirstName" />
+          <TableColumn fx:id="lastname" prefWidth="78.0" text=" LastName" />
+            <TableColumn fx:id="number" prefWidth="87.0" text="Number" />
+            <TableColumn fx:id="shirt" prefWidth="87.0" text=" Shirt" />
+            <TableColumn fx:id="position" text="Position " />
+            <TableColumn fx:id="status" prefWidth="89.0" text="Status" />
+            <TableColumn fx:id="matches" prefWidth="83.0" text="Matches" />
         </columns>
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" />

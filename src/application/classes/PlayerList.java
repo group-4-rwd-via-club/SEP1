@@ -76,7 +76,7 @@ public class PlayerList
    {if(players.size()==0) {
       return "No Player in the list";
    }else {
-      return "PlayerList [players=" + players + "]";}
+      return "PlayerList [" + players + "]";}
    }
 
    /**
@@ -109,6 +109,21 @@ public class PlayerList
 
       }
       return result;
+   }
+
+   /**
+    * Finds a player with a matching ID and returns the object
+    * @param id as a UUID String
+    * @returns Player object if found or null if not found
+    */
+   public Player getPlayerById(String id)
+   {
+      for (Player player : players)
+      {
+         if (player.getId() == id)
+            return player;
+      }
+      return null;
    }
 
    @Override

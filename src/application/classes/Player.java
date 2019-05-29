@@ -27,6 +27,7 @@ public class Player
    {
       this.firstname = firstname;
       this.lastname = lastname;
+      this.availability = new Availability();
 
       StringUUID id = new StringUUID();
       this.id = id.getUUID();
@@ -208,12 +209,20 @@ public class Player
    }
 
    /**
+    * Sets availability through method
+    * @param availability as a new object
+    */
+   public void setAvailability(Availability availability)
+   {
+      this.availability = availability;
+   }
+   /**
     * output data as String
     */
    @Override
    public String toString()
    {
-      return "Player [id=" + id + ", firstname=" + firstname + ", lastname="
+      return "Player ["  + "firstname=" + firstname + ", lastname="
             + lastname + ", number=" + number + ", shirtName=" + shirtName
             + ", preferredPosition=" + preferredPosition + ", matchesInRow="
             + matchesInRow + "]";
