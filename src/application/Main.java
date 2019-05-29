@@ -3,6 +3,7 @@ package application;
 import application.classes.VIAClubManagement;
 import javafx.application.Application;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -28,10 +29,11 @@ public class Main extends Application {
 
 		try
 		{
-
 			VBox root = (VBox) FXMLLoader.load(getClass().getResource("views/MainView.fxml"));
 			root.setFillWidth(true);
 			Scene scene = new Scene(root);
+			primaryStage.setTitle("VIA Club Management");
+			primaryStage.getIcons().add(new Image("application/logo_clear.png"));
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false); // Disallow resize of window
 

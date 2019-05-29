@@ -24,7 +24,7 @@ public class PlayerListViewClass extends Application
       try
       {
          VBox root = (VBox) FXMLLoader.load(getClass().getResource("PlayerListView.fxml"));
-         Scene scene = new Scene(root, 600, 400);
+         Scene scene = new Scene(root);
          primaryStage.setScene(scene);
          primaryStage.show();
       }
