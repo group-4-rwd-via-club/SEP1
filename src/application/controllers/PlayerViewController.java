@@ -53,7 +53,15 @@ public class PlayerViewController {
 
 
         buttonSave.setOnAction(event -> {
-            addPlayer();
+            if (player != null)
+            {
+                updatePlayer();
+            }
+            else
+            {
+                addPlayer();
+            }
+
 
             Stage stage = (Stage) buttonSave.getScene().getWindow();
             stage.close();
@@ -145,12 +153,20 @@ public class PlayerViewController {
      */
     private void addPlayer()
     {
-        Player player = new Player();
-        player.setFirstname(textFieldFirstName.getText());
-        player.setLastname(textFieldLastName.getText());
-        player.setNumber(Integer.parseInt(textFieldNumber.getText()));
-        player.setShirtName(textFieldShirt.getText());
-        player.setPreferredPosition((PositionType)comboBoxPosition.getValue());
+        Player newPlayer = new Player();
+        setPlayerDetails(newPlayer);
+        viaClubManagement.getPlayerList().addPlayer(newPlayer);
+        viaClubManagement.save();
+
+
+    }
+
+    private void setPlayerDetails(Player newPlayer) {
+        newPlayer.setFirstname(textFieldFirstName.getText());
+        newPlayer.setLastname(textFieldLastName.getText());
+        newPlayer.setNumber(Integer.parseInt(textFieldNumber.getText()));
+        newPlayer.setShirtName(textFieldShirt.getText());
+        newPlayer.setPreferredPosition((PositionType)comboBoxPosition.getValue());
         Availability availability = new Availability();
         availability.setUnavailableType((UnavailableType)comboBoxAvailability.getValue());
         LocalDate pickedDate = datePickerEndDate.getValue();
@@ -165,22 +181,28 @@ public class PlayerViewController {
         }
 
 
-        player.setAvailability(availability);
+        newPlayer.setAvailability(availability);
+    }
 
+    private void updatePlayer()
+    {
+        setPlayerDetails(player);
 
-        viaClubManagement.getPlayerList().addPlayer(player);
-
-
+        viaClubManagement.getPlayerList().updatePlayer(player);
+        viaClubManagement.save();
     }
 
 
     private void deletePlayer()
     {
-        // alert dialog confirmation
 
-        // delete logic
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete the player?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
 
-        viaClubManagement.getPlayerList().removePlayer(player);
+        if (alert.getResult() == ButtonType.YES) {
+            viaClubManagement.getPlayerList().removePlayer(player);
+            viaClubManagement.save();
+        }
 
 
     }

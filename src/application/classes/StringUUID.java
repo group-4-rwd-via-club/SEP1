@@ -1,5 +1,6 @@
 package application.classes;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 

@@ -1,8 +1,9 @@
 package application.classes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PlayerList
+public class PlayerList implements Serializable
 {
    /**
     * PlayerList class respresent a class with contains all the players included

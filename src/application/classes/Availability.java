@@ -1,11 +1,14 @@
 package application.classes;
+
+import java.io.Serializable;
+
 /**
  * Availability class containing the different types of injury and
  * @author Group-4
  * @version 2
  *
  */
-public class Availability
+public class Availability implements Serializable
 {
    private UnavailableType injuryType;
    private Date availabilityDate;

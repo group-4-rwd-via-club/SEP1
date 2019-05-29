@@ -1,6 +1,8 @@
 package application.classes;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * VIAClubManagement class holds player lists and match lists.
@@ -22,21 +24,26 @@ public class VIAClubManagement {
     /**
      * Empty constructor which initialize matchlist and playerlist.
      * Runs load method to get all saved data
+     * Also check if isInitialized is false,
+     * if it is false, then run Init() and load()
      */
     public VIAClubManagement()
     {
+        fileAdapter = new FileAdapter();
+
         if (!isInitialized)
         {
             Init();
             load();
         }
-        fileAdapter = new FileAdapter();
-
-
 
     }
 
-
+    /**
+     * Method to initialise matchlist and playerlist
+     * sets boolean isInitialized to true to prevent
+     * the two lists from being initialized and loaded multiple times.
+     */
     public void Init()
     {
         isInitialized = true;
@@ -67,17 +74,17 @@ public class VIAClubManagement {
      */
     public void save()
     {
-        //TODO: Uncommment the following part when adding and removing player / matches have been done.
-        // meanwhile just system.out.println to indicate the code have been run.
-        System.out.println("DATA HAVE BEEN SAVED.... not rly... lets pretend");
-       /* try
+
+        try
         {
-            fileAdapter.writeToFile(this);
+
+            fileAdapter.writeToFile(new VIAClubManagementSerializable(playerList, matchList));
         }
         catch (IOException e)
         {
             e.printStackTrace();
-        }*/
+        }
+        System.out.println("DATA HAVE BEEN SAVED.. amybe?");
     }
 
     /**
@@ -86,13 +93,19 @@ public class VIAClubManagement {
      */
     public void load()
     {
-        // TODO: uncomment this part when adding and removing player / matches have been done
-/*
+        if (!(new File(fileAdapter.getFileName()).exists()))
+        {
+            System.out.println("File does not exists");
+            return;
+        }
+
+
         try
         {
-            VIAClubManagement vcm = (VIAClubManagement)fileAdapter.readObjectFromFile();
+            VIAClubManagementSerializable vcm = (VIAClubManagementSerializable)fileAdapter.readObjectFromFile();
             this.matchList = vcm.getMatchList();
             this.playerList = vcm.getPlayerList();
+
         }
         catch (IOException e)
         {
@@ -102,7 +115,7 @@ public class VIAClubManagement {
         {
             e.printStackTrace();
         }
-*/
+
 
 
 
@@ -111,7 +124,7 @@ public class VIAClubManagement {
 
 
 
-
+/*
         // TODO: autocomplete virker ikke
         // Players
         Player player1 = new Player("firstname1", "lastname1", 1, "Player1", PositionType.defender);
@@ -159,6 +172,9 @@ public class VIAClubManagement {
         matchList.addMatch(match3);
         matchList.addMatch(match4);
         matchList.addMatch(match5);
+
+        */
+
     }
 
 

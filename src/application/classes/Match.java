@@ -1,6 +1,7 @@
 package application.classes;
 
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -9,7 +10,7 @@ import java.util.UUID;
  * @author Group-4
  * @version 1
  */
-public class Match
+public class Match implements Serializable
 {
       private String id = UUID.randomUUID().toString();
       private String opponent;
