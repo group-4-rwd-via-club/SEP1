@@ -119,18 +119,17 @@ public class Date
     */
    public boolean isBefore(Date other)
    {
-        if (other.year <= this.year) 
+        if (this.year <= other.year)
          {         
-            if (other.month <= this.month)
+            if (this.month <= other.month)
             {            
-               if (other.day < this.day || other.month < this.month )
+               if (this.day < other.day || this.month < other.month )
                {               
                   return true;
                }
             }
          }
          return false;
-         
    }
 
 
@@ -146,7 +145,7 @@ public class Date
          return localDate;
       }
 
-   
+
    /**
     * Checks if value stored in dateclass is today
     * @returns boolean value based on if values represents today.

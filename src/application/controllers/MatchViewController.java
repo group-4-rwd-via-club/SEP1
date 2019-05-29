@@ -27,11 +27,13 @@ public class MatchViewController
    private DecimalFormat x2digits = new DecimalFormat("00");
 
    private int numberOfPitchPlayers = 11;
-   private int numberOfBenchPlayers;
+   private int numberOfBenchPlayers = 100;
 
    private Match existingMatch;
 
    private boolean isNewMatch;
+
+   private Date today;
 
    private VIAClubManagement viaClubManagement;
 
@@ -224,12 +226,32 @@ public class MatchViewController
       saveButton.setOnMousePressed(e -> {
          if (e.isPrimaryButtonDown()) {
            if (isNewMatch){
+
               Match newMatch = new Match();
               newMatch.setMatchType(typeField.getValue());
               if (dateField.getValue() != null){
-                 if (startHourField.getValue() != null && startMinuteField.getValue() != null)
-                    newMatch.setDate(new Date(dateField.getValue().getDayOfMonth(), dateField.getValue().getMonthValue(), dateField.getValue().getYear(), Integer.parseInt(startHourField.getValue()), Integer.parseInt(startMinuteField.getValue())));
-                 newMatch.setDate(new Date(dateField.getValue().getDayOfMonth(), dateField.getValue().getMonthValue(), dateField.getValue().getYear()));
+                 Date matchDate;
+                 if (startHourField.getValue() != null && startMinuteField.getValue() != null){
+                    matchDate = (new Date(dateField.getValue().getDayOfMonth(), dateField.getValue().getMonthValue(), dateField.getValue().getYear(), Integer.parseInt(startHourField.getValue()), Integer.parseInt(startMinuteField.getValue())));
+                 } else {
+                    matchDate = (new Date(dateField.getValue().getDayOfMonth(), dateField.getValue().getMonthValue(), dateField.getValue().getYear()));
+                 }
+                 if (matchDate.isBefore(today.getToday())){
+                    Alert alert = new Alert(Alert.AlertType.WARNING,
+                            "You have chosen a date that is before today \n" +
+                                    "Do you want to save the date?",
+                            ButtonType.YES, ButtonType.NO);
+                    alert.setTitle("Date confirmation");
+                    alert.setHeaderText(null);
+
+                    alert.showAndWait();
+
+                    if (alert.getResult() == ButtonType.YES) {
+                       newMatch.setDate(matchDate);
+                    } else {
+                       return;
+                    }
+                 }
               }
               if (!(opponentField.getText().equals(""))){
                  newMatch.setOpponent(opponentField.getText());
@@ -270,7 +292,7 @@ public class MatchViewController
    public MatchViewController()
    {
       viaClubManagement = new VIAClubManagement();
-
+      today = new Date();
       if (MatchViewClass.getMatchId() == null || MatchViewClass.getMatchId().equals("")){
          isNewMatch = true;
       } else {
@@ -401,7 +423,6 @@ public class MatchViewController
     * @param player to be assigned
     */
    private void assignPlayer(Player player){
-      // More Code Goes Here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       assignedPlayers.add(player);
       availablePlayers.remove(player);
       updateAvailableTableContent();
@@ -433,10 +454,60 @@ public class MatchViewController
       }
    }
 
+   public void checkAssignedList(Player player){
+      int fieldCount = 0;
+      int benchCount = 0;
+      int goalCount = 0;
+      for (Player playerInList: assignedPlayers){
+         if (playerInList.getPreferredPosition().equals(PositionType.bench)){
+            benchCount ++;
+         } else {
+            fieldCount ++;
+            if (playerInList.getPreferredPosition().equals(PositionType.goalkeeper)){
+               goalCount ++;
+            }
+         }
+      }
+      if (assignedPlayers.size() < numberOfPitchPlayers){
+         if (player.getPreferredPosition().equals(PositionType.goalkeeper)){
+            if (goalCount == 0){
+               assignPlayer(player);
+            } else {
+               if (benchCount < numberOfBenchPlayers){
+                  Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                          "You have already assigned one goalkeeper to the pitch \n" +
+                                  "Do you want to assign the player to the bench?",
+                          ButtonType.YES, ButtonType.NO);
+                  alert.setTitle("Position confirmation");
+                  alert.setHeaderText(null);
 
+                  alert.showAndWait();
 
+                  if (alert.getResult() == ButtonType.YES) {
+                     player.setPreferredPosition(PositionType.bench);
+                     assignPlayer(player);
+                  } else {
+                     return;
+                  }
+               } else {
+                  Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                          "All positions are taken for the chosen player",
+                          ButtonType.CANCEL);
+                  alert.setTitle("Full list");
+                  alert.setHeaderText(null);
 
+                  alert.showAndWait();
 
+                  if (alert.getResult() == ButtonType.CANCEL) {
+                     return;
+                  }
+               }
+
+            }
+         }
+      }
+
+   }
 
 
 
