@@ -13,7 +13,7 @@ public class Player
    private String lastname;
    private int number;
    private String shirtName;
-   private String preferredPosition;
+   private PositionType preferredPosition;
    private int matchesInRow;
    private Availability availability;
 
@@ -38,7 +38,7 @@ public class Player
     */
 
    public Player(String firstname, String lastname, int number,
-         String shirtName, String preferredPosition)
+         String shirtName, PositionType preferredPosition)
    {
 
       this.firstname = firstname;
@@ -177,7 +177,7 @@ public class Player
  * get PreferredPosition
  * @return preferredPosition as string
  */
-   public String getPreferredPosition()
+   public PositionType getPreferredPosition()
    {
       return preferredPosition;
    }
@@ -185,7 +185,7 @@ public class Player
  * set preferredPosition
  * @param preferredPosition as String
  */
-   public void setPreferredPosition(String preferredPosition)
+   public void setPreferredPosition(PositionType preferredPosition)
    {
       this.preferredPosition = preferredPosition;
    }
