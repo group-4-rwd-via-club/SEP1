@@ -3,6 +3,7 @@ package application.controllers;
 import application.classes.*;
 import application.views.MatchViewClass;
 import application.views.PlayerViewClass;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -19,6 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class PlayerListViewController
 {
@@ -80,7 +82,11 @@ public class PlayerListViewController
       PlayerList p = viaClubManagement.getPlayerList();
       add.setOnAction(event -> {
          PlayerViewClass open = new PlayerViewClass();
-         open.start(new Stage());
+         Stage stage = new Stage();
+          stage.setOnHidden(o -> {
+              updateTableContent();
+          });
+         open.start(stage);
       });
       
       print.addEventHandler(MouseEvent.MOUSE_CLICKED,
@@ -113,7 +119,12 @@ public class PlayerListViewController
          if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
              String id = ((Player) table.getSelectionModel().getSelectedItem()).getId();
              PlayerViewClass mt = new PlayerViewClass(id);
-             mt.start(new Stage());
+             Stage stage = new Stage();
+             stage.setOnHidden(event -> {
+                 updateTableContent();
+             });
+
+             mt.start(stage);
          }
      });
 

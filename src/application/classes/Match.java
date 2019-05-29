@@ -11,7 +11,7 @@ import java.util.UUID;
  */
 public class Match
 {
-      private String id;
+      private String id = UUID.randomUUID().toString();
       private String opponent;
       private String location;
       private String score;
@@ -36,7 +36,7 @@ public class Match
          
          this.matchRoster = new PlayerList();
          this.date = new Date();
-         this.id = StringUUID.getUUID();
+         this.id = StringUUID.generateId();
          
       }
       
@@ -49,9 +49,9 @@ public class Match
          this.matchRoster = new PlayerList();
          this.date = new Date();
          this.matchType = MatchType.none;
-         this.id = StringUUID.getUUID();
+         this.id = StringUUID.generateId();
       }
-      
+
       /**
        * Gets the ID for the current match.
        * @returns private field ID.
