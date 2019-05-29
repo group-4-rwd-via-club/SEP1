@@ -2,6 +2,7 @@ package application.controllers;
 
 import application.classes.MatchType;
 import application.classes.Player;
+import application.classes.PositionType;
 import application.classes.VIAClubManagement;
 import application.views.MatchViewClass;
 import javafx.beans.property.SimpleObjectProperty;
@@ -251,7 +252,7 @@ public class MatchViewController
 
       availableNumber.setCellValueFactory(cellData -> new SimpleObjectProperty<Integer>(cellData.getValue().getNumber()));
       availableName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getShirtName()));
-      availablePrefPosition.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPreferredPosition()));
+      availablePrefPosition.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPreferredPosition().toString()));
       playedInRow.setCellValueFactory(cellData -> new SimpleObjectProperty<Integer>(cellData.getValue().getNumber()));
 
       availableField.setItems(availableData);
@@ -279,7 +280,7 @@ public class MatchViewController
 
       assignedNumber.setCellValueFactory(cellData -> new SimpleObjectProperty<Integer>(cellData.getValue().getNumber()));
       assignedName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getShirtName()));
-      assignedPosition.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPreferredPosition()));
+      assignedPosition.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPreferredPosition().toString()));
 
       assignedField.setItems(assignedData);
    }

@@ -1,9 +1,6 @@
 package application.controllers;
 
-import application.classes.Availability;
-import application.classes.Match;
-import application.classes.Player;
-import application.classes.PlayerList;
+import application.classes.*;
 import application.views.PlayerViewClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,7 +58,7 @@ public class PlayerListViewController
 
    @FXML
    private ObservableList<Player> data = FXCollections.observableArrayList(
-               new Player("Haocheng", "Zhang", 10, "HZ", "RF")
+               new Player("Haocheng", "Zhang", 10, "HZ", PositionType.bench)
 
          );
 
