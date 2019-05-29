@@ -80,7 +80,7 @@ public class Player
     */
     
    public Player(String id, String firstname, String lastname, int number,
-         String shirtName, String preferredPosition, int matchesInRow)
+         String shirtName, PositionType preferredPosition, int matchesInRow)
    {
       
       this.id = id;
