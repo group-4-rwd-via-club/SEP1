@@ -1,12 +1,14 @@
 package application.classes;
 
+import java.io.Serializable;
+
 /**
  * Class which contains all player information
  *
  * @author Group-4
- * @version 1
+ * @version 5
  */
-public class Player
+public class Player implements Serializable
 {
    private String id;
    private String firstname;

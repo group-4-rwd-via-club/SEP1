@@ -7,7 +7,8 @@ import java.io.*;
  * @author Group-4
  * @version 1
  */
-public class FileAdapter {
+public class FileAdapter
+{
 
 
     private static final String FILE_NAME = "database.bin";
@@ -45,6 +46,10 @@ public class FileAdapter {
         }
     }
 
+    public String getFileName()
+    {
+        return this.FILE_NAME;
+    }
 
     /**
      * File reader, to read files from the bin file
@@ -54,6 +59,7 @@ public class FileAdapter {
      */
     public Object readObjectFromFile() throws FileNotFoundException, IOException, ClassNotFoundException
     {
+
         Object obj = null;
         ObjectInputStream readFromFile = null;
         try
