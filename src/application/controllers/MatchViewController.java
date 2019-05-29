@@ -270,6 +270,7 @@ public class MatchViewController
    public MatchViewController()
    {
       viaClubManagement = new VIAClubManagement();
+
       if (MatchViewClass.getMatchId() == null || MatchViewClass.getMatchId().equals("")){
          isNewMatch = true;
       } else {

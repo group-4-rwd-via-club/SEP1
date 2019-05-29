@@ -14,11 +14,9 @@ import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
-	public VIAClubManagement VIAClubManagement;
 
 	@Override
 	public void start(Stage primaryStage) {
-		VIAClubManagement = new VIAClubManagement();
 
 		try {
 
