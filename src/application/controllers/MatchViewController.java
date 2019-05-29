@@ -323,7 +323,7 @@ public class MatchViewController
          for (Player player : allPlayers) {
             /*if (player.getAvailability() == null)
                continue;*/
-            if ((player.getAvailability().getUnavailableType().equals(none) ||
+            if ((player.getAvailability().getUnavailableType().equals(available) ||
                     player.getAvailability().getUnavailableType().equals(suspended)) &&
                     (!(assignedPlayers.contains(player)))){
                availablePlayers.add(player);
@@ -331,7 +331,7 @@ public class MatchViewController
          }
       } else {
          for (Player player : allPlayers) {
-            if (player.getAvailability().getUnavailableType().equals(none) &&
+            if (player.getAvailability().getUnavailableType().equals(available) &&
                     (!(assignedPlayers.contains(player)))){
                availablePlayers.add(player);
             }
