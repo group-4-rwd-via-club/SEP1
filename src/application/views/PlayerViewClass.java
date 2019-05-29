@@ -8,25 +8,38 @@ import javafx.stage.Stage;
 
 public class PlayerViewClass extends Application
 {
-    @Override
-    public void start(Stage primaryStage)
-    {
-        try
-        {
-            VBox root = (VBox) FXMLLoader.load(getClass().getResource("PlayerView.fxml"));
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.setResizable(false);
-            primaryStage.show();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
+   public static String playerId;
 
-    public static void main(String[] args)
-    {
-        launch(args);
-    }
+   public PlayerViewClass()
+   {
+      playerId = null;
+   }
+
+   public PlayerViewClass(String id)
+   {
+      this.playerId = id;
+   }
+
+   @Override
+   public void start(Stage primaryStage)
+   {
+      try
+      {
+         VBox root = (VBox) FXMLLoader
+               .load(getClass().getResource("PlayerView.fxml"));
+         Scene scene = new Scene(root);
+         primaryStage.setScene(scene);
+         primaryStage.setResizable(false);
+         primaryStage.show();
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+   }
+
+   public static void main(String[] args)
+   {
+      launch(args);
+   }
 }
