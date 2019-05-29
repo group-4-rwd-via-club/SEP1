@@ -9,12 +9,19 @@ import javafx.stage.Stage;
 public class PlayerViewClass extends Application
 {
    public static String playerId;
-
+   
+   /**
+    * Empty constructor which sets matchId as null
+    */
    public PlayerViewClass()
    {
       playerId = null;
    }
-
+   
+   /**
+    * Constructor with one argument to set match id.
+    * @param id as a string.
+    */
    public PlayerViewClass(String id)
    {
       this.playerId = id;

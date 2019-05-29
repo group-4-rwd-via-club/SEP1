@@ -1,7 +1,7 @@
 package application.controllers;
 
 import application.classes.*;
-//import com.sun.deploy.uitoolkit.impl.fx.ui.FXMessageDialog;
+import com.sun.deploy.uitoolkit.impl.fx.ui.FXMessageDialog;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -10,7 +10,12 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+/**
+ *  Controller for Player view
+ * @author Group 4
+ * @version 1
+ *
+ */
 public class PlayerViewController {
 
     @FXML
