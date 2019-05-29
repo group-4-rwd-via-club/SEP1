@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static application.classes.UnavailableType.*;
@@ -149,6 +150,16 @@ public class MatchViewController
       } else {
          deleteButton.setDisable(false);
          printButton.setDisable(false);
+         if (existingMatch != null){
+            if (existingMatch.getDate().isBefore(today)){
+              // dateField.setValue();
+
+            } else {
+               viaScoreField.setDisable(false);
+               oppScoreField.setDisable(false);
+            }
+         }
+         System.out.println(existingMatch.getOpponent());
          // Add exixting match data here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       }
 
@@ -176,7 +187,7 @@ public class MatchViewController
       availableField.setOnMousePressed(e -> {
          if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
             if (availableField.getSelectionModel().getSelectedItem() != null)
-               assignPlayer(availableField.getSelectionModel().getSelectedItem());
+               checkAssignedList(availableField.getSelectionModel().getSelectedItem());
          }
          if (e.isSecondaryButtonDown()) {
             //  Insert code for context menu - needs code!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -454,6 +465,10 @@ public class MatchViewController
       }
    }
 
+   /**
+    * Checks til players preferred position to determine if the position is available in the current lineup
+    * @param player to be checked
+    */
    public void checkAssignedList(Player player){
       int fieldCount = 0;
       int benchCount = 0;
@@ -468,47 +483,115 @@ public class MatchViewController
             }
          }
       }
-      if (assignedPlayers.size() < numberOfPitchPlayers){
-         if (player.getPreferredPosition().equals(PositionType.goalkeeper)){
-            if (goalCount == 0){
-               assignPlayer(player);
-            } else {
-               if (benchCount < numberOfBenchPlayers){
-                  Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
-                          "You have already assigned one goalkeeper to the pitch \n" +
-                                  "Do you want to assign the player to the bench?",
-                          ButtonType.YES, ButtonType.NO);
-                  alert.setTitle("Position confirmation");
-                  alert.setHeaderText(null);
+      if (player.getPreferredPosition().equals(PositionType.bench) ||
+              player.getPreferredPosition().equals(PositionType.none)){
+         if (benchCount < numberOfBenchPlayers){
+            if (player.getPreferredPosition().equals(PositionType.none)) {
+               Alert noneAlert = new Alert(Alert.AlertType.INFORMATION,
+                       "The player is not assgned a position + \n" +
+                               "The player will be assigned to the bench",
+                       ButtonType.OK);
+               noneAlert.setTitle("Position Information");
+               noneAlert.setHeaderText(null);
 
-                  alert.showAndWait();
+               noneAlert.showAndWait();
 
-                  if (alert.getResult() == ButtonType.YES) {
+               if (noneAlert.getResult() == ButtonType.OK) {
+                  if (benchCount < numberOfBenchPlayers) {
                      player.setPreferredPosition(PositionType.bench);
                      assignPlayer(player);
                   } else {
                      return;
                   }
+               }
+            } else {
+               assignPlayer(player);
+            }
+         } else {
+            Alert benchOccAlert = new Alert(Alert.AlertType.INFORMATION,
+                    "All bench positions are occupied",
+                    ButtonType.OK);
+            benchOccAlert.setTitle("Position Information");
+            benchOccAlert.setHeaderText(null);
+
+            benchOccAlert.showAndWait();
+
+            if (benchOccAlert.getResult() == ButtonType.OK) {
+               return;
+            }
+         }
+      } else {
+         if (fieldCount < numberOfPitchPlayers){
+            if (player.getPreferredPosition().equals(PositionType.goalkeeper)){
+               if (goalCount == 0){
+                  assignPlayer(player);
                } else {
-                  Alert alert = new Alert(Alert.AlertType.INFORMATION,
-                          "All positions are taken for the chosen player",
-                          ButtonType.CANCEL);
-                  alert.setTitle("Full list");
-                  alert.setHeaderText(null);
+                  if (benchCount < numberOfBenchPlayers){
+                     Alert goalAlert = new Alert(Alert.AlertType.CONFIRMATION,
+                             "You have already assigned one goalkeeper to the pitch \n" +
+                                     "Do you want to assign the player to the bench?",
+                             ButtonType.YES, ButtonType.NO);
+                     goalAlert.setTitle("Position confirmation");
+                     goalAlert.setHeaderText(null);
 
-                  alert.showAndWait();
+                     goalAlert.showAndWait();
 
-                  if (alert.getResult() == ButtonType.CANCEL) {
+                     if (goalAlert.getResult() == ButtonType.YES) {
+                        player.setPreferredPosition(PositionType.bench);
+                        assignPlayer(player);
+                     } else {
+                        return;
+                     }
+                  } else {
+                     Alert occAlert = new Alert(Alert.AlertType.INFORMATION,
+                             "All positions are occupied for the chosen player",
+                             ButtonType.CANCEL);
+                     occAlert.setTitle("Full list");
+                     occAlert.setHeaderText(null);
+
+                     occAlert.showAndWait();
+
+                     if (occAlert.getResult() == ButtonType.CANCEL) {
+                        return;
+                     }
+                  }
+               }
+            } else {
+               assignPlayer(player);
+            }
+         } else {
+            if (benchCount < numberOfBenchPlayers) {
+               Alert pitchAlert = new Alert(Alert.AlertType.INFORMATION,
+                       "All pitch positions are occupied + \n" +
+                               "The player will be assigned to the bench",
+                       ButtonType.OK);
+               pitchAlert.setTitle("Position Information");
+               pitchAlert.setHeaderText(null);
+
+               pitchAlert.showAndWait();
+
+               if (pitchAlert.getResult() == ButtonType.OK) {
+                  if (benchCount < numberOfBenchPlayers) {
+                     player.setPreferredPosition(PositionType.bench);
+                     assignPlayer(player);
+                  }
+               } else {
+                  Alert allOccAlert = new Alert(Alert.AlertType.INFORMATION,
+                          "All positions are occupied + \n" +
+                                  "You can not assign any more players",
+                          ButtonType.OK);
+                  allOccAlert.setTitle("Position Information");
+                  allOccAlert.setHeaderText(null);
+
+                  allOccAlert.showAndWait();
+
+                  if (allOccAlert.getResult() == ButtonType.OK) {
                      return;
                   }
                }
-
             }
          }
       }
-
    }
-
-
 
 }
