@@ -58,6 +58,15 @@ public class Date
       this.minute = minute;
       this.second = second;
    }
+
+   public Date(int day, int month, int year, int hour, int minute)
+   {
+      this.day = day;
+      this.month = month;
+      this.year = year;
+      this.hour = hour;
+      this.minute = minute;
+   }
    
    
    /**
@@ -124,6 +133,7 @@ public class Date
          
    }
 
+
    /**
     * Converts integer values of day month year to localDate object format.
     * @return returns LocalDate object from private fields.
@@ -135,6 +145,7 @@ public class Date
          LocalDate localDate = LocalDate.parse(dateAsString, formatter);
          return localDate;
       }
+
    
    /**
     * Checks if value stored in dateclass is today

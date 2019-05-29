@@ -84,7 +84,6 @@ public class Match
        * Sets location as a string and takes string as argument.
        * @param inputs location as a string input.
        */
-      
       public void setLocation(String location)
       {
          this.location = location;
@@ -98,7 +97,8 @@ public class Match
       {
          return this.location;
       }
-      
+
+
       /**
        * Method for setting the score.
        * @param taking score as a string input.
@@ -148,6 +148,11 @@ public class Match
         return this.matchType;
         }
 
+    /**
+     * Sets the match type
+     * @param matchType to be set
+     */
+    public void setMatchType(MatchType matchType) { this.matchType = matchType; }
         /**
         * Sets roster of players in the match.
         * @param takes list of players

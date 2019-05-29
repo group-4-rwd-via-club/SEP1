@@ -36,42 +36,37 @@ public class PlayerListViewController
 
    // The reference of tableView will be injected by the FXML loader
    @FXML
-   private TableView<Player> table;
+   private TableView table;
 
    // table
    @FXML
-   private TableColumn<Player, String> firstname;
+   private TableColumn<Player, String> textFieldFirstname;
 
    @FXML
-   private TableColumn<Player, String> lastname;
+   private TableColumn<Player, String> textFieldLastname;
 
    @FXML
-   private TableColumn<Player, Integer> number;
+   private TableColumn<Player, Integer> textFieldNumber;
 
    @FXML
-   private TableColumn<Player, String> shirt;
+   private TableColumn<Player, String> textFieldShirt;
 
    @FXML
-   private TableColumn<Player, String> position;
+   private TableColumn<Player, String> textFieldPosition;
 
    @FXML
-   private TableColumn<Availability, String> status;
+   private TableColumn<Player, String> textFieldAvailable;
    
    @FXML
-   private TableColumn<Match,Integer > matches;
+   private TableColumn<Match, Integer > textFieldMatches;
 
-   private PlayerList p;
 
    private VIAClubManagement viaClubManagement;
 
 
- 
-
-   
- 
-    
-
-
+    /**
+     * No arg public constructor. Initialise viaclub management
+     */
    public PlayerListViewController()
    {
       
@@ -80,82 +75,40 @@ public class PlayerListViewController
 
    @FXML
    private void initialize()
-
    {
-      PlayerList p = viaClubManagement.getPlayerList();
-      table=new TableView<Player>();
-
-
-
       // add
       add.setOnAction(event -> {
          PlayerViewClass open = new PlayerViewClass();
          open.start(new Stage());
       });
 
-      // print
 
-      print.addEventHandler(MouseEvent.MOUSE_CLICKED,
-            new EventHandler<MouseEvent>()
-            {
-
-               public void handle(MouseEvent e)
-               {
-
-                  Alert alert = new Alert(AlertType.INFORMATION);
-                  alert.setTitle("Players");
-                  alert.setHeaderText(null);
-
-                  alert.setContentText(p.toString());
-
-                  alert.showAndWait();
-
-               }
-            }
-
-      );
-      //TODO search player with exception
       searchplayer.textProperty().addListener((obs, oldText, newText) -> {
          if (!oldText.equals(newText))
              setFilteredData(newText);
      });
 
 
-
-  
-
-
-//      TODO implement table with players list
       initializeTableView();
-      //test
-      System.out.println(table.getItems().size());
+   }
 
-
-
-       }
-
-   //TODO lot of shit here
    private ObservableList<Player> masterData = FXCollections.observableArrayList();
-
-
-
 
    private void initializeTableView()
    {
-       updateTableContent();
+        updateTableContent();
 
-       firstname.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstname().toString()));
-       lastname.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastname().toString()));
-       number.setCellValueFactory(cellData ->  new SimpleObjectProperty<Integer>(cellData.getValue().getNumber()));
-       shirt.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getShirtName().toString()));
-       position.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPreferredPosition().toString() ));
-       status.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().toString()));
+        textFieldFirstname.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstname()));
+        textFieldLastname.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastname()));
+        textFieldNumber.setCellValueFactory(cellData ->  new SimpleObjectProperty<Integer>(cellData.getValue().getNumber()));
+        textFieldShirt.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getShirtName()));
+        textFieldPosition.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPreferredPosition().toString() ));
+        textFieldAvailable.setCellValueFactory(cellDate -> new SimpleStringProperty(cellDate.getValue().getAvailability().getUnavailableType().toString()));
 
-       table.setItems(masterData);
+        table.setItems(masterData);
    }
    private void updateTableContent()
    {
-     
        if (viaClubManagement.getPlayerList()!=null) {
 
            masterData.clear();
@@ -165,19 +118,10 @@ public class PlayerListViewController
    }
 
 
-
-
-
-
-   //search keyword from JH
    private ObservableList<Player> filteredData = FXCollections.observableArrayList();
-
-
 
    private void setFilteredData(String keyword)
    {
-
-
        // if keyword is empty, display the entire dataset
        if (keyword.isEmpty())
        {
@@ -187,10 +131,8 @@ public class PlayerListViewController
        // Clear after each keyword is being typed
        filteredData.clear();
 
-
-
        // loop through dataset to find keyword
-       for (Player player : p.getAllPlayers())
+       for (Player player : viaClubManagement.getPlayerList().getAllPlayers())
        {
            // Java String indexOf() The java string indexOf() method returns index of given character value or substring. If it is not found, it returns -1. The index counter starts from zero.
            if (player.toString().toLowerCase().indexOf(keyword.toLowerCase()) != -1)

@@ -6,5 +6,6 @@ package application.classes;
  */
 public enum UnavailableType
 {
-   available, injured,suspended,personalReasons
+   available, injured,suspended, personal_reasons
+
 }
