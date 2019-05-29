@@ -27,6 +27,7 @@ public class Player
    {
       this.firstname = firstname;
       this.lastname = lastname;
+      this.availability = new Availability();
 
       StringUUID id = new StringUUID();
       this.id = id.getUUID();
@@ -207,6 +208,14 @@ public class Player
       return availability;
    }
 
+   /**
+    * Sets availability through method
+    * @param availability as a new object
+    */
+   public void setAvailability(Availability availability)
+   {
+      this.availability = availability;
+   }
    /**
     * output data as String
     */
