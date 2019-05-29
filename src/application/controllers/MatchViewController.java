@@ -3,6 +3,7 @@ package application.controllers;
 import application.classes.MatchType;
 import application.classes.Player;
 import application.classes.VIAClubManagement;
+import application.views.MatchViewClass;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -19,6 +20,9 @@ import static application.classes.UnavailableType.*;
 public class MatchViewController
 {
    private DecimalFormat x2digits = new DecimalFormat("00");
+
+   private int numberOfPitchPlayers = 11;
+   private int numberOfBenchPlayers;
 
    private VIAClubManagement viaClubManagement;
 
@@ -175,8 +179,8 @@ public class MatchViewController
     */
    public MatchViewController()
    {
+      //MatchViewClass.matchId
       viaClubManagement = new VIAClubManagement();
-
    }
 
    /**
