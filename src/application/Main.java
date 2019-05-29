@@ -11,14 +11,23 @@ import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.StageStyle;
 
-
+/**
+ * Main method for the application. First view is being openened from here.
+ * @author Group-4
+ * @version 1
+ *
+ */
 public class Main extends Application {
 
-
+	/**
+	 * default start method which loads MainView.fxml
+	 * @param primaryStage
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 
-		try {
+		try
+		{
 
 			VBox root = (VBox) FXMLLoader.load(getClass().getResource("views/MainView.fxml"));
 			root.setFillWidth(true);
@@ -27,7 +36,9 @@ public class Main extends Application {
 			primaryStage.setResizable(false); // Disallow resize of window
 
 			primaryStage.show();
-		} catch(Exception e) {
+		}
+		catch(Exception e)
+		{
 			e.printStackTrace();
 		}
 	}

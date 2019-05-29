@@ -1,18 +1,20 @@
 package application.controllers;
 
 import application.classes.*;
-//import com.sun.deploy.uitoolkit.impl.fx.ui.FXMessageDialog;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
+
+/** PlayerViewController is controller for player view. All FXML fields are being initialised in this class
+ * event handleres are also being set in this class.
+ * @author Group-4
+ * @version 2
+ */
 public class PlayerViewController {
 
     @FXML
@@ -42,6 +44,10 @@ public class PlayerViewController {
     @FXML
     private Label labelEndDate;
 
+    /**
+     * default initialize method
+     * initialize all fields and sets onAction events on buttons and fields.
+     */
     @FXML
     private void initialize()
     {
@@ -92,7 +98,7 @@ public class PlayerViewController {
     }
 
     /**
-     * No arg constructor to initialise viaclub management and set player as null.
+     * No arg constructor to initialise viaclub management in this class
      */
 
     public PlayerViewController()
@@ -150,6 +156,7 @@ public class PlayerViewController {
 
     /**
      * adds a player to playerList in viaclub
+     * and saves it to disk through viaClubManagement save method.
      */
     private void addPlayer()
     {
@@ -161,6 +168,10 @@ public class PlayerViewController {
 
     }
 
+    /**
+     * setPlayerDetails sets all the details in the view fields on the input object.
+     * @param newPlayer which is a Player object
+     */
     private void setPlayerDetails(Player newPlayer) {
         newPlayer.setFirstname(textFieldFirstName.getText());
         newPlayer.setLastname(textFieldLastName.getText());
@@ -184,6 +195,10 @@ public class PlayerViewController {
         newPlayer.setAvailability(availability);
     }
 
+    /**
+     * updatePlayer method update a player based on details changed in fields of the view as an entire player object.
+     * Saves the data to disk through viaClubManagement save method.
+     */
     private void updatePlayer()
     {
         setPlayerDetails(player);
@@ -192,7 +207,11 @@ public class PlayerViewController {
         viaClubManagement.save();
     }
 
-
+    /**
+     * Delete player shows a alert dialog which prompts the user if the
+     * user wants to continue. If yes is pressed, the method continues
+     * to remove the player from the playerList in viaClubManagement class.
+     */
     private void deletePlayer()
     {
 

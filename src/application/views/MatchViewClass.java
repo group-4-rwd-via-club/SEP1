@@ -20,7 +20,6 @@ public class MatchViewClass extends Application {
     public MatchViewClass(){
         matchId = null;
     }
-
     /**
      * Constructor with one argument to set match id.
      * @param id as a string.

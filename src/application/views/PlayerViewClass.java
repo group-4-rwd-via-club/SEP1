@@ -20,6 +20,10 @@ public class PlayerViewClass extends Application
    private String playerId;
 
    /**
+    * Public constructor without argument for initialization of the class
+    */
+   public PlayerViewClass(){}
+   /**
     * Public constructor which takes a player ID as argument and sets a private field
     * @param id of a player
     */
