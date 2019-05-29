@@ -112,6 +112,14 @@ public class Date implements Serializable
       
       return new Date(day, month, year, hour, minute, second);
    }
+
+   public int getHour(){
+      return this.hour;
+   }
+
+   public int getMinute(){
+      return this.minute;
+   }
    
    /**
     * Check if the argument date is before input object date
