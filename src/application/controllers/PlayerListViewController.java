@@ -47,7 +47,7 @@ public class PlayerListViewController
 
    @FXML
    private TableColumn<Player, String> lastname;
-   
+
    @FXML
    private TableColumn<Player, Number> number;
 
@@ -59,12 +59,12 @@ public class PlayerListViewController
 
    @FXML
    private TableColumn<Availability, String> status;
-   
+
    private PlayerList p;
-   
+
    private VIAClubManagement viaClubManagement;
-   
-   
+
+
    // TODO How many matches a player were played
 
    @FXML
@@ -72,10 +72,10 @@ public class PlayerListViewController
                new Player("Haocheng", "Zhang", 10, "HZ", "RF"),
                new Player("F1", "L1",1, "Player1", "RF")   ,
                new Player("F2", "L2", 2, "Player2", "RM")     ,
-               new Player("F3", "l3", 3, "Player3", "CF") 
+               new Player("F3", "l3", 3, "Player3", "CF")
 
          );
-   
+
 
    public PlayerListViewController()
    {
@@ -88,7 +88,7 @@ public class PlayerListViewController
    {
       PlayerList p = new PlayerList();
 
-      
+
 
       // add
       add.setOnAction(event -> {
@@ -122,21 +122,21 @@ public class PlayerListViewController
          if (!oldText.equals(newText))
              setFilteredData(newText);
      });
-      
-     
-      
+
+
+
       //list
 //      table = new TableView<>();
 //      firstname = new TableColumn<Player, String>();
 //      lastname = new TableColumn<Player, String>();
-//      
+//
 //      shirt = new TableColumn<Player, String>();
 //      position = new TableColumn<Player, String>();
 //      status = new TableColumn<Availability, String>();
-//      
+//
 //      table.setEditable(true);
- 
-      
+
+
 //      table.setOnMousePressed(e -> {
 //         if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
 //             String id = ((Player) table.getSelectionModel().getSelectedItem()).getId();
@@ -144,21 +144,21 @@ public class PlayerListViewController
 //             mt.start(new Stage());
 //         }
 //     });
-      
-      
+
+
 //      TODO implement table with players list
 //      initializeTableView();
-      
-    
-      
+
+
+
        }
-   
+
    //TODO lot of shit here
    private ObservableList<Player> masterData = FXCollections.observableArrayList();
- 
-   
- 
-   
+
+
+
+
    private void initializeTableView()
    {
        updateTableContent();
@@ -181,21 +181,21 @@ public class PlayerListViewController
 
        }
    }
- 
-   
-   
-   
-   
-   
+
+
+
+
+
+
    //search keyword from JH
    private ObservableList<Player> filteredData = FXCollections.observableArrayList();
-   
-    
-   
+
+
+
    private void setFilteredData(String keyword)
    {
-      
-      
+
+
        // if keyword is empty, display the entire dataset
        if (keyword.isEmpty())
        {
@@ -220,5 +220,5 @@ public class PlayerListViewController
        // set table data to filtered data.
        table.setItems(filteredData);
    }
-   
+
 }

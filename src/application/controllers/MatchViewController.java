@@ -1,11 +1,8 @@
 package application.controllers;
 
-import application.Main;
 import application.classes.MatchType;
 import application.classes.Player;
-import application.classes.PlayerList;
 import application.classes.VIAClubManagement;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -13,7 +10,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -32,14 +28,6 @@ public class MatchViewController
    private ObservableList<Player> availableData = FXCollections.observableArrayList();
    private ObservableList<Player> assignedData = FXCollections.observableArrayList();
 
-   private ContextMenu assignMenu = new ContextMenu();
-   private MenuItem assignGoalkeeper = new MenuItem("Assign as goalkeeper");
-   private MenuItem assignDefence = new MenuItem("Assign as defence");
-   private MenuItem assignMidfield = new MenuItem("Assign as midfield");
-   private MenuItem assignForward = new MenuItem("Assign as forward");
-   private MenuItem assignBench = new MenuItem("Assign to bench");
-
-
    // The reference of saveButton will be injected by the FXML loader
    @FXML
    private Button saveButton;
@@ -52,9 +40,9 @@ public class MatchViewController
    @FXML
    private Button printButton;
 
-   // The reference of benchButton will be injected by the FXML loader
+   // The reference of deleteButton will be injected by the FXML loader
    @FXML
-   private Button benchButton;
+   private Button deleteButton;
 
    // The reference of dateField will be injected by the FXML loader
    @FXML
@@ -132,6 +120,10 @@ public class MatchViewController
    @FXML
    private TableColumn<Player, String> assignedPosition;
 
+   // The reference of assignedClickMenu will be injected by the FXML loader
+   @FXML
+   private ContextMenu assignedClickMenu;
+
    @FXML
    private void initialize()
    {
@@ -141,6 +133,7 @@ public class MatchViewController
 
       viaScoreField.setDisable(true);
       oppScoreField.setDisable(true);
+      deleteButton.setDisable(true);
 
       assignComboBox(meetHourField, 24);
       assignComboBox(meetMinuteField, 60);
@@ -156,12 +149,21 @@ public class MatchViewController
             if (availableField.getSelectionModel().getSelectedItem() != null)
             assignPlayer(availableField.getSelectionModel().getSelectedItem());
          }
+         if (e.isSecondaryButtonDown()){
+            // needs code!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            System.out.println("RightClick"); // delete this
+         }
       });
 
       assignedField.setOnMousePressed(e -> {
          if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
             if (assignedField.getSelectionModel().getSelectedItem() != null)
             unAssignPlayer(assignedField.getSelectionModel().getSelectedItem());
+         }
+         if (e.isSecondaryButtonDown()){
+
+            // needs code!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            System.out.println("RightClick"); // delete this
          }
       });
       //new match end
@@ -200,21 +202,19 @@ public class MatchViewController
          }
          getAvailablePlayers();
       } else {
-         availableData.clear();
          if (assignedPlayers.size() > 0){
-            for (int i = 0; i < assignedPlayers.size(); i++){
-               availablePlayers.add(assignedPlayers.get(i));
-               assignedPlayers.remove(assignedPlayers.get(i));
-            }
+            availablePlayers.addAll(assignedPlayers);
+            assignedPlayers.removeAll(assignedPlayers);
          }
          assignedData.clear();
+         availableData.clear();
       }
    }
 
    /**
     * gets available players dependent on the match type
     */
-   public void getAvailablePlayers() {
+   private void getAvailablePlayers() {
       ArrayList<Player> allPlayers = viaClubManagement.getPlayerList().getAllPlayers();
       availablePlayers = new ArrayList<Player>();
       if (typeField.getValue().toString().equals("friendly")) {
@@ -295,7 +295,7 @@ public class MatchViewController
 
    /**
     * Assigns a player to a match
-    * @param player
+    * @param player to be assigned
     */
    private void assignPlayer(Player player){
       // More Code Goes Here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -307,7 +307,7 @@ public class MatchViewController
 
    /**
     * Unassigns a player from a match
-    * @param player
+    * @param player to be unassigned
     */
    private void unAssignPlayer(Player player){
       assignedPlayers.remove(player);
@@ -321,13 +321,16 @@ public class MatchViewController
     */
    private void removeSuspendedPlayers(){
       if (assignedPlayers.size() > 0){
-         for (Player player : assignedPlayers){
+         for (int i = 0; i < assignedPlayers.size(); i++){
+            Player player = assignedPlayers.get(i);
             if (!(player.getAvailability().isPlayerAvailable())){
                unAssignPlayer(player);
             }
          }
       }
    }
+
+
 
 
 
