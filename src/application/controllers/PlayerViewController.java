@@ -137,6 +137,7 @@ public class PlayerViewController {
             comboBoxAvailability.setValue(player.getAvailability().getUnavailableType());
             if (player.getAvailability() != null && player.getAvailability().getUnavailableEnd() != null)
             {
+                System.out.println(player.getAvailability().getUnavailableEnd().getAsLocalDate());
                 datePickerEndDate.setValue(player.getAvailability().getUnavailableEnd().getAsLocalDate());
             }
         }
@@ -175,7 +176,16 @@ public class PlayerViewController {
     private void setPlayerDetails(Player newPlayer) {
         newPlayer.setFirstname(textFieldFirstName.getText());
         newPlayer.setLastname(textFieldLastName.getText());
-        newPlayer.setNumber(Integer.parseInt(textFieldNumber.getText()));
+
+        if (textFieldNumber.getText().isEmpty())
+        {
+            newPlayer.setNumber(-1);
+        }
+        else
+        {
+            newPlayer.setNumber(Integer.parseInt(textFieldNumber.getText()));
+        }
+
         newPlayer.setShirtName(textFieldShirt.getText());
         newPlayer.setPreferredPosition((PositionType)comboBoxPosition.getValue());
         Availability availability = new Availability();
@@ -188,7 +198,7 @@ public class PlayerViewController {
         }
         else
         {
-            availability.setUnavailableEnd(new Date(pickedDate.getDayOfMonth(), pickedDate.getMonthValue(), pickedDate.getDayOfYear()));
+            availability.setUnavailableEnd(new Date(pickedDate.getDayOfMonth(), pickedDate.getMonthValue(), pickedDate.getYear()));
         }
 
 
