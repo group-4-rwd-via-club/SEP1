@@ -15,6 +15,7 @@ public class Availability
     */
    public Availability()
    {
+
       this.injuryType = injuryType.none;
    }
 

@@ -39,13 +39,13 @@
       </HBox>
       <TableView fx:id="table" prefHeight="320.0" prefWidth="657.0">
         <columns>
-          <TableColumn fx:id="firstname" text="FirstName" />
-          <TableColumn fx:id="lastname" prefWidth="78.0" text=" LastName" />
-            <TableColumn fx:id="number" prefWidth="87.0" text="Number" />
-            <TableColumn fx:id="shirt" prefWidth="87.0" text=" Shirt" />
-            <TableColumn fx:id="position" text="Position " />
-            <TableColumn fx:id="status" prefWidth="89.0" text="Status" />
-            <TableColumn fx:id="matches" prefWidth="83.0" text="Matches" />
+          <TableColumn fx:id="textFieldFirstname" text="FirstName" />
+          <TableColumn fx:id="textFieldLastname" prefWidth="78.0" text=" LastName" />
+            <TableColumn fx:id="textFieldNumber" prefWidth="87.0" text="Number" />
+            <TableColumn fx:id="textFieldShirt" prefWidth="87.0" text=" Shirt" />
+            <TableColumn fx:id="textFieldPosition" text="Position " />
+            <TableColumn fx:id="textFieldAvailable" prefWidth="89.0" text="Status" />
+            <TableColumn fx:id="textFieldMatches" prefWidth="83.0" text="Matches" />
         </columns>
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" />
