@@ -13,8 +13,7 @@ public class PlayerListViewClass extends Application
    {
       try
       {
-         VBox root = (VBox) FXMLLoader
-               .load(getClass().getResource("PlayerListView.fxml"));
+         VBox root = (VBox) FXMLLoader.load(getClass().getResource("PlayerListView.fxml"));
          Scene scene = new Scene(root, 600, 400);
  
          primaryStage.setScene(scene);
