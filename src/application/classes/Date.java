@@ -56,6 +56,15 @@ public class Date
       this.minute = minute;
       this.second = second;
    }
+
+   public Date(int day, int month, int year, int hour, int minute)
+   {
+      this.day = day;
+      this.month = month;
+      this.year = year;
+      this.hour = hour;
+      this.minute = minute;
+   }
    
    
    /**
@@ -121,7 +130,7 @@ public class Date
          return false;
          
    }
-   
+
    
    /**
     * Checks if value stored in dateclass is today

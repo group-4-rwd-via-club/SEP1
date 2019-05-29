@@ -45,6 +45,7 @@ public class MatchViewClass extends Application {
             VBox root = (VBox) FXMLLoader.load(getClass().getResource("MatchView.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch(Exception e) {
             e.printStackTrace();

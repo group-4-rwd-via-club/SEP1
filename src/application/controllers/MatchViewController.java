@@ -1,9 +1,6 @@
 package application.controllers;
 
-import application.classes.MatchType;
-import application.classes.Player;
-import application.classes.PositionType;
-import application.classes.VIAClubManagement;
+import application.classes.*;
 import application.views.MatchViewClass;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,18 +9,29 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import static application.classes.UnavailableType.*;
-// TODO: All classes and methods needs JavaDoc
+
+/**
+ * Controller for Match view
+ * @author Group-4
+ * @version 1
+ *
+ */
 public class MatchViewController
 {
    private DecimalFormat x2digits = new DecimalFormat("00");
 
    private int numberOfPitchPlayers = 11;
    private int numberOfBenchPlayers;
+
+   private Match existingMatch;
+
+   private boolean isNewMatch;
 
    private VIAClubManagement viaClubManagement;
 
@@ -32,6 +40,7 @@ public class MatchViewController
 
    private ObservableList<Player> availableData = FXCollections.observableArrayList();
    private ObservableList<Player> assignedData = FXCollections.observableArrayList();
+
 
    // The reference of saveButton will be injected by the FXML loader
    @FXML
@@ -72,14 +81,6 @@ public class MatchViewController
 // The reference of oppScoreField will be injected by the FXML loader
    @FXML
    private ComboBox<String> oppScoreField;
-
-   // The reference of meetHourField will be injected by the FXML loader
-   @FXML
-   private ComboBox<String> meetHourField;
-
-   // The reference of meetMinuteField will be injected by the FXML loader
-   @FXML
-   private ComboBox<String> meetMinuteField;
 
 // The reference of startHourField will be injected by the FXML loader
    @FXML
@@ -125,53 +126,141 @@ public class MatchViewController
    @FXML
    private TableColumn<Player, String> assignedPosition;
 
-   // The reference of assignedClickMenu will be injected by the FXML loader
    @FXML
-   private ContextMenu assignedClickMenu;
-
-   @FXML
-   private void initialize()
-   {
-      //New match
+   private void initialize() {
       typeField.getItems().addAll(MatchType.none, MatchType.friendly, MatchType.cup, MatchType.league);
-      typeField.getSelectionModel().selectFirst();
 
-      viaScoreField.setDisable(true);
-      oppScoreField.setDisable(true);
-      deleteButton.setDisable(true);
-
-      assignComboBox(meetHourField, 24);
-      assignComboBox(meetMinuteField, 60);
       assignComboBox(startHourField, 24);
       assignComboBox(startMinuteField, 60);
       assignComboBox(viaScoreField, 100);
       assignComboBox(oppScoreField, 100);
 
-      assignedPlayers = new ArrayList<Player>();
+      if (isNewMatch){
+         typeField.getSelectionModel().selectFirst();
+         viaScoreField.setDisable(true);
+         oppScoreField.setDisable(true);
+         deleteButton.setDisable(true);
+         printButton.setDisable(true);
+         startHourField.setDisable(true);
+         startMinuteField.setDisable(true);
+         assignedPlayers = new ArrayList<Player>();
+      } else {
+         deleteButton.setDisable(false);
+         printButton.setDisable(false);
+         // Add exixting match data here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      }
 
+      /**
+       * Enables match start fields when a date is chosen
+       */
+      dateField.valueProperty().addListener((observable)->{
+         if (dateField.getValue() != null){
+            startHourField.setDisable(false);
+            startMinuteField.setDisable(false);
+         } });
+
+      /**
+       * Set the start minute selector to 00 when an start hour is chosen
+       */
+      startHourField.valueProperty().addListener((observable)->{
+         if (startHourField.getValue() != null){
+            startMinuteField.getSelectionModel().selectFirst();
+         } });
+
+
+      /**
+       * Event handler for mouse clicks in the available player field
+       */
       availableField.setOnMousePressed(e -> {
          if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
             if (availableField.getSelectionModel().getSelectedItem() != null)
-            assignPlayer(availableField.getSelectionModel().getSelectedItem());
+               assignPlayer(availableField.getSelectionModel().getSelectedItem());
          }
-         if (e.isSecondaryButtonDown()){
-            // needs code!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+         if (e.isSecondaryButtonDown()) {
+            //  Insert code for context menu - needs code!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             System.out.println("RightClick"); // delete this
          }
       });
 
+      /**
+       * Event handler for mouse clicks in the assigned player field
+       */
       assignedField.setOnMousePressed(e -> {
          if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
             if (assignedField.getSelectionModel().getSelectedItem() != null)
-            unAssignPlayer(assignedField.getSelectionModel().getSelectedItem());
+               unAssignPlayer(assignedField.getSelectionModel().getSelectedItem());
          }
-         if (e.isSecondaryButtonDown()){
+         if (e.isSecondaryButtonDown()) {
 
-            // needs code!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // Insert code for context menu - needs code!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             System.out.println("RightClick"); // delete this
          }
       });
-      //new match end
+
+      /**
+       * If cancelButton is clicked the user is prompted with an alert before closing the window
+       */
+      cancelButton.setOnMousePressed(e -> {
+         if (e.isPrimaryButtonDown()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Do you really want to cancel and exit? \n" +
+                            "Any unsaved changes will be discarded.",
+                    ButtonType.YES, ButtonType.NO);
+            alert.setTitle("Exit");
+            alert.setHeaderText(null);
+
+            alert.showAndWait();
+
+            if (alert.getResult() == ButtonType.YES) {
+               Stage stage = (Stage) cancelButton.getScene().getWindow();
+               stage.close();
+            }
+         }
+      });
+
+      /**
+       * Saves the current data in as a Match in MatchList
+       */
+      saveButton.setOnMousePressed(e -> {
+         if (e.isPrimaryButtonDown()) {
+           if (isNewMatch){
+              Match newMatch = new Match();
+              newMatch.setMatchType(typeField.getValue());
+              if (dateField.getValue() != null){
+                 if (startHourField.getValue() != null && startMinuteField.getValue() != null)
+                    newMatch.setDate(new Date(dateField.getValue().getDayOfMonth(), dateField.getValue().getMonthValue(), dateField.getValue().getYear(), Integer.parseInt(startHourField.getValue()), Integer.parseInt(startMinuteField.getValue())));
+                 newMatch.setDate(new Date(dateField.getValue().getDayOfMonth(), dateField.getValue().getMonthValue(), dateField.getValue().getYear()));
+              }
+              if (!(opponentField.getText().equals(""))){
+                 newMatch.setOpponent(opponentField.getText());
+              }
+              if (!(locationField.getText().equals(""))){
+                 newMatch.setLocation(locationField.getText());
+              }
+              if (assignedPlayers.size() > 0){
+                 PlayerList toRoster = new PlayerList();
+                 for (Player player : assignedPlayers){
+                    toRoster.addPlayer(player);
+                 }
+                 newMatch.setRoster(toRoster);
+              }
+              viaClubManagement.getMatchList().addMatch(newMatch);
+              Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                      "You have successfully saved the match details",
+                      ButtonType.CLOSE);
+              alert.setTitle("Saved");
+              alert.setHeaderText(null);
+
+              alert.showAndWait();
+
+              if (alert.getResult() == ButtonType.CLOSE) {
+                 Stage stage = (Stage) saveButton.getScene().getWindow();
+                 stage.close();
+              }
+           }
+
+         }
+      });
    }
 
    /**
@@ -180,8 +269,13 @@ public class MatchViewController
     */
    public MatchViewController()
    {
-      //MatchViewClass.matchId
       viaClubManagement = new VIAClubManagement();
+      if (MatchViewClass.getMatchId() == null || MatchViewClass.getMatchId().equals("")){
+         isNewMatch = true;
+      } else {
+         isNewMatch = false;
+         this.existingMatch = viaClubManagement.getMatchList().getMatchById(MatchViewClass.getMatchId());
+      }
    }
 
    /**
@@ -204,6 +298,9 @@ public class MatchViewController
          if (typeField.getValue().toString().equals("cup") ||
                  typeField.getValue().toString().equals("league")) {
             removeSuspendedPlayers();
+            if (typeField.getValue().toString().equals("cup"))
+               numberOfBenchPlayers = 5;
+            numberOfBenchPlayers = 4;
          }
          getAvailablePlayers();
       } else {
@@ -303,7 +400,7 @@ public class MatchViewController
     * @param player to be assigned
     */
    private void assignPlayer(Player player){
-      // More Code Goes Here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      // More Code Goes Here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       assignedPlayers.add(player);
       availablePlayers.remove(player);
       updateAvailableTableContent();
@@ -334,6 +431,8 @@ public class MatchViewController
          }
       }
    }
+
+
 
 
 
