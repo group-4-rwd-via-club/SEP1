@@ -213,7 +213,7 @@ public class Player
    @Override
    public String toString()
    {
-      return "Player [id=" + id + ", firstname=" + firstname + ", lastname="
+      return "Player ["  + "firstname=" + firstname + ", lastname="
             + lastname + ", number=" + number + ", shirtName=" + shirtName
             + ", preferredPosition=" + preferredPosition + ", matchesInRow="
             + matchesInRow + "]";
