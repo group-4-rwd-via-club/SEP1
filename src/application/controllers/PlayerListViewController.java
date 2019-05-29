@@ -1,13 +1,21 @@
 package application.controllers;
 
-import application.classes.*;
+import application.classes.Availability;
+import application.classes.Match;
+import application.classes.Player;
+import application.classes.PlayerList;
+import application.classes.VIAClubManagement;
+import application.views.MatchViewClass;
 import application.views.PlayerViewClass;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -39,7 +47,7 @@ public class PlayerListViewController
 
    @FXML
    private TableColumn<Player, String> lastname;
-   
+
    @FXML
    private TableColumn<Player, Number> number;
 
@@ -51,20 +59,27 @@ public class PlayerListViewController
 
    @FXML
    private TableColumn<Availability, String> status;
-   
+
    private PlayerList p;
+
+   private VIAClubManagement viaClubManagement;
+
 
    // TODO How many matches a player were played
 
    @FXML
-   private ObservableList<Player> data = FXCollections.observableArrayList(
-               new Player("Haocheng", "Zhang", 10, "HZ", PositionType.bench)
+   private final ObservableList<Player> data = FXCollections.observableArrayList(
+               new Player("Haocheng", "Zhang", 10, "HZ", "RF"),
+               new Player("F1", "L1",1, "Player1", "RF")   ,
+               new Player("F2", "L2", 2, "Player2", "RM")     ,
+               new Player("F3", "l3", 3, "Player3", "CF")
 
          );
 
+
    public PlayerListViewController()
    {
-
+      viaClubManagement = new VIAClubManagement();
    }
 
    @FXML
@@ -73,7 +88,7 @@ public class PlayerListViewController
    {
       PlayerList p = new PlayerList();
 
-      
+
 
       // add
       add.setOnAction(event -> {
@@ -102,40 +117,85 @@ public class PlayerListViewController
             }
 
       );
+      //TODO search player with exception
       searchplayer.textProperty().addListener((obs, oldText, newText) -> {
          if (!oldText.equals(newText))
              setFilteredData(newText);
      });
-  
-      
+
+
+
       //list
-      table = new TableView<>();
-      firstname = new TableColumn<Player, String>();
-      lastname = new TableColumn<Player, String>();
-      
-      shirt = new TableColumn<Player, String>();
-      position = new TableColumn<Player, String>();
-      status = new TableColumn<Availability, String>();
-      
-      table.setEditable(true);
-      // this errors out the entire app
-      //table.setItems(data);
-      //table.getColumns().addAll(firstname,lastname,number,shirt,position,status);
-      
-      
-      
-      
-      
+//      table = new TableView<>();
+//      firstname = new TableColumn<Player, String>();
+//      lastname = new TableColumn<Player, String>();
+//
+//      shirt = new TableColumn<Player, String>();
+//      position = new TableColumn<Player, String>();
+//      status = new TableColumn<Availability, String>();
+//
+//      table.setEditable(true);
+
+
+//      table.setOnMousePressed(e -> {
+//         if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
+//             String id = ((Player) table.getSelectionModel().getSelectedItem()).getId();
+//             PlayerViewClass mt = new PlayerViewClass(id);
+//             mt.start(new Stage());
+//         }
+//     });
+
+
+//      TODO implement table with players list
+//      initializeTableView();
+
+
+
        }
 
-   
-   
+   //TODO lot of shit here
+   private ObservableList<Player> masterData = FXCollections.observableArrayList();
+
+
+
+
+   private void initializeTableView()
+   {
+       updateTableContent();
+
+       firstname.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstname().toString()));
+       lastname.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastname().toString()));
+       number.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getNumber()));
+       shirt.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getShirtName().toString()));
+       position.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPreferredPosition().toString() ));
+       status.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().toString()));
+
+       table.setItems(masterData);
+   }
+   private void updateTableContent()
+   {
+       if (viaClubManagement.getMatchList() != null) {
+
+           masterData.clear();
+           masterData.addAll(viaClubManagement.getPlayerList().getAllPlayers());
+
+       }
+   }
+
+
+
+
+
+
    //search keyword from JH
    private ObservableList<Player> filteredData = FXCollections.observableArrayList();
+
+
+
    private void setFilteredData(String keyword)
    {
-      
-      
+
+
        // if keyword is empty, display the entire dataset
        if (keyword.isEmpty())
        {
@@ -160,5 +220,5 @@ public class PlayerListViewController
        // set table data to filtered data.
        table.setItems(filteredData);
    }
-   
+
 }
