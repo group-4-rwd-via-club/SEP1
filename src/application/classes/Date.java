@@ -130,7 +130,6 @@ public class Date
          return false;
          
    }
-
    
    /**
     * Checks if value stored in dateclass is today
