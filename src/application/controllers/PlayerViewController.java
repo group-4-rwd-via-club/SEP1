@@ -131,7 +131,14 @@ public class PlayerViewController {
         {
             textFieldFirstName.setText(player.getFirstname());
             textFieldLastName.setText(player.getLastname());
-            textFieldNumber.setText(Integer.toString(player.getNumber()));
+            if (player.getNumber() == -1)
+            {
+                textFieldNumber.setText("");
+            }
+            else
+            {
+                textFieldNumber.setText(Integer.toString(player.getNumber()));
+            }
             textFieldShirt.setText(player.getShirtName());
             comboBoxPosition.setValue(player.getPreferredPosition());
             comboBoxAvailability.setValue(player.getAvailability().getUnavailableType());
