@@ -7,7 +7,7 @@ import java.io.IOException;
  * VIAClubManagement class holds player lists and match lists.
  * It is also the class which contains file logic
  * @author Group-4
- * @version 4
+ * @version 5
  *
  */
 
@@ -83,12 +83,12 @@ public class VIAClubManagement {
         {
             e.printStackTrace();
         }
-        System.out.println("DATA HAVE BEEN SAVED.. amybe?");
     }
 
     /**
-     * Loads VIAClubManagement from database.bin file through FileAdapter.
-     * adds the loaded data into matchlist and playerlist
+     * Loads VIAClubManagementSerializable from database.bin file through FileAdapter.
+     * And converts the loaded data into matchlist and playerlist
+     * if file does not exist it returns without trying
      */
     public void load()
     {
@@ -114,65 +114,6 @@ public class VIAClubManagement {
         {
             e.printStackTrace();
         }
-
-
-
-
-        // Test data loaded into the lists
-        // Load test Data simulates data from file:
-
-
-
-/*
-        // TODO: autocomplete virker ikke
-        // Players
-        Player player1 = new Player("firstname1", "lastname1", 1, "Player1", PositionType.defender);
-        player1.getAvailability().setUnavailableType(UnavailableType.suspended);
-        Player player2 = new Player("firstname2", "lastname2", 2, "Player2", PositionType.goalkeeper);
-        Player player3 = new Player("firstname3", "lastname3", 3, "Player3",PositionType.forward);
-        Player player4 = new Player("firstname4", "lastname4", 4, "Player4", PositionType.midfield);
-        Player player5 = new Player("firstname5", "lastname5", 5, "Player5", PositionType.forward);
-        Player player6 = new Player("firstname6", "lastname6", 6, "Player6", PositionType.forward);
-
-        // adding to playerList
-        playerList.addPlayer(player1);
-        playerList.addPlayer(player2);
-        playerList.addPlayer(player3);
-        playerList.addPlayer(player4);
-        playerList.addPlayer(player5);
-        playerList.addPlayer(player6);
-        
-
-
-
-        // Matches
-        Match match1 = new Match("Opponent1", MatchType.cup, "City1");
-        match1.setDate(new Date(1,6,2019));
-        match1.setScore("1:4");
-        match1.setRoster(playerList);
-
-        Match match2 = new Match("Opponent2", MatchType.league, "City2");
-        match2.setDate(new Date(1,7,2019));
-
-        Match match3 = new Match("Opponent3", MatchType.friendly, "City3");
-        match3.setDate(new Date(1,8,2019));
-        match3.setRoster(playerList);
-
-        Match match4 = new Match("Opponent1", MatchType.friendly, "City4");
-        match4.setDate(new Date(1,9,2019));
-        match4.setScore("3:1");
-
-        Match match5 = new Match("Opponent2", MatchType.cup, "City5");
-        match5.setDate(new Date(1,10,2019));
-
-        // adding to matchlist
-        matchList.addMatch(match1);
-        matchList.addMatch(match2);
-        matchList.addMatch(match3);
-        matchList.addMatch(match4);
-        matchList.addMatch(match5);
-
-        */
 
     }
 

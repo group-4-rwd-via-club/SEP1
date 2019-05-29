@@ -3,7 +3,7 @@ package application.classes;
 /**
  * Public enumerable used to indicate a Unavailable type.
  * @author Group-4
- * @version 1
+ * @version 2
  */
 public enum UnavailableType
 {

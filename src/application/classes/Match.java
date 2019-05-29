@@ -8,7 +8,7 @@ import java.util.UUID;
 /**
  *  Class which contains all match information regarding a match.
  * @author Group-4
- * @version 1
+ * @version 3
  */
 public class Match implements Serializable
 {

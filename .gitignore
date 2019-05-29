@@ -10,7 +10,7 @@ local.properties
 .loadpath
 .recommenders
 .idea
-.bin
+*.bin
 # External tool builders
 .externalToolBuilders/
 

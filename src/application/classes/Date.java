@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * Class containing date with methods to get current date
  * and current time.
  * @author GROUP-4
- * @version 1
+ * @version 2
  *
  */
 
