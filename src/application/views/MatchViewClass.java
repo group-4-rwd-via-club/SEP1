@@ -10,13 +10,33 @@ import javafx.stage.Stage;
 public class MatchViewClass extends Application {
 
 
-    public static String matchId;
+    /**
+     * Empty constructor which sets matchId as null
+     */
+    public MatchViewClass(){
+        matchId = null;
+    }
 
-    public MatchViewClass(){}
-
+    /**
+     * Constructor with one argument to set match id.
+     * @param id as a string.
+     */
     public MatchViewClass(String id)
     {
         this.matchId = id;
+    }
+
+    private static String matchId;
+
+    /**
+     * Getter method to get matchId if any. Returns null if no match id is selected
+     * @returns match id as string or null if empty
+     */
+    public static String getMatchId()
+    {
+        if (matchId != null && !matchId.isEmpty())
+            return matchId;
+        return null;
     }
 
     @Override
