@@ -76,32 +76,32 @@ public class PlayerListViewController
    @FXML
    private void initialize()
    {
-      // add
-      PlayerList p = viaClubManagement.getPlayerList();
+      
+//      PlayerList p = viaClubManagement.getPlayerList();
       add.setOnAction(event -> {
          PlayerViewClass open = new PlayerViewClass();
          open.start(new Stage());
       });
       
-      print.addEventHandler(MouseEvent.MOUSE_CLICKED,
-            new EventHandler<MouseEvent>()
-            {
-
-               public void handle(MouseEvent e)
-               {
-
-                  Alert alert = new Alert(AlertType.INFORMATION);
-                  alert.setTitle("Players");
-                  alert.setHeaderText(null);
-
-                  alert.setContentText(p.toString());
-
-                  alert.showAndWait();
-
-               }
-            }
-
-      );
+//      print.addEventHandler(MouseEvent.MOUSE_CLICKED,
+//            new EventHandler<MouseEvent>()
+//            {
+//
+//               public void handle(MouseEvent e)
+//               {
+//
+//                  Alert alert = new Alert(AlertType.INFORMATION);
+//                  alert.setTitle("Players");
+//                  alert.setHeaderText(null);
+//
+//                  alert.setContentText(p.toString());
+//
+//                  alert.showAndWait();
+//
+//               }
+//            }
+//
+//      );
 
 
       searchplayer.textProperty().addListener((obs, oldText, newText) -> {
