@@ -209,6 +209,14 @@ public class Player
    }
 
    /**
+    * Sets availability through method
+    * @param availability as a new object
+    */
+   public void setAvailability(Availability availability)
+   {
+      this.availability = availability;
+   }
+   /**
     * output data as String
     */
    @Override

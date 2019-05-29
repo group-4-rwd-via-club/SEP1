@@ -15,8 +15,7 @@ public class Availability
     */
    public Availability()
    {
-
-      this.injuryType = injuryType.none;
+      this.injuryType = injuryType.available;
    }
 
    /**
@@ -36,7 +35,7 @@ public class Availability
     * @return return true
     */
    public boolean isPlayerAvailable() {
-      return injuryType == UnavailableType.none;
+      return injuryType == UnavailableType.available;
    }
 
    /**
