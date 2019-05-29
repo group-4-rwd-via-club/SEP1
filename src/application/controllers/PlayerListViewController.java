@@ -3,6 +3,7 @@ package application.controllers;
 import application.classes.*;
 import application.views.MatchViewClass;
 import application.views.PlayerViewClass;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -19,6 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class PlayerListViewController
 {
@@ -76,22 +78,60 @@ public class PlayerListViewController
    @FXML
    private void initialize()
    {
-      // add
+      
+//      PlayerList p = viaClubManagement.getPlayerList();
       add.setOnAction(event -> {
          PlayerViewClass open = new PlayerViewClass();
-         open.start(new Stage());
+         Stage stage = new Stage();
+          stage.setOnHidden(o -> {
+              updateTableContent();
+          });
+         open.start(stage);
       });
+      
+//      print.addEventHandler(MouseEvent.MOUSE_CLICKED,
+//            new EventHandler<MouseEvent>()
+//            {
+//
+//               public void handle(MouseEvent e)
+//               {
+//
+//                  Alert alert = new Alert(AlertType.INFORMATION);
+//                  alert.setTitle("Players");
+//                  alert.setHeaderText(null);
+//
+//                  alert.setContentText(p.toString());
+//
+//                  alert.showAndWait();
+//
+//               }
+//            }
+//
+//      );
 
 
       searchplayer.textProperty().addListener((obs, oldText, newText) -> {
          if (!oldText.equals(newText))
              setFilteredData(newText);
      });
+      
+      table.setOnMousePressed(e -> {
+         if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
+             String id = ((Player) table.getSelectionModel().getSelectedItem()).getId();
+             PlayerViewClass mt = new PlayerViewClass(id);
+             Stage stage = new Stage();
+             stage.setOnHidden(event -> {
+                 updateTableContent();
+             });
+
+             mt.start(stage);
+         }
+     });
 
 
       initializeTableView();
    }
-
+   
    private ObservableList<Player> masterData = FXCollections.observableArrayList();
 
    private void initializeTableView()

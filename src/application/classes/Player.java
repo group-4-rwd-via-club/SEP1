@@ -28,9 +28,7 @@ public class Player
       this.firstname = firstname;
       this.lastname = lastname;
       this.availability = new Availability();
-
-      StringUUID id = new StringUUID();
-      this.id = id.getUUID();
+      this.id = StringUUID.generateId();
    }
 
    /**
@@ -48,8 +46,7 @@ public class Player
       this.shirtName = shirtName;
       this.preferredPosition = preferredPosition;
       this.availability = new Availability();
-      StringUUID id = new StringUUID();
-      this.id = id.getUUID();
+      this.id = StringUUID.generateId();
    }
    /**
     * 1agr constructor which initialize:
@@ -65,8 +62,7 @@ public class Player
       this.matchesInRow=player.matchesInRow;
       this.availability=player.availability;
 
-      StringUUID id = new StringUUID();
-      this.id = id.getUUID();
+      this.id = StringUUID.generateId();
    }
    /**
     * 7 agr constructor which initialize :
@@ -99,8 +95,7 @@ public class Player
     */
    public Player()
    {
-      StringUUID id = new StringUUID();
-      this.id = id.getUUID();
+      this.id = StringUUID.generateId();
    }
    /**
     * Gets the ID for the current player.
@@ -222,10 +217,9 @@ public class Player
    @Override
    public String toString()
    {
-      return "Player ["  + "firstname=" + firstname + ", lastname="
-            + lastname + ", number=" + number + ", shirtName=" + shirtName
-            + ", preferredPosition=" + preferredPosition + ", matchesInRow="
-            + matchesInRow + "]";
+      return     firstname +" "+ lastname + "  number:" + number + ", shirtName:" + shirtName
+            + ", Position:" + preferredPosition + ", matchesInRow="
+            + matchesInRow + "\n";
    }
 /**
  * Method to check if input argument and current object is the same.

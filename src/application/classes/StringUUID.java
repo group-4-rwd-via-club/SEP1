@@ -13,18 +13,19 @@ import java.util.UUID;
  * @version 1
  *
  */
+
+
 public class StringUUID
 {
-
-   /**
+    /**
     * Static string that returns the random unique id.
     * The method is static so it can be reached
     * from all methods
     * @returns a random id as a string
     */
-   public static String getUUID()
+
+   public static String generateId()
    {
-      UUID uuid = UUID.randomUUID();
-      return uuid.toString();
+      return UUID.randomUUID().toString();
    }
 }

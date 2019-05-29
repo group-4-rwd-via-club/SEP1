@@ -11,6 +11,7 @@ public class PlayerListViewClass extends Application
    @Override
    public void start(Stage primaryStage)
    {
+//      primaryStage.setTitle("PlayerList");
       try
       {
          VBox root = (VBox) FXMLLoader.load(getClass().getResource("PlayerListView.fxml"));

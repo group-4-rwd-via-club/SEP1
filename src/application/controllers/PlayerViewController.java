@@ -1,8 +1,10 @@
 package application.controllers;
 
 import application.classes.*;
-import com.sun.deploy.uitoolkit.impl.fx.ui.FXMessageDialog;
+//import com.sun.deploy.uitoolkit.impl.fx.ui.FXMessageDialog;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -48,31 +50,67 @@ public class PlayerViewController {
         comboBoxAvailability.getItems().setAll((Object[]) UnavailableType.values());
         comboBoxAvailability.setValue(UnavailableType.available);
         comboBoxAvailability.setOnAction(event -> setAvailabilitySelectionMode());
-        setAvailabilitySelectionMode();
 
-        buttonSave.setOnAction(event -> addPlayer());
-        buttonCancel.setOnAction(event -> { Platform.exit(); });
-        buttonDelete.setOnAction(event -> deletePlayer());
+
+        buttonSave.setOnAction(event -> {
+            addPlayer();
+
+            Stage stage = (Stage) buttonSave.getScene().getWindow();
+            stage.close();
+        });
+        buttonCancel.setOnAction(event -> {
+            Stage stage = (Stage) buttonCancel.getScene().getWindow();
+            stage.close();
+        });
+        buttonDelete.setOnAction(event -> {
+            deletePlayer();
+
+            Stage stage = (Stage) buttonDelete.getScene().getWindow();
+            stage.close();
+        });
+
+        // force only numeric input
+        textFieldNumber.textProperty().addListener(new ChangeListener<String>() {
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    textFieldNumber.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
+
+        setPlayerInformation();
+        setAvailabilitySelectionMode();
     }
 
     /**
      * No arg constructor to initialise viaclub management and set player as null.
      */
+
     public PlayerViewController()
     {
         viaClubManagement = new VIAClubManagement();
-        player = null;
+
     }
 
     private Player player;
 
-    public PlayerViewController(String playerId)
+    /**
+     * Sets player for edit window. If id is provided as argument
+     * the player id will be searched for in playerlist
+     * if found, sets player object.
+     * @param id as player id.
+     */
+    public void setPlayer(String id)
     {
-        viaClubManagement = new VIAClubManagement();
-        player = viaClubManagement.getPlayerList().getPlayerById(playerId);
-        setPlayerInformation();
+        player = viaClubManagement.getPlayerList().getPlayerById(id);
+
     }
 
+    /**
+     * Sets information if player object is available
+     * is being used to display editable data.
+     */
     private void setPlayerInformation()
     {
         if (player != null)
@@ -91,6 +129,9 @@ public class PlayerViewController {
     }
 
 
+    /**
+     * Sets availability combobox based on availability status
+     */
     private void setAvailabilitySelectionMode()
     {
         boolean visibility = (comboBoxAvailability.getValue() != UnavailableType.available);
@@ -99,6 +140,9 @@ public class PlayerViewController {
     }
     private VIAClubManagement viaClubManagement;
 
+    /**
+     * adds a player to playerList in viaclub
+     */
     private void addPlayer()
     {
         Player player = new Player();
@@ -126,7 +170,7 @@ public class PlayerViewController {
 
         viaClubManagement.getPlayerList().addPlayer(player);
 
-        Platform.exit();
+
     }
 
 
@@ -137,6 +181,8 @@ public class PlayerViewController {
         // delete logic
 
         viaClubManagement.getPlayerList().removePlayer(player);
+
+
     }
 
 
