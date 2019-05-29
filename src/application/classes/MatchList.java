@@ -1,5 +1,6 @@
 package application.classes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,11 +8,11 @@ import java.util.ArrayList;
  * all the matches included in the program.
  * 
  * @author Group-4
- * @version 1
+ * @version 2
  */
 
 
-public class MatchList
+public class MatchList implements Serializable
 {
    private ArrayList<Match> matches;
    
