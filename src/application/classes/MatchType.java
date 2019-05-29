@@ -1,6 +1,5 @@
 package application.classes;
 
-import java.io.Serializable;
 
 /**
  * Public enumerable used to indicate a match type.

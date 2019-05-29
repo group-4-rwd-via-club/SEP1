@@ -2,7 +2,6 @@ package application.classes;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 
 /**
  * VIAClubManagement class holds player lists and match lists.
