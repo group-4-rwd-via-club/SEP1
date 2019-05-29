@@ -76,7 +76,7 @@ public class PlayerList
    {if(players.size()==0) {
       return "No Player in the list";
    }else {
-      return "PlayerList [players=" + players + "]";}
+      return "PlayerList [" + players + "]";}
    }
 
    /**

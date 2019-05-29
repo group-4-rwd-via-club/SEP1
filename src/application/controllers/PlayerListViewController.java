@@ -78,6 +78,7 @@ public class PlayerListViewController
 
    public PlayerListViewController()
    {
+      
       viaClubManagement = new VIAClubManagement();
    }
 
@@ -85,7 +86,8 @@ public class PlayerListViewController
    private void initialize()
 
    {
-      PlayerList p = new PlayerList();
+      PlayerList p = viaClubManagement.getPlayerList();
+      table=new TableView<Player>();
 
 
 
@@ -146,7 +148,9 @@ public class PlayerListViewController
 
 
 //      TODO implement table with players list
-//      initializeTableView();
+      initializeTableView();
+      //test
+      System.out.println(table.getItems().size());
 
 
 
@@ -173,6 +177,7 @@ public class PlayerListViewController
    }
    private void updateTableContent()
    {
+     
        if (viaClubManagement.getPlayerList()!=null) {
 
            masterData.clear();
