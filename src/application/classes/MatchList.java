@@ -92,6 +92,26 @@ public class MatchList implements Serializable
    
    }
 
+   public void updateMatch(Match match)
+   {
+
+      try
+      {
+         for (int i = 0; i < matches.size(); i++)
+         {
+            if (matches.get(i).getId().equals(match.getId()))
+            {
+               matches.set(i, match);
+            }
+         }
+      }
+      catch (NullPointerException e)
+      {
+         System.out.println("Error closing file ");
+      }
+
+   }
+
    /**
     * Looks for match with input ID, if it finds the match with the ID it
     * returns the match object. Else it returns null value.

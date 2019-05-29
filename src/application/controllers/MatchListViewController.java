@@ -78,11 +78,15 @@ public class MatchListViewController {
 
         tableView.setOnMousePressed(e -> {
             if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
-                String id = ((Match) tableView.getSelectionModel().getSelectedItem()).getId();
-                MatchViewClass mt = new MatchViewClass(id);
-                Stage stage = new Stage();
-                stage.setOnHidden(event -> updateTableContent());
-                mt.start(stage);
+                if (tableView.getSelectionModel().getSelectedItem() != null){
+                    String id = ((Match) tableView.getSelectionModel().getSelectedItem()).getId();
+                    MatchViewClass mt = new MatchViewClass(id);
+                    Stage stage = new Stage();
+                    stage.setOnHidden(event -> {
+                        updateTableContent();
+                    });
+                    mt.start(stage);
+                }
             }
         });
 

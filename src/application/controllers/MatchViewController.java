@@ -27,14 +27,13 @@ public class MatchViewController
 {
    private DecimalFormat x2digits = new DecimalFormat("00");
 
-   private int numberOfPitchPlayers = 11;
    private int numberOfBenchPlayers = 100;
 
    private Match existingMatch;
 
    private boolean isNewMatch;
 
-   private Date today;
+   private Date now;
 
    private VIAClubManagement viaClubManagement;
 
@@ -137,6 +136,7 @@ public class MatchViewController
       assignComboBox(startMinuteField, 60);
       assignComboBox(viaScoreField, 100);
       assignComboBox(oppScoreField, 100);
+      assignedPlayers = new ArrayList<Player>();
 
       if (isNewMatch){
          typeField.getSelectionModel().selectFirst();
@@ -146,21 +146,28 @@ public class MatchViewController
          printButton.setDisable(true);
          startHourField.setDisable(true);
          startMinuteField.setDisable(true);
-         assignedPlayers = new ArrayList<Player>();
       } else {
          deleteButton.setDisable(false);
          printButton.setDisable(false);
          if (existingMatch != null){
-            if (existingMatch.getDate().isBefore(today)){
-              // dateField.setValue();
-
-            } else {
+            if (existingMatch.getDate().isBefore(now)){
                viaScoreField.setDisable(false);
                oppScoreField.setDisable(false);
+            } else {
+               viaScoreField.setDisable(true);
+               oppScoreField.setDisable(true);
             }
+            dateField.setValue(existingMatch.getDate().getAsLocalDate());
+            opponentField.setText(existingMatch.getOpponent());
+            typeField.getSelectionModel().select(existingMatch.getMatchType());
+            locationField.setText(existingMatch.getLocation());
+            startHourField.getSelectionModel().select(existingMatch.getDate().getHour());
+            startMinuteField.getSelectionModel().select(existingMatch.getDate().getMinute());
+            assignedPlayers.addAll(existingMatch.getRoster().getAllPlayers());
+            assignedData.addAll(assignedPlayers); // delete if available field is bug free -----------------------------------------
+            initializeAssignedView();
+
          }
-         System.out.println(existingMatch.getOpponent());
-         // Add exixting match data here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       }
 
       /**
@@ -237,47 +244,10 @@ public class MatchViewController
       saveButton.setOnMousePressed(e -> {
          if (e.isPrimaryButtonDown()) {
            if (isNewMatch){
-
               Match newMatch = new Match();
-              newMatch.setMatchType(typeField.getValue());
-              if (dateField.getValue() != null){
-                 Date matchDate;
-                 if (startHourField.getValue() != null && startMinuteField.getValue() != null){
-                    matchDate = (new Date(dateField.getValue().getDayOfMonth(), dateField.getValue().getMonthValue(), dateField.getValue().getYear(), Integer.parseInt(startHourField.getValue()), Integer.parseInt(startMinuteField.getValue())));
-                 } else {
-                    matchDate = (new Date(dateField.getValue().getDayOfMonth(), dateField.getValue().getMonthValue(), dateField.getValue().getYear()));
-                 }
-                 if (matchDate.isBefore(today.getToday())){
-                    Alert alert = new Alert(Alert.AlertType.WARNING,
-                            "You have chosen a date that is before today \n" +
-                                    "Do you want to save the date?",
-                            ButtonType.YES, ButtonType.NO);
-                    alert.setTitle("Date confirmation");
-                    alert.setHeaderText(null);
-
-                    alert.showAndWait();
-
-                    if (alert.getResult() == ButtonType.YES) {
-                       newMatch.setDate(matchDate);
-                    } else {
-                       return;
-                    }
-                 }
-              }
-              if (!(opponentField.getText().equals(""))){
-                 newMatch.setOpponent(opponentField.getText());
-              }
-              if (!(locationField.getText().equals(""))){
-                 newMatch.setLocation(locationField.getText());
-              }
-              if (assignedPlayers.size() > 0){
-                 PlayerList toRoster = new PlayerList();
-                 for (Player player : assignedPlayers){
-                    toRoster.addPlayer(player);
-                 }
-                 newMatch.setRoster(toRoster);
-              }
+              saveOptionalFields(newMatch);
               viaClubManagement.getMatchList().addMatch(newMatch);
+              viaClubManagement.save();
               Alert alert = new Alert(Alert.AlertType.INFORMATION,
                       "You have successfully saved the match details",
                       ButtonType.CLOSE);
@@ -290,10 +260,67 @@ public class MatchViewController
                  Stage stage = (Stage) saveButton.getScene().getWindow();
                  stage.close();
               }
-           }
+           } else {
+              saveOptionalFields(existingMatch);
+              viaClubManagement.getMatchList().updateMatch(existingMatch);
+              Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                      "You have successfully updated the match details",
+                      ButtonType.CLOSE);
+              alert.setTitle("Saved");
+              alert.setHeaderText(null);
 
+              alert.showAndWait();
+
+              if (alert.getResult() == ButtonType.CLOSE) {
+                 Stage stage = (Stage) saveButton.getScene().getWindow();
+                 stage.close();
+              }
+           }
          }
       });
+   }
+
+   public void saveOptionalFields(Match match){
+      match.setMatchType(typeField.getValue());
+      if (dateField.getValue() != null){
+         Date matchDate;
+         if (startHourField.getValue() != null && startMinuteField.getValue() != null){
+            matchDate = (new Date(dateField.getValue().getDayOfMonth(), dateField.getValue().getMonthValue(), dateField.getValue().getYear(), Integer.parseInt(startHourField.getValue()), Integer.parseInt(startMinuteField.getValue())));
+         } else {
+            matchDate = (new Date(dateField.getValue().getDayOfMonth(), dateField.getValue().getMonthValue(), dateField.getValue().getYear()));
+         }
+         if (matchDate.isBefore(now)){
+            Alert alert = new Alert(Alert.AlertType.WARNING,
+                    "You have chosen a date that is before today \n" +
+                            "Do you want to save the date?",
+                    ButtonType.YES, ButtonType.NO);
+            alert.setTitle("Date confirmation");
+            alert.setHeaderText(null);
+
+            alert.showAndWait();
+
+            if (alert.getResult() == ButtonType.YES) {
+               match.setDate(matchDate);
+            } else {
+               return;
+            }
+         } else {
+            match.setDate(matchDate);
+         }
+      }
+      if (!(opponentField.getText().equals(""))){
+         match.setOpponent(opponentField.getText());
+      }
+      if (!(locationField.getText().equals(""))){
+         match.setLocation(locationField.getText());
+      }
+      if (assignedPlayers.size() > 0){
+         PlayerList toRoster = new PlayerList();
+         for (Player player : assignedPlayers){
+            toRoster.addPlayer(player);
+         }
+         match.setRoster(toRoster);
+      }
    }
 
    /**
@@ -303,7 +330,7 @@ public class MatchViewController
    public MatchViewController()
    {
       viaClubManagement = new VIAClubManagement();
-      today = new Date();
+      now = new Date().getNow();
       if (MatchViewClass.getMatchId() == null || MatchViewClass.getMatchId().equals("")){
          isNewMatch = true;
       } else {
@@ -458,7 +485,7 @@ public class MatchViewController
       if (assignedPlayers.size() > 0){
          for (int i = 0; i < assignedPlayers.size(); i++){
             Player player = assignedPlayers.get(i);
-            if (!(player.getAvailability().isPlayerAvailable())){
+            if (!(viaClubManagement.getPlayerList().getPlayerById(player.getId()).getAvailability().isPlayerAvailable())){
                unAssignPlayer(player);
             }
          }
@@ -470,6 +497,7 @@ public class MatchViewController
     * @param player to be checked
     */
    public void checkAssignedList(Player player){
+      int numberOfPitchPlayers = 11;
       int fieldCount = 0;
       int benchCount = 0;
       int goalCount = 0;
