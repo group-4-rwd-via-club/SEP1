@@ -65,14 +65,7 @@ public class PlayerListViewController
    // TODO How many matches a player were played
 
    
-//   private final ObservableList<Player> CellData = FXCollections.observableArrayList(
-////               new Player("Haocheng", "Zhang", 10, "HZ", PositionType.bench),
-////               new Player("F1", "L1",1, "Player1", PositionType.forward)   ,
-////               new Player("F2", "L2", 2, "Player2", PositionType.goalkeeper) ,
-////               new Player("F3", "l3", 3, "Player3", PositionType.defender)
-//       
-//
-//         );
+ 
     
 
 
@@ -126,25 +119,7 @@ public class PlayerListViewController
 
 
 
-      //list
-//      table = new TableView<>();
-//      firstname = new TableColumn<Player, String>();
-//      lastname = new TableColumn<Player, String>();
-//
-//      shirt = new TableColumn<Player, String>();
-//      position = new TableColumn<Player, String>();
-//      status = new TableColumn<Availability, String>();
-//
-//      table.setEditable(true);
-
-
-//      table.setOnMousePressed(e -> {
-//         if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
-//             String id = ((Player) table.getSelectionModel().getSelectedItem()).getId();
-//             PlayerViewClass mt = new PlayerViewClass(id);
-//             mt.start(new Stage());
-//         }
-//     });
+  
 
 
 //      TODO implement table with players list
