@@ -67,7 +67,11 @@ public class MatchListViewController {
     {
         addButton.setOnAction(o -> {
                 MatchViewClass mt = new MatchViewClass();
-                mt.start(new Stage());
+                Stage stage = new Stage();
+                stage.setOnHidden(event -> {
+                    updateTableContent();
+                });
+                mt.start(stage);
         });
 
         searchText.textProperty().addListener((obs, oldText, newText) -> {
@@ -79,7 +83,11 @@ public class MatchListViewController {
             if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
                 String id = ((Match) tableView.getSelectionModel().getSelectedItem()).getId();
                 MatchViewClass mt = new MatchViewClass(id);
-                mt.start(new Stage());
+                Stage stage = new Stage();
+                stage.setOnHidden(event -> {
+                    updateTableContent();
+                });
+                mt.start(stage);
             }
         });
 
