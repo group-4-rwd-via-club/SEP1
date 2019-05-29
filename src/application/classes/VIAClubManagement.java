@@ -15,6 +15,8 @@ public class VIAClubManagement {
     private static MatchList matchList;
     private static PlayerList playerList;
 
+    private static boolean isInitialized;
+
     private FileAdapter fileAdapter;
 
     /**
@@ -23,14 +25,24 @@ public class VIAClubManagement {
      */
     public VIAClubManagement()
     {
-        matchList = new MatchList();
-        playerList = new PlayerList();
-
+        if (!isInitialized)
+        {
+            Init();
+            load();
+        }
         fileAdapter = new FileAdapter();
 
-        load();
+
+
     }
 
+
+    public void Init()
+    {
+        isInitialized = true;
+        matchList = new MatchList();
+        playerList = new PlayerList();
+    }
     /**
      * Method to get the private field matchList.
      * @return returns object MatchList
