@@ -100,8 +100,10 @@ public class MatchList
    {
       for (Match match : matches)
       {
-         if (match.getId() == id)
+         if (match.getId() == id){
             return match;
+         }
+
       }
       return null;
    }
