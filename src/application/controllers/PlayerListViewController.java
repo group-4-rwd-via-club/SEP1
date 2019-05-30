@@ -73,7 +73,7 @@ public class PlayerListViewController
 
 
     /**
-     * No arg public constructor. Initialise viaclub management
+     * No arg public constructor. Initialize viaclub management
      */
    public PlayerListViewController()
    {
@@ -86,7 +86,7 @@ public class PlayerListViewController
    {
       
  /**
-  *  event handler for mouse click the add buttom to open player window to add a new player
+  *  event handler for mouse click the add button to open player window to add a new player
   */
       add.setOnAction(event -> {
          PlayerViewClass open = new PlayerViewClass();
@@ -108,7 +108,7 @@ public class PlayerListViewController
              setFilteredData(newText);
      });
   /**
-   * event handler for dublic click the row of the player in the table to update player's detail    
+   * event handler for double click the row of the player in the table to update player's detail    
    */
       table.setOnMousePressed(e -> {
          if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
