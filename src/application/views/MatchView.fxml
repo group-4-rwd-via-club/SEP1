@@ -18,29 +18,19 @@
    <children>
       <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="5.0" prefWidth="700.0" spacing="5.0">
          <children>
-            <Button fx:id="saveButton" mnemonicParsing="false" prefWidth="70.0" text="Save">
+            <Button fx:id="printButton" mnemonicParsing="false" prefWidth="70.0" text="Print">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
             </Button>
-            <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" prefWidth="70.0" text="Cancel">
-               <HBox.margin>
-                  <Insets left="7.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="printButton" mnemonicParsing="false" prefWidth="70.0" text="Print">
-               <HBox.margin>
-                  <Insets left="7.0" />
-               </HBox.margin>
-            </Button>
             <Label alignment="BOTTOM_LEFT" text="Assigned Players">
                <HBox.margin>
-                  <Insets left="85.0" />
+                  <Insets left="250.0" />
                </HBox.margin>
             </Label>
             <Label text="Available Players">
                <HBox.margin>
-                  <Insets left="210.0" />
+                  <Insets left="215.0" />
                </HBox.margin>
             </Label>
          </children>
@@ -93,7 +83,10 @@
                               <Insets />
                            </GridPane.margin>
                         </Label>
-                        <DatePicker fx:id="dateField" prefWidth="185.0" GridPane.columnIndex="1" />
+                        <DatePicker fx:id="dateField" prefWidth="185.0" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin></DatePicker>
                         <TextField fx:id="opponentField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <ComboBox fx:id="typeField" onAction="#typeSelect" prefHeight="25.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="locationField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -156,6 +149,12 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="9.0" prefWidth="700.0" spacing="5.0">
          <children>
+            <Button fx:id="saveButton" mnemonicParsing="false" prefWidth="70.0" text="Save" />
+            <Button fx:id="cancelButton" cancelButton="true" mnemonicParsing="false" prefWidth="70.0" text="Cancel">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
             <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Delete">
                <HBox.margin>
                   <Insets />

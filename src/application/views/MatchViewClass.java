@@ -3,10 +3,15 @@ package application.views;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
+/**
+ * MatchViewClass is default class for the MatchListView.fxml
+ * @author Group-4
+ * @version 2
+ */
 public class MatchViewClass extends Application {
 
 
@@ -16,7 +21,6 @@ public class MatchViewClass extends Application {
     public MatchViewClass(){
         matchId = null;
     }
-
     /**
      * Constructor with one argument to set match id.
      * @param id as a string.
@@ -44,6 +48,8 @@ public class MatchViewClass extends Application {
         try {
             VBox root = (VBox) FXMLLoader.load(getClass().getResource("MatchView.fxml"));
             Scene scene = new Scene(root);
+            primaryStage.getIcons().add(new Image("application/logo_clear.png"));
+            primaryStage.setTitle("VIAClub - Manage match");
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
             primaryStage.show();

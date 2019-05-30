@@ -1,22 +1,24 @@
 package application.classes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
- * MatchList class respresent a class with contains
+ * MatchList class represent a class with contains
  * all the matches included in the program.
  * 
  * @author Group-4
- * @version 1
+ * @version 2
  */
 
 
-public class MatchList
+public class MatchList implements Serializable
 {
    private ArrayList<Match> matches;
    
    /**
-    * Empty constructor which initialize matches arraylist.
+    * Empty constructor which initialize matches array list.
     */
    public MatchList()
    {
@@ -24,7 +26,7 @@ public class MatchList
    }
    
    /**
-    * Constructor that takes Arraylist with matches
+    * Constructor that takes Array list with matches
     * and add it to the matches field.
     * @param matches as input.
     */
@@ -36,7 +38,7 @@ public class MatchList
    /**
     * Get a match at a certain index and return as Match.
     * @param index of the match
-    * @returns the match at the index. If index is too large, it will return null.
+    * @return the match at the index. If index is too large, it will return null.
     */
    public Match getMatch(int index)
    {
@@ -47,7 +49,7 @@ public class MatchList
 
    /**
     * returns a list of all matches in the system
-    * @return returns an arraylist of all matches
+    * @return returns an array list of all matches
     */
    public ArrayList<Match> getAllMatches()
    {
@@ -56,7 +58,7 @@ public class MatchList
    
    /**
     * Get a array list of all previous matches from today.
-    * @returns a arraylist with all previous matches.
+    * @return a array list with all previous matches.
     */
    public ArrayList<Match> getPreviousMatches()
    {
@@ -73,8 +75,8 @@ public class MatchList
    }
    
    /**
-    * Gets a arraylist with all matches which has date today
-    * @returns an array list with all matches which has today as date.
+    * Gets a array list with all matches which has date today
+    * @return an array list with all matches which has today as date.
     */
    public ArrayList<Match> getTodayMatches()
    {
@@ -90,6 +92,26 @@ public class MatchList
    
    }
 
+   public void updateMatch(Match match)
+   {
+
+      try
+      {
+         for (int i = 0; i < matches.size(); i++)
+         {
+            if (matches.get(i).getId().equals(match.getId()))
+            {
+               matches.set(i, match);
+            }
+         }
+      }
+      catch (NullPointerException e)
+      {
+         System.out.println("Error closing file ");
+      }
+
+   }
+
    /**
     * Looks for match with input ID, if it finds the match with the ID it
     * returns the match object. Else it returns null value.
@@ -100,7 +122,7 @@ public class MatchList
    {
       for (Match match : matches)
       {
-         if (match.getId() == id){
+         if (Objects.equals(match.getId(), id)){
             return match;
          }
 
@@ -110,7 +132,6 @@ public class MatchList
    
    /**
     * Add a match to the array list. Takes a match as input.
-    * TODO: Add check that it doesnt already exist
     * @param match from Class Match as input
     */
    public void addMatch(Match match)

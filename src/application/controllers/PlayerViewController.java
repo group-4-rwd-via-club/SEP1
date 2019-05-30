@@ -1,24 +1,19 @@
 package application.controllers;
 
 import application.classes.*;
-import com.sun.deploy.uitoolkit.impl.fx.ui.FXMessageDialog;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.print.PrinterJob;
-import javafx.scene.Node;
+
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
-import java.awt.PrintJob;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-/**
- *  Controller for Player view
- * @author Group 4
- * @version 1
- *
+
+
+/** PlayerViewController is controller for player view. All FXML fields are being initialised in this class
+ * event handleres are also being set in this class.
+ * @author Group-4
+ * @version 2
  */
 public class PlayerViewController {
 
@@ -48,9 +43,13 @@ public class PlayerViewController {
     private DatePicker datePickerEndDate;
     @FXML
     private Label labelEndDate;
-    
-    
 
+
+
+    /**
+     * default initialize method
+     * initialize all fields and sets onAction events on buttons and fields.
+     */
     @FXML
     private void initialize()
     {
@@ -62,7 +61,15 @@ public class PlayerViewController {
 
 
         buttonSave.setOnAction(event -> {
-            addPlayer();
+            if (player != null)
+            {
+                updatePlayer();
+            }
+            else
+            {
+                addPlayer();
+            }
+
 
             Stage stage = (Stage) buttonSave.getScene().getWindow();
             stage.close();
@@ -86,15 +93,15 @@ public class PlayerViewController {
                 }
             }
         });
- 
-    
-        
+
+
+
         setPlayerInformation();
         setAvailabilitySelectionMode();
     }
 
     /**
-     * No arg constructor to initialise viaclub management and set player as null.
+     * No arg constructor to initialise viaclub management in this class
      */
 
     public PlayerViewController()
@@ -127,12 +134,20 @@ public class PlayerViewController {
         {
             textFieldFirstName.setText(player.getFirstname());
             textFieldLastName.setText(player.getLastname());
-            textFieldNumber.setText(Integer.toString(player.getNumber()));
+            if (player.getNumber() == -1)
+            {
+                textFieldNumber.setText("");
+            }
+            else
+            {
+                textFieldNumber.setText(Integer.toString(player.getNumber()));
+            }
             textFieldShirt.setText(player.getShirtName());
             comboBoxPosition.setValue(player.getPreferredPosition());
             comboBoxAvailability.setValue(player.getAvailability().getUnavailableType());
             if (player.getAvailability() != null && player.getAvailability().getUnavailableEnd() != null)
             {
+                System.out.println(player.getAvailability().getUnavailableEnd().getAsLocalDate());
                 datePickerEndDate.setValue(player.getAvailability().getUnavailableEnd().getAsLocalDate());
             }
         }
@@ -152,15 +167,37 @@ public class PlayerViewController {
 
     /**
      * adds a player to playerList in viaclub
+     * and saves it to disk through viaClubManagement save method.
      */
     private void addPlayer()
     {
-        Player player = new Player();
-        player.setFirstname(textFieldFirstName.getText());
-        player.setLastname(textFieldLastName.getText());
-        player.setNumber(Integer.parseInt(textFieldNumber.getText()));
-        player.setShirtName(textFieldShirt.getText());
-        player.setPreferredPosition((PositionType)comboBoxPosition.getValue());
+        Player newPlayer = new Player();
+        setPlayerDetails(newPlayer);
+        viaClubManagement.getPlayerList().addPlayer(newPlayer);
+        viaClubManagement.save();
+
+
+    }
+
+    /**
+     * setPlayerDetails sets all the details in the view fields on the input object.
+     * @param newPlayer which is a Player object
+     */
+    private void setPlayerDetails(Player newPlayer) {
+        newPlayer.setFirstname(textFieldFirstName.getText());
+        newPlayer.setLastname(textFieldLastName.getText());
+
+        if (textFieldNumber.getText().isEmpty())
+        {
+            newPlayer.setNumber(-1);
+        }
+        else
+        {
+            newPlayer.setNumber(Integer.parseInt(textFieldNumber.getText()));
+        }
+
+        newPlayer.setShirtName(textFieldShirt.getText());
+        newPlayer.setPreferredPosition((PositionType)comboBoxPosition.getValue());
         Availability availability = new Availability();
         availability.setUnavailableType((UnavailableType)comboBoxAvailability.getValue());
         LocalDate pickedDate = datePickerEndDate.getValue();
@@ -171,30 +208,44 @@ public class PlayerViewController {
         }
         else
         {
-            availability.setUnavailableEnd(new Date(pickedDate.getDayOfMonth(), pickedDate.getMonthValue(), pickedDate.getDayOfYear()));
+            availability.setUnavailableEnd(new Date(pickedDate.getDayOfMonth(), pickedDate.getMonthValue(), pickedDate.getYear()));
         }
 
 
-        player.setAvailability(availability);
-
-
-        viaClubManagement.getPlayerList().addPlayer(player);
-
-
+        newPlayer.setAvailability(availability);
     }
 
+    /**
+     * updatePlayer method update a player based on details changed in fields of the view as an entire player object.
+     * Saves the data to disk through viaClubManagement save method.
+     */
+    private void updatePlayer()
+    {
+        setPlayerDetails(player);
 
+        viaClubManagement.getPlayerList().updatePlayer(player);
+        viaClubManagement.save();
+    }
+
+    /**
+     * Delete player shows a alert dialog which prompts the user if the
+     * user wants to continue. If yes is pressed, the method continues
+     * to remove the player from the playerList in viaClubManagement class.
+     */
     private void deletePlayer()
     {
-        // alert dialog confirmation
 
-        // delete logic
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete the player?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
 
-        viaClubManagement.getPlayerList().removePlayer(player);
+        if (alert.getResult() == ButtonType.YES) {
+            viaClubManagement.getPlayerList().removePlayer(player);
+            viaClubManagement.save();
+        }
 
 
     }
- 
+
 
 
 

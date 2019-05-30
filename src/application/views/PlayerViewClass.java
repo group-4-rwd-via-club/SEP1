@@ -2,27 +2,31 @@ package application.views;
 
 import application.controllers.PlayerViewController;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+
+/**
+ * PlayerViewClass is default class for PlayerView.fxml ui.
+ * Added functionality includes public constructor with arguments as id for a specific player.
+ * @author Group-4
+ * @version 1
+ */
 
 public class PlayerViewClass extends Application
 {
    public static String playerId;
 
    /**
-    * Empty constructor which sets matchId as null
+    * Public constructor without argument for initialization of the class
     */
-   public PlayerViewClass()
-   {
-
-   }
-
+   public PlayerViewClass(){}
    /**
-    * Constructor with one argument to set match id.
-    * @param id as a string.
+    * Public constructor which takes a player ID as argument and sets a private field
+    * @param id of a player
     */
    public PlayerViewClass(String id)
    {
@@ -44,6 +48,8 @@ public class PlayerViewClass extends Application
 
 
          Scene scene = new Scene(root);
+         primaryStage.getIcons().add(new Image("application/logo_clear.png"));
+         primaryStage.setTitle("VIAClub - Manage player");
          primaryStage.setScene(scene);
          primaryStage.setResizable(false);
          primaryStage.show();

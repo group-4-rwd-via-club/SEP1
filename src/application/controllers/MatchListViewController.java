@@ -1,8 +1,6 @@
 package application.controllers;
 
-import application.Main;
 import application.classes.Match;
-import application.classes.MatchList;
 import application.classes.VIAClubManagement;
 import application.views.MatchViewClass;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -17,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 
+@SuppressWarnings("unchecked")
 public class MatchListViewController {
     @FXML
     // The reference of searchText will be injected by the FXML loader
@@ -53,7 +52,7 @@ public class MatchListViewController {
     private TableColumn<Match, String> matchResult;
 
 
-    private VIAClubManagement viaClubManagement;
+    private final VIAClubManagement viaClubManagement;
 
     // Add a public no-args constructor
     public MatchListViewController()
@@ -67,7 +66,9 @@ public class MatchListViewController {
     {
         addButton.setOnAction(o -> {
                 MatchViewClass mt = new MatchViewClass();
-                mt.start(new Stage());
+                Stage stage = new Stage();
+                stage.setOnHidden(event -> updateTableContent());
+                mt.start(stage);
         });
 
         searchText.textProperty().addListener((obs, oldText, newText) -> {
@@ -77,9 +78,15 @@ public class MatchListViewController {
 
         tableView.setOnMousePressed(e -> {
             if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
-                String id = ((Match) tableView.getSelectionModel().getSelectedItem()).getId();
-                MatchViewClass mt = new MatchViewClass(id);
-                mt.start(new Stage());
+                if (tableView.getSelectionModel().getSelectedItem() != null){
+                    String id = ((Match) tableView.getSelectionModel().getSelectedItem()).getId();
+                    MatchViewClass mt = new MatchViewClass(id);
+                    Stage stage = new Stage();
+                    stage.setOnHidden(event -> {
+                        updateTableContent();
+                    });
+                    mt.start(stage);
+                }
             }
         });
 
@@ -87,8 +94,9 @@ public class MatchListViewController {
     }
 
 
-    private ObservableList<Match> masterData = FXCollections.observableArrayList();
+    private final ObservableList<Match> masterData = FXCollections.observableArrayList();
 
+    @SuppressWarnings("unchecked")
     private void initializeTableView()
     {
         updateTableContent();
@@ -117,7 +125,7 @@ public class MatchListViewController {
 
 
 
-    private ObservableList<Match> filteredData = FXCollections.observableArrayList();
+    private final ObservableList<Match> filteredData = FXCollections.observableArrayList();
     private void setFilteredData(String keyword)
     {
         // if keyword is empty, display the entire dataset
@@ -135,7 +143,7 @@ public class MatchListViewController {
         for (Match match : viaClubManagement.getMatchList().getAllMatches())
         {
             // Java String indexOf() The java string indexOf() method returns index of given character value or substring. If it is not found, it returns -1. The index counter starts from zero.
-            if (match.toString().toLowerCase().indexOf(keyword.toLowerCase()) != -1)
+            if (match.toString().toLowerCase().contains(keyword.toLowerCase()))
             {
                 // added to filtered match list
                 filteredData.add(match);

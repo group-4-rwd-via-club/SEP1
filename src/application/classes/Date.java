@@ -1,5 +1,6 @@
 package application.classes;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,11 +9,11 @@ import java.time.format.DateTimeFormatter;
  * Class containing date with methods to get current date
  * and current time.
  * @author GROUP-4
- * @version 1
+ * @version 2
  *
  */
 
-public class Date
+public class Date implements Serializable
 {
 
    private int day, month, year, hour, minute, second;
@@ -111,6 +112,14 @@ public class Date
       
       return new Date(day, month, year, hour, minute, second);
    }
+
+   public int getHour(){
+      return this.hour;
+   }
+
+   public int getMinute(){
+      return this.minute;
+   }
    
    /**
     * Check if the argument date is before input object date
@@ -139,10 +148,7 @@ public class Date
     */
    public LocalDate getAsLocalDate()
       {
-         String dateAsString = String.format("%s/%s/%s", this.day,this.month,this.year);
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-         LocalDate localDate = LocalDate.parse(dateAsString, formatter);
-         return localDate;
+         return LocalDate.of(this.year, this.month, this.day);
       }
 
 

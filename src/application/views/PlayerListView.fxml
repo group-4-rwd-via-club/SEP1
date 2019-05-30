@@ -8,16 +8,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="383.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PlayerListViewController">
+<VBox prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PlayerListViewController">
     <children>
       <HBox alignment="CENTER_LEFT" blendMode="MULTIPLY" prefHeight="43.0" prefWidth="821.0" spacing="10.0">
          <children>
             <Button fx:id="add" mnemonicParsing="false" prefWidth="70.0" text="Add">
-               <font>
-                  <Font name="Arial" size="12.0" />
-               </font>
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -37,19 +33,22 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <TableView fx:id="table" prefHeight="320.0" prefWidth="657.0">
+      <TableView fx:id="table" prefHeight="320.0">
         <columns>
-          <TableColumn fx:id="textFieldFirstname" text="FirstName" />
-          <TableColumn fx:id="textFieldLastname" prefWidth="78.0" text=" LastName" />
-            <TableColumn fx:id="textFieldNumber" prefWidth="87.0" text="Number" />
-            <TableColumn fx:id="textFieldShirt" prefWidth="87.0" text=" Shirt" />
-            <TableColumn fx:id="textFieldPosition" text="Position " />
-            <TableColumn fx:id="textFieldAvailable" prefWidth="89.0" text="Status" />
-            <TableColumn fx:id="textFieldMatches" prefWidth="83.0" text="Matches" />
+          <TableColumn fx:id="textFieldFirstname" minWidth="100.0" prefWidth="-1.0" text="FirstName" />
+          <TableColumn fx:id="textFieldLastname" minWidth="100.0" prefWidth="-1.0" text=" LastName" />
+            <TableColumn fx:id="textFieldNumber" minWidth="70.0" prefWidth="-1.0" text="Number" />
+            <TableColumn fx:id="textFieldShirt" minWidth="100.0" prefWidth="-1.0" text=" Shirt" />
+            <TableColumn fx:id="textFieldPosition" minWidth="100.0" prefWidth="-1.0" text="Position " />
+            <TableColumn fx:id="textFieldAvailable" minWidth="100.0" prefWidth="-1.0" text="Status" />
+            <TableColumn fx:id="textFieldMatches" minWidth="100.0" prefWidth="-1.0" text="Matches" />
         </columns>
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" />
          </VBox.margin>
+          <columnResizePolicy>
+              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+          </columnResizePolicy>
       </TableView>
    </children>
    <padding>
