@@ -200,7 +200,7 @@ public class PlayerViewController {
      
           if(newPlayer.getNumber()==p.getNumber()) {
              System.out.println(p);
-             Alert alert = new Alert(Alert.AlertType.WARNING,"Error: This number has already been assigned");
+             Alert alert = new Alert(Alert.AlertType.WARNING,"Error: This number has already been assigned.Please delete");
              alert.setTitle("Alert");
              alert.setHeaderText(null);
              alert.showAndWait();
