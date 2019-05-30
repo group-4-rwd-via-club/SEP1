@@ -6,10 +6,12 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.awt.PrintJob;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 /**
@@ -46,6 +48,8 @@ public class PlayerViewController {
     private DatePicker datePickerEndDate;
     @FXML
     private Label labelEndDate;
+    
+    
 
     @FXML
     private void initialize()
@@ -82,8 +86,9 @@ public class PlayerViewController {
                 }
             }
         });
-
-
+ 
+    
+        
         setPlayerInformation();
         setAvailabilitySelectionMode();
     }
@@ -189,6 +194,7 @@ public class PlayerViewController {
 
 
     }
+ 
 
 
 
