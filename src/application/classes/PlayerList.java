@@ -135,6 +135,28 @@ public class PlayerList implements Serializable
        
       return super.equals(obj);
    }
+ public int getNumber() {
+    int n=0;
+    for (int i = 0; i < players.size(); i++)
+   {
+      n=players.get(i).getNumber();
+   }
+    return n;
+ }
    
+   public int[] getAllNumber() {
+       int[] n = new int[players.size()];
+      for (int i = 0; i < players.size(); i++)
+      {
+         n[i]= players.get(i).getNumber();
+      }
+      return n;
+   }
+
+   
+   public int size()
+   {
+      return players.size();
+   }
 
 }
