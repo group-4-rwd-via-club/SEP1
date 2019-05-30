@@ -279,6 +279,22 @@ public class MatchViewController
          }
       });
    }
+   
+   /**
+    * No args constructor to initialise local playerList
+    *
+    */
+   public MatchViewController()
+   {
+      viaClubManagement = new VIAClubManagement();
+      now = new Date().getNow();
+      if (MatchViewClass.getMatchId() == null || MatchViewClass.getMatchId().equals("")){
+         isNewMatch = true;
+      } else {
+         isNewMatch = false;
+         this.existingMatch = viaClubManagement.getMatchList().getMatchById(MatchViewClass.getMatchId());
+      }
+   }
 
    public void saveOptionalFields(Match match){
       match.setMatchType(typeField.getValue());
@@ -323,21 +339,7 @@ public class MatchViewController
       }
    }
 
-   /**
-    * No args constructor to initialise local playerList
-    *
-    */
-   public MatchViewController()
-   {
-      viaClubManagement = new VIAClubManagement();
-      now = new Date().getNow();
-      if (MatchViewClass.getMatchId() == null || MatchViewClass.getMatchId().equals("")){
-         isNewMatch = true;
-      } else {
-         isNewMatch = false;
-         this.existingMatch = viaClubManagement.getMatchList().getMatchById(MatchViewClass.getMatchId());
-      }
-   }
+
 
    /**
     * Assigns values to a ComboBox
