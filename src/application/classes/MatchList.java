@@ -112,6 +112,11 @@ public class MatchList implements Serializable
 
    }
 
+   public void removeMatch(Match match)
+   {
+      matches.remove(match);
+   }
+
    /**
     * Looks for match with input ID, if it finds the match with the ID it
     * returns the match object. Else it returns null value.
