@@ -9,10 +9,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+
 import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static application.classes.UnavailableType.*;
@@ -27,9 +29,9 @@ public class MatchViewController
 {
    private DecimalFormat x2digits = new DecimalFormat("00");
 
-   private int numberOfBenchPlayers = 100;
+   private int numberOfBenchPlayers;
 
-   private Match existingMatch;
+   private Match match;
 
    private boolean isNewMatch;
 
@@ -149,24 +151,25 @@ public class MatchViewController
       } else {
          deleteButton.setDisable(false);
          printButton.setDisable(false);
-         if (existingMatch != null){
-            if (existingMatch.getDate().isBefore(now)){
+         if (match != null){
+            if (match.getDate().isBefore(now)){
                viaScoreField.setDisable(false);
                oppScoreField.setDisable(false);
             } else {
                viaScoreField.setDisable(true);
                oppScoreField.setDisable(true);
             }
-            dateField.setValue(existingMatch.getDate().getAsLocalDate());
-            opponentField.setText(existingMatch.getOpponent());
-            typeField.getSelectionModel().select(existingMatch.getMatchType());
-            locationField.setText(existingMatch.getLocation());
-            startHourField.getSelectionModel().select(existingMatch.getDate().getHour());
-            startMinuteField.getSelectionModel().select(existingMatch.getDate().getMinute());
-            assignedPlayers.addAll(existingMatch.getRoster().getAllPlayers());
-            assignedData.addAll(assignedPlayers); // delete if available field is bug free -----------------------------------------
-            initializeAssignedView();
-
+            if (!(match.getDate().toStringShort().equals("0-00-00"))){
+               dateField.setValue(match.getDate().getAsLocalDate());
+            }
+            opponentField.setText(match.getOpponent());
+            typeField.getSelectionModel().select(match.getMatchType());
+            locationField.setText(match.getLocation());
+            startHourField.getSelectionModel().select(match.getDate().getHour());
+            startMinuteField.getSelectionModel().select(match.getDate().getMinute());
+            assignedPlayers.addAll(match.getRoster().getAllPlayers());
+            updateAvailablePlayers();
+            updateAssignedPlayers();
          }
       }
 
@@ -196,10 +199,6 @@ public class MatchViewController
             if (availableField.getSelectionModel().getSelectedItem() != null)
                checkAssignedList(availableField.getSelectionModel().getSelectedItem());
          }
-         if (e.isSecondaryButtonDown()) {
-            //  Insert code for context menu - needs code!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            System.out.println("RightClick"); // delete this
-         }
       });
 
       /**
@@ -209,11 +208,6 @@ public class MatchViewController
          if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
             if (assignedField.getSelectionModel().getSelectedItem() != null)
                unAssignPlayer(assignedField.getSelectionModel().getSelectedItem());
-         }
-         if (e.isSecondaryButtonDown()) {
-
-            // Insert code for context menu - needs code!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            System.out.println("RightClick"); // delete this
          }
       });
 
@@ -243,43 +237,36 @@ public class MatchViewController
        */
       saveButton.setOnMousePressed(e -> {
          if (e.isPrimaryButtonDown()) {
-           if (isNewMatch){
-              Match newMatch = new Match();
-              saveOptionalFields(newMatch);
-              viaClubManagement.getMatchList().addMatch(newMatch);
-              viaClubManagement.save();
-              Alert alert = new Alert(Alert.AlertType.INFORMATION,
-                      "You have successfully saved the match details",
-                      ButtonType.CLOSE);
-              alert.setTitle("Saved");
-              alert.setHeaderText(null);
-
-              alert.showAndWait();
-
-              if (alert.getResult() == ButtonType.CLOSE) {
-                 Stage stage = (Stage) saveButton.getScene().getWindow();
-                 stage.close();
-              }
-           } else {
-              saveOptionalFields(existingMatch);
-              viaClubManagement.getMatchList().updateMatch(existingMatch);
-              Alert alert = new Alert(Alert.AlertType.INFORMATION,
-                      "You have successfully updated the match details",
-                      ButtonType.CLOSE);
-              alert.setTitle("Saved");
-              alert.setHeaderText(null);
-
-              alert.showAndWait();
-
-              if (alert.getResult() == ButtonType.CLOSE) {
-                 Stage stage = (Stage) saveButton.getScene().getWindow();
-                 stage.close();
-              }
-           }
+            saveOptionalFields(match);
          }
+      });
+
+      deleteButton.setOnAction(event -> {
+         deleteMatch();
       });
    }
 
+   /**
+    * No args constructor to initialise local playerList
+    *
+    */
+   public MatchViewController()
+   {
+      viaClubManagement = new VIAClubManagement();
+      now = new Date().getNow();
+      if (MatchViewClass.getMatchId() == null || MatchViewClass.getMatchId().equals("")){
+         isNewMatch = true;
+         this.match = new Match();
+      } else {
+         isNewMatch = false;
+         this.match = viaClubManagement.getMatchList().getMatchById(MatchViewClass.getMatchId());
+      }
+   }
+
+   /**
+    * Saves match details if entered
+    * @param match to get details from
+    */
    public void saveOptionalFields(Match match){
       match.setMatchType(typeField.getValue());
       if (dateField.getValue() != null){
@@ -308,10 +295,14 @@ public class MatchViewController
             match.setDate(matchDate);
          }
       }
-      if (!(opponentField.getText().equals(""))){
+       if (opponentField.getText().equals("") || opponentField.getText() == null){
+         match.setOpponent("");
+      } else{
          match.setOpponent(opponentField.getText());
       }
-      if (!(locationField.getText().equals(""))){
+      if (locationField.getText().equals("") || locationField.getText() == null){
+         match.setLocation("");
+      } else {
          match.setLocation(locationField.getText());
       }
       if (assignedPlayers.size() > 0){
@@ -321,21 +312,45 @@ public class MatchViewController
          }
          match.setRoster(toRoster);
       }
+      if (isNewMatch){
+         viaClubManagement.getMatchList().addMatch(match);
+      } else {
+         viaClubManagement.getMatchList().updateMatch(match);
+      }
+      viaClubManagement.save();
+      Alert alert = new Alert(Alert.AlertType.INFORMATION,
+              "You have successfully saved the match details",
+              ButtonType.CLOSE);
+      alert.setTitle("Saved");
+      alert.setHeaderText(null);
+
+      alert.showAndWait();
+
+      if (alert.getResult() == ButtonType.CLOSE) {
+         Stage stage = (Stage) saveButton.getScene().getWindow();
+         stage.close();
+      }
    }
 
    /**
-    * No args constructor to initialise local playerList
-    *
+    * Deletes a chosen match form the match list
     */
-   public MatchViewController()
+   private void deleteMatch()
    {
-      viaClubManagement = new VIAClubManagement();
-      now = new Date().getNow();
-      if (MatchViewClass.getMatchId() == null || MatchViewClass.getMatchId().equals("")){
-         isNewMatch = true;
+      Alert deleteAlert = new Alert(Alert.AlertType.WARNING, "Are you sure you want to delete this match? \n" +
+              "This can not be undone", ButtonType.YES, ButtonType.NO);
+      deleteAlert.setTitle("Position Information");
+      deleteAlert.setHeaderText(null);
+
+      deleteAlert.showAndWait();
+
+      if (deleteAlert.getResult() == ButtonType.YES) {
+         viaClubManagement.getMatchList().removeMatch(match);
+         viaClubManagement.save();
+         Stage stage = (Stage) deleteButton.getScene().getWindow();
+         stage.close();
       } else {
-         isNewMatch = false;
-         this.existingMatch = viaClubManagement.getMatchList().getMatchById(MatchViewClass.getMatchId());
+         return;
       }
    }
 
@@ -355,51 +370,79 @@ public class MatchViewController
     * @param e
     */
    public void typeSelect(ActionEvent e) {
-      if (!(typeField.getValue().toString().equals("none"))){
-         if (typeField.getValue().toString().equals("cup") ||
-                 typeField.getValue().toString().equals("league")) {
-            removeSuspendedPlayers();
-            if (typeField.getValue().toString().equals("cup"))
-               numberOfBenchPlayers = 5;
-            numberOfBenchPlayers = 4;
-         }
-         getAvailablePlayers();
+      getTypeSelected();
+      updateAvailablePlayers();
+      updateAssignedPlayers();
+   }
+
+
+   /**
+    * Checks the value of match type and sets the number of bench players accordingly (max 100)
+    * @return the selected match type
+    */
+   private MatchType getTypeSelected(){
+      if (typeField.getValue().equals(MatchType.friendly)){
+         numberOfBenchPlayers = 100;
+         return MatchType.friendly;
+      } else if (typeField.getValue().equals(MatchType.cup)){
+         numberOfBenchPlayers = 5;
+         return MatchType.cup;
+      } else if (typeField.getValue().equals(MatchType.league)){
+         numberOfBenchPlayers = 4;
+         return MatchType.league;
       } else {
-         if (assignedPlayers.size() > 0){
-            availablePlayers.addAll(assignedPlayers);
-            assignedPlayers.removeAll(assignedPlayers);
-         }
-         assignedData.clear();
-         availableData.clear();
+         numberOfBenchPlayers = 0;
+         return MatchType.none;
       }
    }
 
    /**
-    * gets available players dependent on the match type
+    * Updates and initializes the available player table
     */
-   private void getAvailablePlayers() {
+   private void updateAvailablePlayers(){
       ArrayList<Player> allPlayers = viaClubManagement.getPlayerList().getAllPlayers();
-      availablePlayers = new ArrayList<Player>();
-      if (typeField.getValue().toString().equals("friendly")) {
-         for (Player player : allPlayers) {
-            /*if (player.getAvailability() == null)
-               continue;*/
-            if ((player.getAvailability().getUnavailableType().equals(available) ||
-                    player.getAvailability().getUnavailableType().equals(suspended)) &&
-                    (!(assignedPlayers.contains(player)))){
-               availablePlayers.add(player.copy());
+      availablePlayers = new ArrayList<>();
+      for (Player player : allPlayers){
+         if (getTypeSelected().equals(MatchType.friendly)){
+            if ((player.getAvailability().getUnavailableType().equals(available) || player.getAvailability().getUnavailableType().equals(suspended)) ){
+               if (assignedPlayers.size() == 0){
+                  availablePlayers.add(player);
+               } else if (!(assignedPlayers.contains(player))){
+                  availablePlayers.add(player);
+               }
+            }
+         } else if (getTypeSelected().equals(MatchType.cup) || getTypeSelected().equals(MatchType.league)){
+            removeSuspendedPlayers();
+            if (player.getAvailability().getUnavailableType().equals(available)){
+               if (assignedPlayers.size() == 0){
+                  availablePlayers.add(player);
+               } else if (!(assignedPlayers.contains(player))){
+                  availablePlayers.add(player);
+               }
             }
          }
-      } else {
-         for (Player player : allPlayers) {
-            if (player.getAvailability().getUnavailableType().equals(available) &&
-                    (!(assignedPlayers.contains(player)))){
-               availablePlayers.add(player);
-            }
+      }
+      for (Player playerInList : assignedPlayers){
+         if (playerInList.idEquals(viaClubManagement.getPlayerList().getPlayerById(playerInList.getId()))){
+            availablePlayers.remove(viaClubManagement.getPlayerList().getPlayerById(playerInList.getId()));
          }
       }
       initializeAvailableView();
    }
+
+   /**
+    * Updates and initializes the assigned player table
+    */
+   private void updateAssignedPlayers(){
+      if (assignedPlayers.size() != 0){
+         if (getTypeSelected().equals(MatchType.none))
+            assignedPlayers.removeAll(assignedPlayers);
+
+         updateAvailableTableContent();
+         initializeAssignedView();
+      }
+   }
+
 
    /**
     * Initializes table view of available players
@@ -461,7 +504,7 @@ public class MatchViewController
     * @param player to be assigned
     */
    private void assignPlayer(Player player){
-      assignedPlayers.add(player);
+      assignedPlayers.add(player.copy());
       availablePlayers.remove(player);
       updateAvailableTableContent();
       initializeAssignedView();
@@ -473,7 +516,9 @@ public class MatchViewController
     */
    private void unAssignPlayer(Player player){
       assignedPlayers.remove(player);
-      availablePlayers.add(player);
+      if (getTypeSelected().equals(MatchType.friendly))
+         availablePlayers.add(viaClubManagement.getPlayerList().getPlayerById(player.getId()));
+
       updateAvailableTableContent();
       initializeAssignedView();
    }
@@ -485,9 +530,8 @@ public class MatchViewController
       if (assignedPlayers.size() > 0){
          for (int i = 0; i < assignedPlayers.size(); i++){
             Player player = assignedPlayers.get(i);
-            if (!(viaClubManagement.getPlayerList().getPlayerById(player.getId()).getAvailability().isPlayerAvailable())){
+            if (!(viaClubManagement.getPlayerList().getPlayerById(player.getId()).getAvailability().isPlayerAvailable()))
                unAssignPlayer(player);
-            }
          }
       }
    }
@@ -506,9 +550,7 @@ public class MatchViewController
             benchCount ++;
          } else {
             fieldCount ++;
-            if (playerInList.getPreferredPosition().equals(PositionType.goalkeeper)){
-               goalCount ++;
-            }
+            if (playerInList.getPreferredPosition().equals(PositionType.goalkeeper)) goalCount++;
          }
       }
       if (player.getPreferredPosition().equals(PositionType.bench) ||
@@ -526,15 +568,15 @@ public class MatchViewController
 
                if (noneAlert.getResult() == ButtonType.OK) {
                   if (benchCount < numberOfBenchPlayers) {
-                     player.setPreferredPosition(PositionType.bench);
                      assignPlayer(player);
-                  } else {
-                     return;
-                  }
+                     for (Player playerInList : assignedPlayers){
+                        if (playerInList.equals(player)){
+                           playerInList.setPreferredPosition(PositionType.bench);
+                        }
+                     }
+                  } else return;
                }
-            } else {
-               assignPlayer(player);
-            }
+            } else assignPlayer(player);
          } else {
             Alert benchOccAlert = new Alert(Alert.AlertType.INFORMATION,
                     "All bench positions are occupied",
@@ -544,16 +586,13 @@ public class MatchViewController
 
             benchOccAlert.showAndWait();
 
-            if (benchOccAlert.getResult() == ButtonType.OK) {
-               return;
-            }
+            if (benchOccAlert.getResult() == ButtonType.OK) return;
          }
       } else {
          if (fieldCount < numberOfPitchPlayers){
             if (player.getPreferredPosition().equals(PositionType.goalkeeper)){
-               if (goalCount == 0){
-                  assignPlayer(player);
-               } else {
+               if (goalCount == 0) assignPlayer(player);
+               else {
                   if (benchCount < numberOfBenchPlayers){
                      Alert goalAlert = new Alert(Alert.AlertType.CONFIRMATION,
                              "You have already assigned one goalkeeper to the pitch \n" +
@@ -565,11 +604,13 @@ public class MatchViewController
                      goalAlert.showAndWait();
 
                      if (goalAlert.getResult() == ButtonType.YES) {
-                        player.setPreferredPosition(PositionType.bench);
                         assignPlayer(player);
-                     } else {
-                        return;
-                     }
+                        for (Player playerInList : assignedPlayers){
+                           if (playerInList.equals(player)){
+                              playerInList.setPreferredPosition(PositionType.bench);
+                           }
+                        }
+                     } else return;
                   } else {
                      Alert occAlert = new Alert(Alert.AlertType.INFORMATION,
                              "All positions are occupied for the chosen player",
@@ -579,14 +620,10 @@ public class MatchViewController
 
                      occAlert.showAndWait();
 
-                     if (occAlert.getResult() == ButtonType.CANCEL) {
-                        return;
-                     }
+                     if (occAlert.getResult() == ButtonType.CANCEL) return;
                   }
                }
-            } else {
-               assignPlayer(player);
-            }
+            } else assignPlayer(player);
          } else {
             if (benchCount < numberOfBenchPlayers) {
                Alert pitchAlert = new Alert(Alert.AlertType.INFORMATION,
@@ -600,8 +637,12 @@ public class MatchViewController
 
                if (pitchAlert.getResult() == ButtonType.OK) {
                   if (benchCount < numberOfBenchPlayers) {
-                     player.setPreferredPosition(PositionType.bench);
                      assignPlayer(player);
+                     for (Player playerInList : assignedPlayers){
+                        if (playerInList.equals(player)){
+                           playerInList.setPreferredPosition(PositionType.bench);
+                        }
+                     }
                   }
                } else {
                   Alert allOccAlert = new Alert(Alert.AlertType.INFORMATION,
@@ -613,9 +654,7 @@ public class MatchViewController
 
                   allOccAlert.showAndWait();
 
-                  if (allOccAlert.getResult() == ButtonType.OK) {
-                     return;
-                  }
+                  if (allOccAlert.getResult() == ButtonType.OK) return;
                }
             }
          }

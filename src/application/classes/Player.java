@@ -201,6 +201,16 @@ public class Player implements Serializable
               this.shirtName, this.preferredPosition, this.matchesInRow);
    }
 
+   public boolean idEquals(Object obj)
+   {
+      if (!(obj instanceof Player))
+      {
+         return false;
+      }
+      Player other = (Player) obj;
+
+      return id.equals(other.id);
+   }
 
 
    /**
