@@ -11,6 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.print.PrinterJob;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -79,7 +81,7 @@ public class PlayerListViewController
    private void initialize()
    {
       
-//      PlayerList p = viaClubManagement.getPlayerList();
+      PlayerList p = viaClubManagement.getPlayerList();
       add.setOnAction(event -> {
          PlayerViewClass open = new PlayerViewClass();
          Stage stage = new Stage();
@@ -89,25 +91,8 @@ public class PlayerListViewController
          open.start(stage);
       });
       
-//      print.addEventHandler(MouseEvent.MOUSE_CLICKED,
-//            new EventHandler<MouseEvent>()
-//            {
-//
-//               public void handle(MouseEvent e)
-//               {
-//
-//                  Alert alert = new Alert(AlertType.INFORMATION);
-//                  alert.setTitle("Players");
-//                  alert.setHeaderText(null);
-//
-//                  alert.setContentText(p.toString());
-//
-//                  alert.showAndWait();
-//
-//               }
-//            }
-//
-//      );
+// print the table to PDF 
+      print.setOnAction(e ->print(table));
 
 
       searchplayer.textProperty().addListener((obs, oldText, newText) -> {
@@ -185,5 +170,24 @@ public class PlayerListViewController
        table.setItems(filteredData);
    }
    
+   
+   
+   
+// print the table to PDF
+   private void print(Node string) {
+     PrinterJob job=PrinterJob.createPrinterJob();
+     if (job != null) {
+        System.out.println(job.jobStatusProperty().asString());
+
+        boolean printed = job.printPage(string);
+        if (printed) {
+          job.endJob();
+        } else {
+          System.out.println("Printing failed.");
+        }
+      } else {
+        System.out.println("Could not create a printer job.");
+      }
+   }
 
 }

@@ -44,6 +44,8 @@ public class PlayerViewController {
     @FXML
     private Label labelEndDate;
 
+
+
     /**
      * default initialize method
      * initialize all fields and sets onAction events on buttons and fields.
@@ -91,6 +93,7 @@ public class PlayerViewController {
                 }
             }
         });
+
 
 
         setPlayerInformation();
@@ -242,6 +245,7 @@ public class PlayerViewController {
 
 
     }
+
 
 
 

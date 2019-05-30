@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 
 public class PlayerViewClass extends Application
 {
-   private String playerId;
+   public static String playerId;
 
    /**
     * Public constructor without argument for initialization of the class
