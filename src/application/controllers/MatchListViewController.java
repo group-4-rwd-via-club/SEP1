@@ -25,10 +25,6 @@ public class MatchListViewController {
     @FXML
     private Button addButton;
 
-    // The reference of printButton will be injected by the FXML loader
-    @FXML
-    private Button printButton;
-
     // The reference of tableView will be injected by the FXML loader
     @FXML
     private TableView tableView;
