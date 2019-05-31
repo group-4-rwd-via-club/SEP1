@@ -16,6 +16,8 @@ public class Match implements Serializable
       private String opponent;
       private String location;
       private String score;
+      private String viaScore;
+      private String oppScore;
       
       private PlayerList matchRoster;
       private Date date;
@@ -104,26 +106,38 @@ public class Match implements Serializable
        * Method for setting the score.
        * @param taking score as a string input.
        */
-      public void setScore(String score)
+      public void setScore(String viaScore, String oppScore)
       {
-         this.score = score;
+          this.viaScore = viaScore;
+          this.oppScore = oppScore;
+          this.score = viaScore + " / " + oppScore;
       }
       
       /**
        * Method to get the score.
        * @return the score as a string.
        */
-      
       public String getScore()
       {
          return this.score;
       }
-      
+
+      /**
+     * Method to get the viaClub score.
+     * @return the score as a string.
+     */
+      public String getViaScore() { return this.viaScore; }
+
+      /**
+     * Method to get the opponent score.
+     * @return the score as a string.
+     */
+      public String getOppScore() { return this.oppScore; }
+
       /**
        * Method to set the date of the match.
        * @param takes Date class as input.
        */
-      
       public void setDate(Date other)
       {
 
