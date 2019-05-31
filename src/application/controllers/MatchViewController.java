@@ -516,9 +516,7 @@ public class MatchViewController
     */
    private void unAssignPlayer(Player player){
       assignedPlayers.remove(player);
-      if (getTypeSelected().equals(MatchType.friendly))
-         availablePlayers.add(viaClubManagement.getPlayerList().getPlayerById(player.getId()));
-
+      availablePlayers.add(viaClubManagement.getPlayerList().getPlayerById(player.getId()));
       updateAvailableTableContent();
       initializeAssignedView();
    }
@@ -531,7 +529,7 @@ public class MatchViewController
          for (int i = 0; i < assignedPlayers.size(); i++){
             Player player = assignedPlayers.get(i);
             if (!(viaClubManagement.getPlayerList().getPlayerById(player.getId()).getAvailability().isPlayerAvailable()))
-               unAssignPlayer(player);
+               assignedPlayers.remove(player);
          }
       }
    }
@@ -627,7 +625,7 @@ public class MatchViewController
          } else {
             if (benchCount < numberOfBenchPlayers) {
                Alert pitchAlert = new Alert(Alert.AlertType.INFORMATION,
-                       "All pitch positions are occupied + \n" +
+                       "All pitch positions are occupied \n" +
                                "The player will be assigned to the bench",
                        ButtonType.OK);
                pitchAlert.setTitle("Position Information");
