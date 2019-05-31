@@ -525,11 +525,20 @@ public class MatchViewController
     * Unassigns an unavailable player from a match
     */
    private void removeSuspendedPlayers(){
+      int benchCount = 0;
       if (assignedPlayers.size() > 0){
          for (int i = 0; i < assignedPlayers.size(); i++){
             Player player = assignedPlayers.get(i);
             if (!(viaClubManagement.getPlayerList().getPlayerById(player.getId()).getAvailability().isPlayerAvailable()))
                assignedPlayers.remove(player);
+            if (player.getPreferredPosition().equals(PositionType.bench)){
+               benchCount++;
+               if (benchCount > numberOfBenchPlayers){
+                  unAssignPlayer(player);
+               }
+
+            }
+
          }
       }
    }
@@ -644,7 +653,7 @@ public class MatchViewController
                   }
                } else {
                   Alert allOccAlert = new Alert(Alert.AlertType.INFORMATION,
-                          "All positions are occupied + \n" +
+                          "All positions are occupied \n" +
                                   "You can not assign any more players",
                           ButtonType.OK);
                   allOccAlert.setTitle("Position Information");
