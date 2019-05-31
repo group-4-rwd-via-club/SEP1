@@ -34,10 +34,6 @@ public class PlayerListViewController
    @FXML
    private Button add;
 
-   // The reference of printButton will be injected by the FXML loader
-   @FXML
-   private Button print;
-
    // The reference of tableView will be injected by the FXML loader
    @FXML
    private TableView table;
@@ -96,9 +92,6 @@ public class PlayerListViewController
           });
          open.start(stage);
       });
-      
-// print the table to PDF 
-      print.setOnAction(e ->print(table));
 
 /**
  * event handler for typing the keyword to search player(s) in the playerList
@@ -193,25 +186,6 @@ public class PlayerListViewController
        // set table data to filtered data.
        table.setItems(filteredData);
    }
-   
-   
-   
-   
-// print the table to PDF  delete later
-   private void print(Node string) {
-     PrinterJob job=PrinterJob.createPrinterJob();
-     if (job != null) {
-        System.out.println(job.jobStatusProperty().asString());
 
-        boolean printed = job.printPage(string);
-        if (printed) {
-          job.endJob();
-        } else {
-          System.out.println("Printing failed.");
-        }
-      } else {
-        System.out.println("Could not create a printer job.");
-      }
-   }
 
 }

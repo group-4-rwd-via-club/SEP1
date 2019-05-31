@@ -12,8 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -28,23 +26,15 @@ import static application.classes.UnavailableType.*;
 public class MatchViewController
 {
    private DecimalFormat x2digits = new DecimalFormat("00");
-
    private int numberOfBenchPlayers;
-
    private Match match;
-
    private boolean isNewMatch;
-
    private Date now;
-
    private VIAClubManagement viaClubManagement;
-
    private ArrayList<Player> availablePlayers;
    private ArrayList<Player> assignedPlayers;
-
    private ObservableList<Player> availableData = FXCollections.observableArrayList();
    private ObservableList<Player> assignedData = FXCollections.observableArrayList();
-
 
    // The reference of saveButton will be injected by the FXML loader
    @FXML
@@ -138,7 +128,7 @@ public class MatchViewController
       assignComboBox(startMinuteField, 60);
       assignComboBox(viaScoreField, 100);
       assignComboBox(oppScoreField, 100);
-      assignedPlayers = new ArrayList<Player>();
+      assignedPlayers = new ArrayList<>();
 
       if (isNewMatch){
          typeField.getSelectionModel().selectFirst();
@@ -167,6 +157,8 @@ public class MatchViewController
             locationField.setText(match.getLocation());
             startHourField.getSelectionModel().select(match.getDate().getHour());
             startMinuteField.getSelectionModel().select(match.getDate().getMinute());
+            viaScoreField.setValue(match.getViaScore());
+            oppScoreField.setValue(match.getOppScore());
             assignedPlayers.addAll(match.getRoster().getAllPlayers());
             updateAvailablePlayers();
             updateAssignedPlayers();
@@ -188,6 +180,11 @@ public class MatchViewController
       startHourField.valueProperty().addListener((observable)->{
          if (startHourField.getValue() != null){
             startMinuteField.getSelectionModel().selectFirst();
+         } });
+
+      viaScoreField.valueProperty().addListener((observable)->{
+         if (viaScoreField.getValue() != null){
+            oppScoreField.getSelectionModel().selectFirst();
          } });
 
 
@@ -233,7 +230,7 @@ public class MatchViewController
       });
 
       /**
-       * Saves the current data in as a Match in MatchList
+       * Event handler for save button - Saves the current data in as a Match in MatchList
        */
       saveButton.setOnMousePressed(e -> {
          if (e.isPrimaryButtonDown()) {
@@ -241,8 +238,18 @@ public class MatchViewController
          }
       });
 
+      /**
+       * Event handler for delete button - Deletes chosen match from the match list
+       */
       deleteButton.setOnAction(event -> {
          deleteMatch();
+      });
+
+      /**
+       * Event handler for print button - prints chosen match.
+       */
+      printButton.setOnAction(event -> {
+         // Code for print goes here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       });
    }
 
@@ -304,6 +311,9 @@ public class MatchViewController
          match.setLocation("");
       } else {
          match.setLocation(locationField.getText());
+      }
+      if (viaScoreField.getValue() != null && oppScoreField.getValue() != null){
+         match.setScore(viaScoreField.getValue(), oppScoreField.getValue());
       }
       if (assignedPlayers.size() > 0){
          PlayerList toRoster = new PlayerList();
@@ -412,7 +422,7 @@ public class MatchViewController
                }
             }
          } else if (getTypeSelected().equals(MatchType.cup) || getTypeSelected().equals(MatchType.league)){
-            removeSuspendedPlayers();
+            removeUnallowedPlayers();
             if (player.getAvailability().getUnavailableType().equals(available)){
                if (assignedPlayers.size() == 0){
                   availablePlayers.add(player);
@@ -522,14 +532,23 @@ public class MatchViewController
    }
 
    /**
-    * Unassigns an unavailable player from a match
+    * Unassigns an suspended player or too many bench players from a cup or league match
     */
-   private void removeSuspendedPlayers(){
+   private void removeUnallowedPlayers(){
+      int benchCount = 0;
       if (assignedPlayers.size() > 0){
          for (int i = 0; i < assignedPlayers.size(); i++){
             Player player = assignedPlayers.get(i);
             if (!(viaClubManagement.getPlayerList().getPlayerById(player.getId()).getAvailability().isPlayerAvailable()))
                assignedPlayers.remove(player);
+            if (player.getPreferredPosition().equals(PositionType.bench)){
+               benchCount++;
+               if (benchCount > numberOfBenchPlayers){
+                  unAssignPlayer(player);
+               }
+
+            }
+
          }
       }
    }
@@ -644,7 +663,7 @@ public class MatchViewController
                   }
                } else {
                   Alert allOccAlert = new Alert(Alert.AlertType.INFORMATION,
-                          "All positions are occupied + \n" +
+                          "All positions are occupied \n" +
                                   "You can not assign any more players",
                           ButtonType.OK);
                   allOccAlert.setTitle("Position Information");

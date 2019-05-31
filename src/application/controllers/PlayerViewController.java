@@ -34,8 +34,6 @@ public class PlayerViewController {
     @FXML
     private Button buttonDelete;
     @FXML
-    private Button buttonPrint;
-    @FXML
     private Button buttonSave;
     @FXML
     private Button buttonCancel;
