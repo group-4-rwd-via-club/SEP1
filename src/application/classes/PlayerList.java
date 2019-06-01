@@ -125,5 +125,13 @@ public class PlayerList implements Serializable
       }
       return true;
    }
+   /**
+    * 
+    * @return size length  of players
+    */
+   
+   public int size() {
+      return players.size();
+   }
 
 }

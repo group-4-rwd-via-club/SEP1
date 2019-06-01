@@ -167,16 +167,17 @@ public class PlayerViewController {
 //TODO
         if(isTheSameNumber(newPlayer)) {
 
-           Alert alert = new Alert(Alert.AlertType.WARNING,"Error: This number has already been assigned.Please delete");
+           Alert alert = new Alert(Alert.AlertType.WARNING,"Error: This number has already been assigned.Please add again");
            alert.setTitle("Alert");
            alert.setHeaderText(null);
            alert.showAndWait();
 
 
-        }
+        }else {
 
         viaClubManagement.getPlayerList().addPlayer(newPlayer);
         viaClubManagement.save();
+        }
     }
 
     /**
