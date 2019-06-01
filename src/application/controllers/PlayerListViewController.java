@@ -105,6 +105,7 @@ public class PlayerListViewController
    */
       table.setOnMousePressed(e -> {
          if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
+            try {
              String id = ((Player) table.getSelectionModel().getSelectedItem()).getId();
              PlayerViewClass mt = new PlayerViewClass(id);
              Stage stage = new Stage();
@@ -113,6 +114,10 @@ public class PlayerListViewController
              });
 
              mt.start(stage);
+            }
+            catch (NullPointerException e1) {
+               
+            }
          }
      });
 
