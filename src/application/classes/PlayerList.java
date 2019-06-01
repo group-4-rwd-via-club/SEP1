@@ -29,7 +29,7 @@ public class PlayerList implements Serializable
 
    /**
     * Adds a player to the list
-    * 
+    *
     * @param player
     *           the player to add to the list
     */
@@ -40,7 +40,7 @@ public class PlayerList implements Serializable
 
    /**
     * remove individual player
-    * 
+    *
     * @param player
     *           the player to remove to the list
     */
@@ -52,7 +52,7 @@ public class PlayerList implements Serializable
    /**
     * update and change individual player's detail
     * for update player
-    * 
+    *
     * @param player
     *           from Player class as input
     */
@@ -75,7 +75,7 @@ public class PlayerList implements Serializable
       }
 
    }
-   
+
 
    @Override
    public String toString()
@@ -124,6 +124,14 @@ public class PlayerList implements Serializable
          }
       }
       return true;
+   }
+   /**
+    * 
+    * @return size length  of players
+    */
+   
+   public int size() {
+      return players.size();
    }
 
 }

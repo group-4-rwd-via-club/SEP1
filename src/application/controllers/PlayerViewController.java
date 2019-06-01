@@ -160,20 +160,24 @@ public class PlayerViewController {
      */
     private void addPlayer()
     {
+
         Player newPlayer = new Player();
         setPlayerDetails(newPlayer);
 
-        if(!viaClubManagement.getPlayerList().isPlayerNumberUnique(newPlayer))
-        {
-           Alert alert = new Alert(Alert.AlertType.WARNING,"Error: Player number already assigned. Choose another player number!");
+//TODO
+        if(isTheSameNumber(newPlayer)) {
+
+           Alert alert = new Alert(Alert.AlertType.WARNING,"Error: This number has already been assigned.Please add again");
            alert.setTitle("Alert");
            alert.setHeaderText(null);
            alert.showAndWait();
-           return;
-        }
+
+
+        }else {
 
         viaClubManagement.getPlayerList().addPlayer(newPlayer);
         viaClubManagement.save();
+        }
     }
 
     /**
@@ -235,7 +239,22 @@ public class PlayerViewController {
 
 
     }
-
+    /**
+     *  compare the new player number by traverse the playerList
+     * @param newPlayer
+     * @return true or false
+     */
+    private boolean isTheSameNumber(Player newPlayer) {
+       PlayerList p = viaClubManagement.getPlayerList();
+       for (int i = 0; i < p.size()-1; i++)
+      {
+         if (newPlayer.getNumber()==p.getAllPlayers().get(i).getNumber())
+         {
+            return true;
+         }
+      }
+       return false;
+    }
 
 
 
