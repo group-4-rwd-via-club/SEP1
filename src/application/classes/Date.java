@@ -8,13 +8,18 @@ import java.time.format.DateTimeFormatter;
 /**
  * Class containing date with methods to get current date
  * and current time.
+ *
+ * serialVersionUID is added to each serializable class to make sure different machines generate
+ * the same UID. https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html
+ *
  * @author GROUP-4
- * @version 2
+ * @version 3
  *
  */
 
 public class Date implements Serializable
 {
+   private static final long serialVersionUID = 6529685098267757690L;
 
    private int day, month, year, hour, minute, second;
    

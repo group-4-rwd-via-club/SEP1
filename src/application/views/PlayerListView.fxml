@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PlayerListViewController">
+<VBox prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.PlayerListViewController">
     <children>
       <HBox alignment="CENTER_LEFT" blendMode="MULTIPLY" prefHeight="43.0" prefWidth="821.0" spacing="10.0">
          <children>
@@ -36,7 +36,7 @@
             <TableColumn fx:id="textFieldShirt" minWidth="100.0" prefWidth="-1.0" text=" Shirt" />
             <TableColumn fx:id="textFieldPosition" minWidth="100.0" prefWidth="-1.0" text="Position " />
             <TableColumn fx:id="textFieldAvailable" minWidth="100.0" prefWidth="-1.0" text="Status" />
-            <TableColumn fx:id="textFieldMatches" minWidth="100.0" prefWidth="-1.0" text="Matches" />
+            <TableColumn fx:id="textFieldMatches" minWidth="100.0" prefWidth="-1.0" text="Matches in row" />
         </columns>
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" />
