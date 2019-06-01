@@ -164,7 +164,7 @@ public class PlayerViewController {
         Player newPlayer = new Player();
         setPlayerDetails(newPlayer);
 
-//TODO
+ 
         if(isTheSameNumber(newPlayer)) {
 
            Alert alert = new Alert(Alert.AlertType.WARNING,"Error: This number has already been assigned.Please add again");
