@@ -183,7 +183,7 @@ public class PlayerViewController {
            alert.setHeaderText(null);
            alert.showAndWait();
            
-           
+          
         }
     }
 
@@ -205,7 +205,7 @@ public class PlayerViewController {
         }
          
          
-           
+            
           
             
         
@@ -259,7 +259,11 @@ public class PlayerViewController {
 
 
     }
-    
+    /**
+     *  compare the new player number by traverse the playerList 
+     * @param newPlayer
+     * @return true or false
+     */
     private boolean isTheSameNumber(Player newPlayer) {
        PlayerList p = viaClubManagement.getPlayerList();
        for (int i = 0; i < p.size()-1; i++)

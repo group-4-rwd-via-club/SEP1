@@ -50,7 +50,7 @@ public class PlayerList implements Serializable
    }
 
    /**
-    * update and change individual player's detail TODO: make an exception class
+    * update and change individual player's detail  
     * for update player
     * 
     * @param player
@@ -132,17 +132,11 @@ public class PlayerList implements Serializable
       return null;
    }
 
-    public int getNumber()
-   {
-      int n=0;
-      for (int i = 0; i < players.size(); i++)
-      {
-         n=players.get(i).getNumber();
-      }
-       return n;
-   }
 
-
+/**
+ * size of arrayList 
+ * @return size as int
+ */
   public int size() {
      return players.size();
   }
