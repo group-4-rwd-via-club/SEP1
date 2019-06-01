@@ -11,6 +11,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.print.PrinterJob;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -64,10 +66,14 @@ public class PlayerListViewController
 
 
    private VIAClubManagement viaClubManagement;
+   
+   private ObservableList<Player> filteredData = FXCollections.observableArrayList();
+   
+   private ObservableList<Player> masterData = FXCollections.observableArrayList();
 
 
     /**
-     * No arg public constructor. Initialise viaclub management
+     * No arg public constructor. Initialize viaclub management
      */
    public PlayerListViewController()
    {
@@ -79,7 +85,9 @@ public class PlayerListViewController
    private void initialize()
    {
       
-//      PlayerList p = viaClubManagement.getPlayerList();
+ /**
+  *  event handler for mouse click the add button to open player window to add a new player
+  */
       add.setOnAction(event -> {
          PlayerViewClass open = new PlayerViewClass();
          Stage stage = new Stage();
@@ -89,32 +97,19 @@ public class PlayerListViewController
          open.start(stage);
       });
       
-//      print.addEventHandler(MouseEvent.MOUSE_CLICKED,
-//            new EventHandler<MouseEvent>()
-//            {
-//
-//               public void handle(MouseEvent e)
-//               {
-//
-//                  Alert alert = new Alert(AlertType.INFORMATION);
-//                  alert.setTitle("Players");
-//                  alert.setHeaderText(null);
-//
-//                  alert.setContentText(p.toString());
-//
-//                  alert.showAndWait();
-//
-//               }
-//            }
-//
-//      );
+// print the table to PDF 
+      print.setOnAction(e ->print(table));
 
-
+/**
+ * event handler for typing the keyword to search player(s) in the playerList
+ */
       searchplayer.textProperty().addListener((obs, oldText, newText) -> {
          if (!oldText.equals(newText))
              setFilteredData(newText);
      });
-      
+  /**
+   * event handler for double click the row of the player in the table to update player's detail    
+   */
       table.setOnMousePressed(e -> {
          if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
              String id = ((Player) table.getSelectionModel().getSelectedItem()).getId();
@@ -132,8 +127,10 @@ public class PlayerListViewController
       initializeTableView();
    }
    
-   private ObservableList<Player> masterData = FXCollections.observableArrayList();
-
+   
+   /**
+    * Initializes table view of players 
+    */
    private void initializeTableView()
    {
         updateTableContent();
@@ -147,6 +144,10 @@ public class PlayerListViewController
 
         table.setItems(masterData);
    }
+   
+   /**
+    * Updates the table content of available players
+    */
    private void updateTableContent()
    {
        if (viaClubManagement.getPlayerList()!=null) {
@@ -158,7 +159,10 @@ public class PlayerListViewController
    }
 
 
-   private ObservableList<Player> filteredData = FXCollections.observableArrayList();
+   /**
+    * search player by keyword
+    * @param keyword Read keyword from textField: search
+    */
 
    private void setFilteredData(String keyword)
    {
@@ -185,5 +189,24 @@ public class PlayerListViewController
        table.setItems(filteredData);
    }
    
+   
+   
+   
+// print the table to PDF  delete later
+   private void print(Node string) {
+     PrinterJob job=PrinterJob.createPrinterJob();
+     if (job != null) {
+        System.out.println(job.jobStatusProperty().asString());
+
+        boolean printed = job.printPage(string);
+        if (printed) {
+          job.endJob();
+        } else {
+          System.out.println("Printing failed.");
+        }
+      } else {
+        System.out.println("Could not create a printer job.");
+      }
+   }
 
 }

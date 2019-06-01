@@ -44,6 +44,8 @@ public class PlayerViewController {
     @FXML
     private Label labelEndDate;
 
+
+
     /**
      * default initialize method
      * initialize all fields and sets onAction events on buttons and fields.
@@ -91,6 +93,7 @@ public class PlayerViewController {
                 }
             }
         });
+
 
 
         setPlayerInformation();
@@ -192,6 +195,21 @@ public class PlayerViewController {
         {
             newPlayer.setNumber(Integer.parseInt(textFieldNumber.getText()));
         }
+        PlayerList p = viaClubManagement.getPlayerList();
+        
+     
+          if(newPlayer.getNumber()==p.getNumber()) {
+             System.out.println(p);
+             Alert alert = new Alert(Alert.AlertType.WARNING,"Error: This number has already been assigned.Please delete");
+             alert.setTitle("Alert");
+             alert.setHeaderText(null);
+             alert.showAndWait();
+          }
+         
+           
+          
+            
+        
 
         newPlayer.setShirtName(textFieldShirt.getText());
         newPlayer.setPreferredPosition((PositionType)comboBoxPosition.getValue());
@@ -242,6 +260,7 @@ public class PlayerViewController {
 
 
     }
+
 
 
 
