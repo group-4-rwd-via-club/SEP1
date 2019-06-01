@@ -12,13 +12,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox fillHeight="false" spacing="5.0">
-         <children>
-            <Button fx:id="buttonPrint" mnemonicParsing="false" prefWidth="60.0" text="Print" />
-         </children>
-      </HBox>
+      <HBox fillHeight="false" spacing="5.0" />
       <HBox>
          <children>
             <VBox>
