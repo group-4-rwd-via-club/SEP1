@@ -169,20 +169,21 @@ public class PlayerViewController {
      */
     private void addPlayer()
     {
+        
         Player newPlayer = new Player();
         setPlayerDetails(newPlayer);
         viaClubManagement.getPlayerList().addPlayer(newPlayer);
         viaClubManagement.save();
 
-        PlayerList p = viaClubManagement.getPlayerList();
+//TODO         
+        if(isTheSameNumber(newPlayer)) {
         
-        
-        if(newPlayer.getNumber()==p.getNumber()) {
-           System.out.println(p);
            Alert alert = new Alert(Alert.AlertType.WARNING,"Error: This number has already been assigned.Please delete");
            alert.setTitle("Alert");
            alert.setHeaderText(null);
            alert.showAndWait();
+           
+           
         }
     }
 
@@ -258,7 +259,18 @@ public class PlayerViewController {
 
 
     }
-
+    
+    private boolean isTheSameNumber(Player newPlayer) {
+       PlayerList p = viaClubManagement.getPlayerList();
+       for (int i = 0; i < p.size()-1; i++)
+      {
+         if (newPlayer.getNumber()==p.getAllPlayers().get(i).getNumber())
+         {
+            return true;
+         }
+      }
+       return false;
+    }
 
 
 

@@ -141,20 +141,10 @@ public class PlayerList implements Serializable
       }
        return n;
    }
-   
-   public int[] getAllNumber() {
-       int[] n = new int[players.size()];
-      for (int i = 0; i < players.size(); i++)
-      {
-         n[i]= players.get(i).getNumber();
-      }
-      return n;
-   }
 
-   
-   public int size()
-   {
-      return players.size();
-   }
+
+  public int size() {
+     return players.size();
+  }
 
 }
