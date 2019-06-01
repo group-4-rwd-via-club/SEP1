@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * serialVersionUID is added to each serializable class to make sure different machines generate
  * the same UID. https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html
  * @author Group 4
- * @Version 2
+ * @version 2
  */
 
 public class PlayerList implements Serializable
@@ -24,12 +24,12 @@ public class PlayerList implements Serializable
     */
    public PlayerList()
    {
-      players = new ArrayList<Player>();
+      players = new ArrayList<>();
    }
 
    /**
     * Adds a player to the list
-    * 
+    *
     * @param player
     *           the player to add to the list
     */
@@ -40,7 +40,7 @@ public class PlayerList implements Serializable
 
    /**
     * remove individual player
-    * 
+    *
     * @param player
     *           the player to remove to the list
     */
@@ -50,9 +50,9 @@ public class PlayerList implements Serializable
    }
 
    /**
-    * update and change individual player's detail  
+    * update and change individual player's detail
     * for update player
-    * 
+    *
     * @param player
     *           from Player class as input
     */
@@ -75,7 +75,7 @@ public class PlayerList implements Serializable
       }
 
    }
-   
+
 
    @Override
    public String toString()
@@ -93,52 +93,37 @@ public class PlayerList implements Serializable
    {
       return this.players;
    }
-   /**
-    * Get a player
-    * 
-    * @param keyword
-    *           search a player by keyword
-    * @return result with player's detail
-    */
-   public Player getPlayer(String keyword)
-   {
-      Player result = new Player();
-
-      for (int i = 0; i < players.size(); i++)
-      {
-         if ((keyword.equals(players)))
-         {
-            result = players.get(i);
-         }else {
-            System.out.println("Type the right name");
-         }
-
-      }
-      return result;
-   }
 
    /**
     * Finds a player with a matching ID and returns the object
     * @param id as a UUID String
-    * @returns Player object if found or null if not found
+    * @return Player object if found or null if not found
     */
    public Player getPlayerById(String id)
    {
       for (Player player : players)
       {
-         if (player.getId() == id)
+         if (player.getId().equals(id))
             return player;
       }
       return null;
    }
 
-
-/**
- * size of arrayList 
- * @return size as int
- */
-  public int size() {
-     return players.size();
-  }
+   /**
+    * Check if input player object number already exists in players list.
+    * @param player object
+    * @return false if a player number already exists in players. True if it does not exist.
+    */
+   public boolean isPlayerNumberUnique(Player player)
+   {
+      for (Player p : players)
+      {
+         if (player.getNumber() == p.getNumber())
+         {
+            return false;
+         }
+      }
+      return true;
+   }
 
 }

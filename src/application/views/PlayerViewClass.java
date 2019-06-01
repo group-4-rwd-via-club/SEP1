@@ -18,13 +18,13 @@ import javafx.stage.Stage;
 
 public class PlayerViewClass extends Application
 {
-   public static String playerId;
+   private static String playerId;
 
    /**
     * Public constructor without argument for initialization of the class
     */
    public PlayerViewClass(){
-      this.playerId = null;
+      playerId = null;
    }
    /**
     * Public constructor which takes a player ID as argument and sets a private field
@@ -33,7 +33,7 @@ public class PlayerViewClass extends Application
    public PlayerViewClass(String id)
    {
 
-      this.playerId = id;
+      playerId = id;
    }
 
    @Override
@@ -43,7 +43,7 @@ public class PlayerViewClass extends Application
       {
          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PlayerView.fxml"));
          PlayerViewController playerViewController = new PlayerViewController();
-         if (this.playerId != null) {
+         if (playerId != null) {
             playerViewController.setPlayer(playerId);
          }
          fxmlLoader.setController(playerViewController);

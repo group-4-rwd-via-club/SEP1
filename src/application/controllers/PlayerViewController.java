@@ -1,12 +1,10 @@
 package application.controllers;
 
 import application.classes.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
 import java.time.LocalDate;
 
 
@@ -25,12 +23,10 @@ public class PlayerViewController {
     private TextField textFieldNumber;
     @FXML
     private TextField textFieldShirt;
-
     @FXML
     private ComboBox comboBoxPosition;
     @FXML
     private ComboBox comboBoxAvailability;
-
     @FXML
     private Button buttonDelete;
     @FXML
@@ -42,7 +38,7 @@ public class PlayerViewController {
     @FXML
     private Label labelEndDate;
 
-
+    private Player player;
 
     /**
      * default initialize method
@@ -83,12 +79,9 @@ public class PlayerViewController {
             stage.close();
         });
 
-        // force only numeric input
-        textFieldNumber.textProperty().addListener(new ChangeListener<String>() {
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    textFieldNumber.setText(newValue.replaceAll("[^\\d]", ""));
-                }
+        textFieldNumber.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                textFieldNumber.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
 
@@ -107,8 +100,6 @@ public class PlayerViewController {
         viaClubManagement = new VIAClubManagement();
 
     }
-
-    private Player player;
 
     /**
      * Sets player for edit window. If id is provided as argument
@@ -164,51 +155,40 @@ public class PlayerViewController {
     private VIAClubManagement viaClubManagement;
 
     /**
-     * adds a player to playerList in viaclub
+     * adds a player to playerList in viaclub. If the player number already exists, an alert message dialog is displayed and the player is not saved.
      * and saves it to disk through viaClubManagement save method.
      */
     private void addPlayer()
     {
-        
+
         Player newPlayer = new Player();
         setPlayerDetails(newPlayer);
-        viaClubManagement.getPlayerList().addPlayer(newPlayer);
-        viaClubManagement.save();
 
-//TODO         
+//TODO
         if(isTheSameNumber(newPlayer)) {
-        
+
            Alert alert = new Alert(Alert.AlertType.WARNING,"Error: This number has already been assigned.Please delete");
            alert.setTitle("Alert");
            alert.setHeaderText(null);
            alert.showAndWait();
-           
-          
+
+
         }
+
+        viaClubManagement.getPlayerList().addPlayer(newPlayer);
+        viaClubManagement.save();
     }
 
     /**
      * setPlayerDetails sets all the details in the view fields on the input object.
+     * if player number is empty, the string will be changed to '-1'.
      * @param newPlayer which is a Player object
      */
     private void setPlayerDetails(Player newPlayer) {
         newPlayer.setFirstname(textFieldFirstName.getText());
         newPlayer.setLastname(textFieldLastName.getText());
 
-        if (textFieldNumber.getText().isEmpty())
-        {
-            newPlayer.setNumber(-1);
-        }
-        else
-        {
-            newPlayer.setNumber(Integer.parseInt(textFieldNumber.getText()));
-        }
-         
-         
-            
-          
-            
-        
+        newPlayer.setNumber(textFieldNumber.getText().isEmpty() ? -1 : Integer.parseInt(textFieldNumber.getText()));
 
         newPlayer.setShirtName(textFieldShirt.getText());
         newPlayer.setPreferredPosition((PositionType)comboBoxPosition.getValue());
@@ -224,7 +204,6 @@ public class PlayerViewController {
         {
             availability.setUnavailableEnd(new Date(pickedDate.getDayOfMonth(), pickedDate.getMonthValue(), pickedDate.getYear()));
         }
-
 
         newPlayer.setAvailability(availability);
     }
@@ -260,7 +239,7 @@ public class PlayerViewController {
 
     }
     /**
-     *  compare the new player number by traverse the playerList 
+     *  compare the new player number by traverse the playerList
      * @param newPlayer
      * @return true or false
      */

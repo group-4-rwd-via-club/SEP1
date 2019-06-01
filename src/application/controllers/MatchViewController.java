@@ -6,16 +6,15 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import static application.classes.UnavailableType.*;
+import static application.classes.UnavailableType.available;
+import static application.classes.UnavailableType.suspended;
 
 /**
  * Controller for Match view
@@ -274,7 +273,7 @@ public class MatchViewController
     * Saves match details if entered
     * @param match to get details from
     */
-   public void saveOptionalFields(Match match){
+   private void saveOptionalFields(Match match){
       match.setMatchType(typeField.getValue());
       if (dateField.getValue() != null){
          Date matchDate;
@@ -377,9 +376,8 @@ public class MatchViewController
 
    /**
     * Action event listener to get the selected match type - Removes players if no type is selected
-    * @param e
     */
-   public void typeSelect(ActionEvent e) {
+   public void typeSelect() {
       getTypeSelected();
       updateAvailablePlayers();
       updateAssignedPlayers();
@@ -446,7 +444,7 @@ public class MatchViewController
    private void updateAssignedPlayers(){
       if (assignedPlayers.size() != 0){
          if (getTypeSelected().equals(MatchType.none))
-            assignedPlayers.removeAll(assignedPlayers);
+            assignedPlayers = new ArrayList<>();
 
          updateAvailableTableContent();
          initializeAssignedView();
@@ -557,7 +555,7 @@ public class MatchViewController
     * Checks til players preferred position to determine if the position is available in the current lineup
     * @param player to be checked
     */
-   public void checkAssignedList(Player player){
+   private void checkAssignedList(Player player){
       int numberOfPitchPlayers = 11;
       int fieldCount = 0;
       int benchCount = 0;
@@ -575,7 +573,7 @@ public class MatchViewController
          if (benchCount < numberOfBenchPlayers){
             if (player.getPreferredPosition().equals(PositionType.none)) {
                Alert noneAlert = new Alert(Alert.AlertType.INFORMATION,
-                       "The player is not assgned a position + \n" +
+                       "The player is not assgned a position \n" +
                                "The player will be assigned to the bench",
                        ButtonType.OK);
                noneAlert.setTitle("Position Information");

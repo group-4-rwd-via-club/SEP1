@@ -26,8 +26,8 @@ public class Player implements Serializable
    /**
     * 2arg constructor to initialize fields:firstname, lastname
     *
-    * @param firstname
-    * @param lastname
+    * @param firstname as a input string for the player
+    * @param lastname as a input string for the player
     */
    public Player(String firstname, String lastname)
    {
@@ -71,17 +71,17 @@ public class Player implements Serializable
    }
    /**
     * 7 agr constructor which initialize :
-    * id firstname lastname number shirtname preferredPosition matchInRow
-    * @param id
-    * @param firstname
-    * @param lastname
-    * @param number
-    * @param shirtName
-    * @param preferredPosition
+    * id firstname lastname number shirtname preferredPosition matchInRow.
+    * @param id of the player.
+    * @param firstname of the player.
+    * @param lastname of the player.
+    * @param number player number.
+    * @param shirtName shirt name.
+    * @param preferredPosition preferred position on the field.
     */
-    
-   public Player(String id, String firstname, String lastname, int number,
-         String shirtName, PositionType preferredPosition)
+
+   private Player(String id, String firstname, String lastname, int number,
+                  String shirtName, PositionType preferredPosition)
    {
       
       this.id = id;
@@ -102,7 +102,7 @@ public class Player implements Serializable
    }
    /**
     * Gets the ID for the current player.
-    * @returns private field ID.
+    * @return private field ID.
     */
    public String getId()
    {
@@ -166,7 +166,7 @@ public class Player implements Serializable
    }
 /**
  * set shirtName 
- * @param shirtName 
+ * @param shirtName as String object.
  */
    public void setShirtName(String shirtName)
    {
@@ -261,8 +261,8 @@ public class Player implements Serializable
 
 /**
  * Method to check if input argument and current object is the same.
- * @param takes Player as input object
- * @return boolean valus based  if the object is equal to this.
+ * @param obj as a Player object
+ * @return boolean values based  if the object is equal to this.
  * 
  */
    public boolean equals(Object obj)
