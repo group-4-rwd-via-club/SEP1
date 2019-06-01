@@ -25,7 +25,7 @@ public class MatchListViewController {
     @FXML
     private Button addButton;
     @FXML
-    private TableView tableView;
+    private TableView<Match> tableView;
     @FXML
     private TableColumn<Match, String> matchDate;
     @FXML
@@ -73,12 +73,10 @@ public class MatchListViewController {
         tableView.setOnMousePressed(e -> {
             if (e.isPrimaryButtonDown() && e.getClickCount() == 2) {
                 if (tableView.getSelectionModel().getSelectedItem() != null){
-                    String id = ((Match) tableView.getSelectionModel().getSelectedItem()).getId();
+                    String id = (tableView.getSelectionModel().getSelectedItem()).getId();
                     MatchViewClass mt = new MatchViewClass(id);
                     Stage stage = new Stage();
-                    stage.setOnHidden(event -> {
-                        updateTableContent();
-                    });
+                    stage.setOnHidden(event -> updateTableContent());
                     mt.start(stage);
                 }
             }

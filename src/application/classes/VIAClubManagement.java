@@ -43,7 +43,7 @@ public class VIAClubManagement {
      * sets boolean isInitialized to true to prevent
      * the two lists from being initialized and loaded multiple times.
      */
-    public void Init()
+    private void Init()
     {
         isInitialized = true;
         matchList = new MatchList();
@@ -55,7 +55,7 @@ public class VIAClubManagement {
      */
     public MatchList getMatchList()
     {
-        return this.matchList;
+        return matchList;
     }
 
     /**
@@ -64,7 +64,7 @@ public class VIAClubManagement {
      */
     public PlayerList getPlayerList()
     {
-        return this.playerList;
+        return playerList;
     }
 
     /**
@@ -73,7 +73,6 @@ public class VIAClubManagement {
      */
     public void save()
     {
-
         try
         {
 
@@ -90,7 +89,7 @@ public class VIAClubManagement {
      * And converts the loaded data into matchlist and playerlist
      * if file does not exist it returns without trying
      */
-    public void load()
+    private void load()
     {
         if (!(new File(fileAdapter.getFileName()).exists()))
         {
@@ -102,15 +101,11 @@ public class VIAClubManagement {
         try
         {
             VIAClubManagementSerializable vcm = (VIAClubManagementSerializable)fileAdapter.readObjectFromFile();
-            this.matchList = vcm.getMatchList();
-            this.playerList = vcm.getPlayerList();
+            matchList = vcm.getMatchList();
+            playerList = vcm.getPlayerList();
 
         }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        catch (ClassNotFoundException e)
+        catch (IOException | ClassNotFoundException e)
         {
             e.printStackTrace();
         }

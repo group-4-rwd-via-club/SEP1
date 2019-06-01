@@ -3,7 +3,6 @@ package application.classes;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  *  Class which contains all match information regarding a match.
@@ -18,7 +17,7 @@ public class Match implements Serializable
 {
     private static final long serialVersionUID = 6529685098267757690L;
 
-      private String id;
+      private final String id;
       private String opponent;
       private String location;
       private String score;
@@ -63,7 +62,7 @@ public class Match implements Serializable
 
       /**
        * Gets the ID for the current match.
-       * @returns private field ID.
+       * @return private field ID.
        */
       public String getId()
       {
@@ -81,7 +80,7 @@ public class Match implements Serializable
       
       /**
        * Gets opponent set in the private field.
-       * @returns opponent as a string.
+       * @return opponent as a string.
        */
       
       public String getOpponent()
@@ -91,7 +90,7 @@ public class Match implements Serializable
       
       /**
        * Sets location as a string and takes string as argument.
-       * @param inputs location as a string input.
+       * @param location as a string input.
        */
       public void setLocation(String location)
       {
@@ -110,7 +109,7 @@ public class Match implements Serializable
 
       /**
        * Method for setting the score.
-       * @param taking score as a string input.
+       * @param viaScore and oppScore as a string input.
        */
       public void setScore(String viaScore, String oppScore)
       {
@@ -142,7 +141,7 @@ public class Match implements Serializable
 
       /**
        * Method to set the date of the match.
-       * @param takes Date class as input.
+       * @param other as Date class as input.
        */
       public void setDate(Date other)
       {
@@ -169,14 +168,14 @@ public class Match implements Serializable
         return this.matchType;
         }
 
-    /**
-     * Sets the match type
-     * @param matchType to be set
-     */
-    public void setMatchType(MatchType matchType) { this.matchType = matchType; }
+        /**
+         * Sets the match type
+         * @param matchType to be set
+         */
+        public void setMatchType(MatchType matchType) { this.matchType = matchType; }
         /**
         * Sets roster of players in the match.
-        * @param takes list of players
+        * @param playerList as a list of players
         */
         public void setRoster(PlayerList playerList)
         {
@@ -185,7 +184,7 @@ public class Match implements Serializable
 
         /**
         * Gets a playerlist of all playerrs associated with the match
-        * @return
+        * @return match roster as PlayerList Object
         */
         public PlayerList getRoster()
         {
@@ -195,7 +194,7 @@ public class Match implements Serializable
 
         /**
          * ToString method which returns values of all fields as String.
-         * @returns string with all fields
+         * @return string with all fields
          */
         public String toString() {
             return "Match{" +
@@ -210,24 +209,24 @@ public class Match implements Serializable
         }
 
     /**
-       * Method to check if input argument and current object is the same.
-       * @param takes Match as input object
-       * @returns boolean value based on if the object is equal to this.
-       */
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+   * Method to check if input argument and current object is the same.
+   * @param o as a Match Object
+   * @return boolean value based on if the object is equal to this.
+   */
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-            Match other = (Match) o;
+        Match other = (Match) o;
 
-            if (!Objects.equals(id, other.id)) return false;
-            if (!Objects.equals(opponent, other.opponent)) return false;
-            if (!Objects.equals(location, other.location)) return false;
-            if (!Objects.equals(score, other.score)) return false;
-            if (!Objects.equals(matchRoster, other.matchRoster)) return false;
-            if (!Objects.equals(date, other.date)) return false;
-            return matchType == other.matchType;
-        }
+        if (!Objects.equals(id, other.id)) return false;
+        if (!Objects.equals(opponent, other.opponent)) return false;
+        if (!Objects.equals(location, other.location)) return false;
+        if (!Objects.equals(score, other.score)) return false;
+        if (!Objects.equals(matchRoster, other.matchRoster)) return false;
+        if (!Objects.equals(date, other.date)) return false;
+        return matchType == other.matchType;
+    }
 
 
 }

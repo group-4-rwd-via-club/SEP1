@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * serialVersionUID is added to each serializable class to make sure different machines generate
  * the same UID. https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html
  * @author Group 4
- * @Version 2
+ * @version 2
  */
 
 public class PlayerList implements Serializable
@@ -24,7 +24,7 @@ public class PlayerList implements Serializable
     */
    public PlayerList()
    {
-      players = new ArrayList<Player>();
+      players = new ArrayList<>();
    }
 
    /**
@@ -93,68 +93,37 @@ public class PlayerList implements Serializable
    {
       return this.players;
    }
-   /**
-    * Get a player
-    * 
-    * @param keyword
-    *           search a player by keyword
-    * @return result with player's detail
-    */
-   public Player getPlayer(String keyword)
-   {
-      Player result = new Player();
-
-      for (int i = 0; i < players.size(); i++)
-      {
-         if ((keyword.equals(players)))
-         {
-            result = players.get(i);
-         }else {
-            System.out.println("Type the right name");
-         }
-
-      }
-      return result;
-   }
 
    /**
     * Finds a player with a matching ID and returns the object
     * @param id as a UUID String
-    * @returns Player object if found or null if not found
+    * @return Player object if found or null if not found
     */
    public Player getPlayerById(String id)
    {
       for (Player player : players)
       {
-         if (player.getId() == id)
+         if (player.getId().equals(id))
             return player;
       }
       return null;
    }
 
-    public int getNumber()
+   /**
+    * Check if input player object number already exists in players list.
+    * @param player object
+    * @return false if a player number already exists in players. True if it does not exist.
+    */
+   public boolean isPlayerNumberUnique(Player player)
    {
-      int n=0;
-      for (int i = 0; i < players.size(); i++)
+      for (Player p : players)
       {
-         n=players.get(i).getNumber();
+         if (player.getNumber() == p.getNumber())
+         {
+            return false;
+         }
       }
-       return n;
-   }
-   
-   public int[] getAllNumber() {
-       int[] n = new int[players.size()];
-      for (int i = 0; i < players.size(); i++)
-      {
-         n[i]= players.get(i).getNumber();
-      }
-      return n;
-   }
-
-   
-   public int size()
-   {
-      return players.size();
+      return true;
    }
 
 }
