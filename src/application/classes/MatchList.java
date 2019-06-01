@@ -7,14 +7,19 @@ import java.util.Objects;
 /**
  * MatchList class represent a class with contains
  * all the matches included in the program.
+ *
+ * serialVersionUID is added to each serializable class to make sure different machines generate
+ * the same UID. https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html
  * 
  * @author Group-4
- * @version 2
+ * @version 3
  */
 
 
 public class MatchList implements Serializable
 {
+   private static final long serialVersionUID = 6529685098267757690L;
+
    private ArrayList<Match> matches;
    
    /**

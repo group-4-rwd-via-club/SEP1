@@ -5,18 +5,22 @@ import java.io.Serializable;
 /**
  * Class which contains all player information
  *
+ * serialVersionUID is added to each serializable class to make sure different machines generate
+ * the same UID. https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html
+ *
  * @author Group-4
  * @version 5
  */
 public class Player implements Serializable
 {
+   private static final long serialVersionUID = 6529685098267757690L;
+
    private String id;
    private String firstname;
    private String lastname;
    private int number;
    private String shirtName;
    private PositionType preferredPosition;
-   private int matchesInRow;
    private Availability availability;
 
    /**
@@ -52,7 +56,7 @@ public class Player implements Serializable
    }
    /**
     * 1agr constructor which initialize:
-    * Player firstname,lastname ,shirtName ,preferredPosition, matchesInRow ,availability
+    * Player firstname,lastname ,shirtName ,preferredPosition ,availability
     */
    public Player(Player player)
    {
@@ -61,7 +65,6 @@ public class Player implements Serializable
       this.number = player.number;
       this.shirtName=player.shirtName;
       this.preferredPosition=player.preferredPosition;
-      this.matchesInRow=player.matchesInRow;
       this.availability=player.availability;
 
       this.id = StringUUID.generateId();
@@ -75,11 +78,10 @@ public class Player implements Serializable
     * @param number
     * @param shirtName
     * @param preferredPosition
-    * @param matchesInRow
     */
     
    public Player(String id, String firstname, String lastname, int number,
-         String shirtName, PositionType preferredPosition, int matchesInRow)
+         String shirtName, PositionType preferredPosition)
    {
       
       this.id = id;
@@ -88,7 +90,6 @@ public class Player implements Serializable
       this.number = number;
       this.shirtName = shirtName;
       this.preferredPosition = preferredPosition;
-      this.matchesInRow = matchesInRow;
    }
 
    /**
@@ -191,14 +192,29 @@ public class Player implements Serializable
  * get MatchesInRow
  * @return matchesInRow as int
  */
-   public int getMatchesInRow()
+   public int getMatchesInRow(MatchList matchList)
    {
-      return matchesInRow;
+      int played = 0;
+
+      for (Match match : matchList.getAllMatches())
+      {
+         if (match.getRoster().getPlayerById(this.id) != null)
+         {
+            played++;
+         }
+         else
+         {
+            played = 0;
+         }
+      }
+
+      return played;
+
    }
 
    public Player copy(){
       return new Player (this.id, this.firstname, this.lastname, this.number,
-              this.shirtName, this.preferredPosition, this.matchesInRow);
+              this.shirtName, this.preferredPosition);
    }
 
    public boolean idEquals(Object obj)
@@ -230,6 +246,8 @@ public class Player implements Serializable
    {
       this.availability = availability;
    }
+
+
    /**
     * output data as String
     */
@@ -238,8 +256,9 @@ public class Player implements Serializable
    {
       return     firstname +" "+ lastname + "  number:" + number + ", shirtName:" + shirtName
             + ", Position:" + preferredPosition + ", matchesInRow="
-            + matchesInRow + "\n";
+            + "\n";
    }
+
 /**
  * Method to check if input argument and current object is the same.
  * @param takes Player as input object
@@ -257,8 +276,7 @@ public class Player implements Serializable
       return id.equals(other.id) && firstname.equals(other.firstname)
             && lastname.equals(other.lastname)
             && shirtName.equals(other.shirtName) && number == other.number
-            && preferredPosition.equals(other.preferredPosition)
-            && matchesInRow == other.matchesInRow;
+            && preferredPosition.equals(other.preferredPosition);
    }
 
 }
