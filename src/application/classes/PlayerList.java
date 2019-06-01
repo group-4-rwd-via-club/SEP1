@@ -50,7 +50,7 @@ public class PlayerList implements Serializable
    }
 
    /**
-    * update and change individual player's detail TODO: make an exception class
+    * update and change individual player's detail
     * for update player
     * 
     * @param player
