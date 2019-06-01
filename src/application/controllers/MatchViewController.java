@@ -444,9 +444,7 @@ public class MatchViewController
    private void updateAssignedPlayers(){
       if (assignedPlayers.size() != 0){
          if (getTypeSelected().equals(MatchType.none))
-            // TODO: Is this correct ? assignplayers remove all assignplayer?
-            // if the intention is to clear the list. Use assignedPlayers = null; or assinedPlayers = new ArrayList
-            assignedPlayers.removeAll(assignedPlayers);
+            assignedPlayers = new ArrayList<>();
 
          updateAvailableTableContent();
          initializeAssignedView();
