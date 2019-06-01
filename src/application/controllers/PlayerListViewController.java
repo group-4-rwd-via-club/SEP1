@@ -85,12 +85,12 @@ public class PlayerListViewController
   *  event handler for mouse click the add button to open player window to add a new player
   */
       add.setOnAction(event -> {
-         PlayerViewClass open = new PlayerViewClass();
+         PlayerViewClass mt = new PlayerViewClass();
          Stage stage = new Stage();
           stage.setOnHidden(o -> {
               updateTableContent();
           });
-         open.start(stage);
+         mt.start(stage);
       });
 
 /**
