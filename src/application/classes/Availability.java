@@ -24,18 +24,7 @@ public class Availability implements Serializable
     */
    public Availability()
    {
-      this.injuryType = injuryType.available;
-   }
-
-   /**
-    * Constructor taking injury type and a date
-    * @param injurytype
-    * @param date
-    */
-   public Availability(UnavailableType injurytype, Date date)
-   {
-      this.injuryType = injurytype;
-      this.availabilityDate = date;
+      this.injuryType = UnavailableType.available;
    }
 
 

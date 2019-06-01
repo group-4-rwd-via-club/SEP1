@@ -15,12 +15,12 @@ public class MatchListViewClass extends Application {
 
     /**
      * Default start method to start the stage.
-     * @param primaryStage
+     * @param primaryStage as input Object
      */
     @Override
     public void start(Stage primaryStage) {
         try {
-            VBox root = (VBox) FXMLLoader.load(getClass().getResource("MatchListView.fxml"));
+            VBox root = FXMLLoader.load(getClass().getResource("MatchListView.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();

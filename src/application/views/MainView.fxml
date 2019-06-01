@@ -4,17 +4,17 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.MainViewController">
-   <children>
-      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="200.0" VBox.vgrow="ALWAYS">
-        <tabs>
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.172-ea"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.MainViewController">
+    <TabPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="400.0" tabClosingPolicy="UNAVAILABLE"
+             tabMinHeight="30.0" tabMinWidth="200.0" VBox.vgrow="ALWAYS">
+      <tabs>
           <Tab text="Match list">
-              <fx:include fx:id="MatchListViewClass" source="MatchListView.fxml" />
+              <fx:include fx:id="MatchListViewClass" source="MatchListView.fxml"/>
           </Tab>
           <Tab text="Player list">
-              <fx:include fx:id="PlayerListViewClass" source="PlayerListView.fxml" />
+              <fx:include fx:id="PlayerListViewClass" source="PlayerListView.fxml"/>
           </Tab>
-        </tabs>
-      </TabPane>
-   </children>
+      </tabs>
+    </TabPane>
 </VBox>
