@@ -58,7 +58,7 @@ public class PlayerListViewController
    private TableColumn<Player, String> textFieldAvailable;
    
    @FXML
-   private TableColumn<Match, Integer > textFieldMatches;
+   private TableColumn<Player, Integer > textFieldMatches;
 
 
    private VIAClubManagement viaClubManagement;
@@ -134,6 +134,7 @@ public class PlayerListViewController
         textFieldShirt.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getShirtName()));
         textFieldPosition.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPreferredPosition().toString() ));
         textFieldAvailable.setCellValueFactory(cellDate -> new SimpleStringProperty(cellDate.getValue().getAvailability().getUnavailableType().toString()));
+        textFieldMatches.setCellValueFactory(cellDate -> new SimpleObjectProperty<Integer>(cellDate.getValue().getMatchesInRow(viaClubManagement.getMatchList())));
 
         table.setItems(masterData);
    }

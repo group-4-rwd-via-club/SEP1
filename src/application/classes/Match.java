@@ -7,12 +7,18 @@ import java.util.UUID;
 
 /**
  *  Class which contains all match information regarding a match.
+ *
+ *  serialVersionUID is added to each serializable class to make sure different machines generate
+ *  the same UID. https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html
+ *
  * @author Group-4
- * @version 3
+ * @version 4
  */
 public class Match implements Serializable
 {
-      private String id = UUID.randomUUID().toString();
+    private static final long serialVersionUID = 6529685098267757690L;
+
+      private String id;
       private String opponent;
       private String location;
       private String score;

@@ -4,11 +4,17 @@ import java.io.Serializable;
 
 /**
  * Class used to serialize and store matchlist and playerlist.
+ *
+ * serialVersionUID is added to each serializable class to make sure different machines generate
+ * the same UID. https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html
+ *
  * @author Group-4
  * @version 1
  */
 
 public class VIAClubManagementSerializable implements Serializable {
+
+    private static final long serialVersionUID = 6529685098267757690L;
 
     private PlayerList playerList;
     private MatchList matchList;

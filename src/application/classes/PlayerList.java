@@ -6,13 +6,16 @@ import java.util.ArrayList;
 /**
  * PlayerList class respresent a class with contains all the players included
  * in the program.
- *
+ * serialVersionUID is added to each serializable class to make sure different machines generate
+ * the same UID. https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html
  * @author Group 4
  * @Version 2
  */
 
 public class PlayerList implements Serializable
 {
+
+   private static final long serialVersionUID = 6529685098267757690L;
 
    private ArrayList<Player> players;
 
@@ -129,20 +132,15 @@ public class PlayerList implements Serializable
       return null;
    }
 
-   @Override
-   public boolean equals(Object obj)
+    public int getNumber()
    {
-       
-      return super.equals(obj);
+      int n=0;
+      for (int i = 0; i < players.size(); i++)
+      {
+         n=players.get(i).getNumber();
+      }
+       return n;
    }
- public int getNumber() {
-    int n=0;
-    for (int i = 0; i < players.size(); i++)
-   {
-      n=players.get(i).getNumber();
-   }
-    return n;
- }
    
    public int[] getAllNumber() {
        int[] n = new int[players.size()];
