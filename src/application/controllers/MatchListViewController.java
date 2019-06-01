@@ -14,49 +14,47 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-
-@SuppressWarnings("unchecked")
+/**
+ * Controller for MatchListView.
+ * @author Group-4
+ * @version 1
+ */
 public class MatchListViewController {
     @FXML
-    // The reference of searchText will be injected by the FXML loader
     private TextField searchText;
-
-    // The reference of addButton will be injected by the FXML loader
     @FXML
     private Button addButton;
-
-    // The reference of tableView will be injected by the FXML loader
     @FXML
     private TableView tableView;
-
     @FXML
     private TableColumn<Match, String> matchDate;
-
     @FXML
     private TableColumn<Match, String> matchType;
-
     @FXML
     private TableColumn<Match, String> matchLocation;
-
     @FXML
     private TableColumn<Match, String> matchOpponent;
-
     @FXML
     private TableColumn<Match, Number> matchRoster;
-
     @FXML
     private TableColumn<Match, String> matchResult;
 
-
     private final VIAClubManagement viaClubManagement;
 
-    // Add a public no-args constructor
+    /**
+     * public constructor for MatchListViewController
+     * sets viaclubmanagement field.
+     */
     public MatchListViewController()
     {
         viaClubManagement = new VIAClubManagement();
     }
 
 
+    /**
+     * FXML method which initialises upon load. Method is used to set event handlers
+     * for buttons and properties like search text and mouse press.
+     */
     @FXML
     private void initialize()
     {
@@ -88,11 +86,11 @@ public class MatchListViewController {
 
         initializeTableView();
     }
-
-
     private final ObservableList<Match> masterData = FXCollections.observableArrayList();
-
-    @SuppressWarnings("unchecked")
+    /**
+     * Method to initialise Tableview by setting cellvaluefactory to the correct type
+     * The method also sets the observable list as item and updates the table content.
+     */
     private void initializeTableView()
     {
         updateTableContent();
@@ -106,46 +104,37 @@ public class MatchListViewController {
 
         tableView.setItems(masterData);
     }
-
-
+    /**
+     * Method to update tableview content.
+     * It replace the data in observable list with the updated list.
+     */
     private void updateTableContent()
     {
         if (viaClubManagement.getMatchList() != null) {
-
             masterData.clear();
             masterData.addAll(viaClubManagement.getMatchList().getAllMatches());
-
         }
     }
-
-
-
-
     private final ObservableList<Match> filteredData = FXCollections.observableArrayList();
+    /**
+     * Method to find matches that contains string keywords and
+     * add them to a new list which is presented for the user.
+     * @param keyword as a string the method should search for.
+     */
     private void setFilteredData(String keyword)
     {
-        // if keyword is empty, display the entire dataset
         if (keyword.isEmpty())
         {
-            // set table data to the master data set.
             tableView.setItems(masterData);
         }
-        // Clear after each keyword is being typed
         filteredData.clear();
-
-
-
-        // loop through dataset to find keyword
         for (Match match : viaClubManagement.getMatchList().getAllMatches())
         {
-            // Java String indexOf() The java string indexOf() method returns index of given character value or substring. If it is not found, it returns -1. The index counter starts from zero.
             if (match.toString().toLowerCase().contains(keyword.toLowerCase()))
             {
-                // added to filtered match list
                 filteredData.add(match);
             }
         }
-        // set table data to filtered data.
         tableView.setItems(filteredData);
     }
 
