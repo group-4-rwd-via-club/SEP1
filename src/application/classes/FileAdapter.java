@@ -95,8 +95,7 @@ public class FileAdapter
         return obj;
     }
 
-    public void writeToHTML(Match match) throws FileNotFoundException, IOException
-    {
+    public void writeToHTML(Match match) throws FileNotFoundException, IOException {
        ArrayList<String> st = new ArrayList<>();
        ArrayList<String> html = new ArrayList<>();
        ArrayList<Player> roster = new ArrayList<>();
@@ -107,27 +106,23 @@ public class FileAdapter
        String filePrint = match.getDate().toStringShort() 
              + "_" + match.getOpponent() + ".html";
        
-       try
-       {
+       try {
           FileInputStream fileIn = new FileInputStream(fileTemplate);
           read = new Scanner(fileIn);
        }
-       catch(FileNotFoundException e)
-       {
+       catch(FileNotFoundException e) {
           System.out.println("File not found, or " 
                 + "could not be opened");
           System.exit(1);
        }
-       while(read.hasNext())
-       {
+       while(read.hasNext()) {
           st.add(read.nextLine());
        }
        read.close();
        
        String line = "";
        
-       for(int i=0; i<st.size(); i++)
-       {
+       for(int i=0; i<st.size(); i++) {
           line = st.get(i);
           
           if(line.contains("$match")) {
@@ -145,7 +140,7 @@ public class FileAdapter
              html.add(line);
           } else if(line.contains("$type")) {
              line = line.replace("$type",
-                   match.getMatchType().name());
+                   match.getMatchType().toString());
              html.add(line);
           } else if(line.contains("$number")) {
              for(int j=0; j<roster.size(); j++) {
@@ -167,5 +162,22 @@ public class FileAdapter
              html.add(line);
           }
        }
+       PrintWriter write = null;
+       try {
+          FileOutputStream fileOut = 
+                new FileOutputStream(filePrint);
+          write = new PrintWriter(fileOut);
+          
+          for(int i=0; i < html.size(); i++) {
+             write.println(html.get(i));
+          }
+       }
+       catch(FileNotFoundException e)
+       {
+          System.out.println("File not found, or"
+                + " could not be opened");
+          System.exit(1);
+       }
+       write.close();
     }
 }
