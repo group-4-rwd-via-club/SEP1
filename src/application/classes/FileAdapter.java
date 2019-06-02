@@ -1,6 +1,8 @@
 package application.classes;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Class to save and load files in the system
@@ -9,8 +11,6 @@ import java.io.*;
  */
 public class FileAdapter
 {
-
-
     private static final String FILE_NAME = "database.bin";
 
     /**
@@ -59,7 +59,6 @@ public class FileAdapter
      */
     public Object readObjectFromFile() throws FileNotFoundException, IOException, ClassNotFoundException
     {
-
         Object obj = null;
         ObjectInputStream readFromFile = null;
         try
@@ -93,9 +92,80 @@ public class FileAdapter
                 }
             }
         }
-
         return obj;
     }
 
-
+    public void writeToHTML(Match match) throws FileNotFoundException, IOException
+    {
+       ArrayList<String> st = new ArrayList<>();
+       ArrayList<String> html = new ArrayList<>();
+       ArrayList<Player> roster = new ArrayList<>();
+       roster.addAll(match.getRoster().getAllPlayers());
+       
+       Scanner read = null;
+       String fileTemplate = "template.html";
+       String filePrint = match.getDate().toStringShort() 
+             + "_" + match.getOpponent() + ".html";
+       
+       try
+       {
+          FileInputStream fileIn = new FileInputStream(fileTemplate);
+          read = new Scanner(fileIn);
+       }
+       catch(FileNotFoundException e)
+       {
+          System.out.println("File not found, or " 
+                + "could not be opened");
+          System.exit(1);
+       }
+       while(read.hasNext())
+       {
+          st.add(read.nextLine());
+       }
+       read.close();
+       
+       String line = "";
+       
+       for(int i=0; i<st.size(); i++)
+       {
+          line = st.get(i);
+          
+          if(line.contains("$match")) {
+             line = line.replace("$match",
+                   match.getDate().toStringShort() 
+                   + " - " + match.getOpponent());
+             html.add(line);
+          } else if(line.contains("$start")) {
+             line = line.replace("$start",
+                   match.getDate().toStringTime());
+             html.add(line);
+          } else if(line.contains("$location")) {
+             line = line.replace("$start",
+                   match.getLocation());
+             html.add(line);
+          } else if(line.contains("$type")) {
+             line = line.replace("$type",
+                   match.getMatchType().name());
+             html.add(line);
+          } else if(line.contains("$number")) {
+             for(int j=0; j<roster.size(); j++) {
+                String temp = line;
+                
+                Player player = roster.get(j);
+                String name = player.getLastname() + ", " +
+                      player.getFirstname().charAt(0) +".";
+                
+                temp = temp.replace("$number",
+                      Integer.toString(player.getNumber()));
+                temp = temp.replace("$name", name);
+                temp = temp.replace("$position",
+                      player.getPreferredPosition().name());
+                
+                html.add(temp);
+             }           
+          } else {
+             html.add(line);
+          }
+       }
+    }
 }

@@ -171,6 +171,17 @@ public class Date implements Serializable
    {
       return String.format("%d-%02d-%02d", year, month, day);
    }
+
+   /**
+    * 
+    * @return
+    */
+   public String toStringTime()
+   {
+      return Integer.toString(hour) + ":" 
+            + Integer.toString(minute);
+   }
+   
    /**
     * returns currents fields as a norminal string format:
     * yyyy-mm-dd HH:mm:ss
