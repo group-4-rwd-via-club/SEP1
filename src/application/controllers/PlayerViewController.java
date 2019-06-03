@@ -241,7 +241,7 @@ public class PlayerViewController {
     /**
      *  compare the new player number by traverse the playerList
      * @param newPlayer
-     * @return true or false
+     * @return true if the number already exist or false if not exist
      */
     private boolean isTheSameNumber(Player newPlayer) {
        PlayerList p = viaClubManagement.getPlayerList();
