@@ -44,6 +44,8 @@
                      </GridPane.margin>
                   </Label>
                   <TextField fx:id="textFieldFirstName" GridPane.columnIndex="1"/>
+                  <Label text="Last name:" GridPane.rowIndex="1"/>
+                  <TextField fx:id="textFieldLastName" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                   <Label text="Number:" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets/>
@@ -73,8 +75,6 @@
                   <Label fx:id="labelEndDate" text="Availability end date:" GridPane.rowIndex="6"/>
                   <DatePicker fx:id="datePickerEndDate" prefWidth="125.0" promptText="datePickerEndDate"
                               GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-                  <Label text="Last name:" GridPane.rowIndex="1"/>
-                  <TextField fx:id="textFieldLastName" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0"/>
