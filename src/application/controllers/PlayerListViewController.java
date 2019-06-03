@@ -149,7 +149,7 @@ public class PlayerListViewController
            // set table data to the master data set.
            table.setItems(masterData);
        }
-       // Clear after each keyword is being typed
+       // Clear after each keyword is being typed to ensure empty list with new keyword information.
        filteredData.clear();
 
        // loop through dataset to find keyword
