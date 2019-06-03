@@ -75,16 +75,7 @@ public class PlayerList implements Serializable
       }
 
    }
-
-
-   @Override
-   public String toString()
-   {if(players.size()==0) {
-      return "No Player in the list";
-   }else {
-      return "PlayerList [" + players + "]";}
-   }
-
+ 
    /**
     * returns a list with all players in playerlist
     * @return returns an arraylist with all players
