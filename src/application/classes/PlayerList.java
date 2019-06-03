@@ -110,22 +110,6 @@ public class PlayerList implements Serializable
    }
 
    /**
-    * Check if input player object number already exists in players list.
-    * @param player object
-    * @return false if a player number already exists in players. True if it does not exist.
-    */
-   public boolean isPlayerNumberUnique(Player player)
-   {
-      for (Player p : players)
-      {
-         if (player.getNumber() == p.getNumber())
-         {
-            return false;
-         }
-      }
-      return true;
-   }
-   /**
     * 
     * @return size length  of players
     */
