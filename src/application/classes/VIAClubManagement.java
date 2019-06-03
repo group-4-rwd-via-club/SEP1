@@ -91,13 +91,11 @@ public class VIAClubManagement {
      */
     private void load()
     {
+        // if file does not exist, do not even try to load it.
         if (!(new File(fileAdapter.getFileName()).exists()))
         {
-            System.out.println("File does not exists");
             return;
         }
-
-
         try
         {
             VIAClubManagementSerializable vcm = (VIAClubManagementSerializable)fileAdapter.readObjectFromFile();

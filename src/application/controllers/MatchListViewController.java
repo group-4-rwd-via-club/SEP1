@@ -113,7 +113,7 @@ public class MatchListViewController {
             masterData.addAll(viaClubManagement.getMatchList().getAllMatches());
         }
     }
-    private final ObservableList<Match> filteredData = FXCollections.observableArrayList();
+    private ObservableList<Match> filteredData = FXCollections.observableArrayList();
     /**
      * Method to find matches that contains string keywords and
      * add them to a new list which is presented for the user.
@@ -121,18 +121,26 @@ public class MatchListViewController {
      */
     private void setFilteredData(String keyword)
     {
+        // if keyword is empty, display the entire dataset.
         if (keyword.isEmpty())
         {
+            // set table data as the master data.
             tableView.setItems(masterData);
         }
+        // clear data with every new typed data keyword to ensure new information is displayed.
         filteredData.clear();
+        // loop through matchlist to look for the specific keyword.
         for (Match match : viaClubManagement.getMatchList().getAllMatches())
         {
+            // use tostring method to search for keywords. first change it to lower.
             if (match.toString().toLowerCase().contains(keyword.toLowerCase()))
             {
+                // if input keywords are found, add it to the new filtered list
                 filteredData.add(match);
             }
         }
+
+        // add all information in filtered list as tableview data set.
         tableView.setItems(filteredData);
     }
 

@@ -1,11 +1,11 @@
 package application.classes;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
 /**
  * private class to save and load files in the system
@@ -43,7 +43,7 @@ class FileAdapter
                 }
                 catch (IOException e)
                 {
-                    System.out.println("IO Error closing file " + FILE_NAME);
+                    displayErrorMessage("IO File error on", FILE_NAME);
                 }
             }
         }
@@ -87,17 +87,32 @@ class FileAdapter
                 }
                 catch (FileNotFoundException e)
                 {
-                    System.out.println("File not found: " + FILE_NAME);
+                    displayErrorMessage("File not found", FILE_NAME);
                 }
                 catch (IOException e)
                 {
-                    System.out.println("IO Error closing file " + FILE_NAME);
+                    displayErrorMessage("IO File error on", FILE_NAME);
                 }
             }
         }
         return obj;
     }
-    
+
+    /**
+     * Generic method to display error message while doing file operations.
+     * @param message as a string to be displayed without ':'
+     * @param fileName to be displayed in the error message.
+     */
+    private void displayErrorMessage(String message, String fileName)
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("File error");
+        alert.setHeaderText(null);
+        alert.setContentText("Error: " + message + ": " + fileName);
+
+        alert.showAndWait();
+    }
+
     /**
      * Writes match information to a HTML file
      * @param match to be printed
@@ -118,7 +133,7 @@ class FileAdapter
           read = new Scanner(fileIn);
        }
        catch(FileNotFoundException e) {
-          System.out.println("File not found: " + fileTemplate);
+           displayErrorMessage("File not found", filePrint);
        }
        while(read.hasNext()) {
           template.add(read.nextLine());
@@ -229,7 +244,7 @@ class FileAdapter
        }
        catch(FileNotFoundException e)
        {
-          System.out.println("File not found: " + filePrint);
+           displayErrorMessage("File not found", filePrint);
        }
        write.close();
        
