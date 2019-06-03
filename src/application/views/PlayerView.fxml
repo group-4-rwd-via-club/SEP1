@@ -43,8 +43,7 @@
                         <Insets />
                      </GridPane.margin>
                   </Label>
-                  <TextField fx:id="textFieldFirstName" promptText="First name of the player" GridPane.columnIndex="1" />
-                  <Label text="Number:" GridPane.rowIndex="2">
+                  <TextField fx:id="textFieldFirstName" promptText="First name of the player" GridPane.columnIndex="1" />                  <Label text="Number:" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
