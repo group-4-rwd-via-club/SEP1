@@ -178,7 +178,7 @@ public class Date implements Serializable
     */
    public String toStringTime()
    {
-      return String.format("%02d:%02d", Integer.toString(hour), Integer.toString(minute));
+      return String.format("%02d:%02d", hour, minute);
    }
    
    /**

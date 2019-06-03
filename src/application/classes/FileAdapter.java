@@ -97,7 +97,11 @@ public class FileAdapter
         }
         return obj;
     }
-
+    
+    /**
+     * Writes match information to a HTML file
+     * @param match to be printed
+     */
     public void writeToHTML(Match match) {
        ArrayList<String> template = new ArrayList<>();
        ArrayList<String> html = new ArrayList<>();
@@ -114,9 +118,7 @@ public class FileAdapter
           read = new Scanner(fileIn);
        }
        catch(FileNotFoundException e) {
-          System.out.println("File not found, or " 
-                + "could not be opened");
-          System.exit(1);
+          System.out.println("File not found: " + fileTemplate);
        }
        while(read.hasNext()) {
           template.add(read.nextLine());
@@ -218,8 +220,7 @@ public class FileAdapter
        }
        PrintWriter write = null;
        try {
-          FileOutputStream fileOut = 
-                new FileOutputStream(filePrint);
+          FileOutputStream fileOut = new FileOutputStream(filePrint);
           write = new PrintWriter(fileOut);
           
           for(int i=0; i < html.size(); i++) {
@@ -228,13 +229,11 @@ public class FileAdapter
        }
        catch(FileNotFoundException e)
        {
-          System.out.println("File not found, or"
-                + " could not be opened");
-          System.exit(1);
+          System.out.println("File not found: " + filePrint);
        }
        write.close();
        
-       Alert printAlert = new Alert(Alert.AlertType.INFORMATION, filePrint + " is ready", ButtonType.OK);
+       Alert printAlert = new Alert(Alert.AlertType.INFORMATION, filePrint + " is ready for printing", ButtonType.OK);
        printAlert.setTitle("Print Information");
        printAlert.setHeaderText(null);
        printAlert.showAndWait();

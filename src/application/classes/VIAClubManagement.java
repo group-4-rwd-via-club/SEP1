@@ -116,6 +116,10 @@ public class VIAClubManagement {
         }
     }
 
+    /**
+     * Writes match information to a HTML file
+     * @param match to be printed
+     */
     public void writeToHTML(Match match) {
        fileAdapter.writeToHTML(match);
     }
