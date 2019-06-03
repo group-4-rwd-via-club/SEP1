@@ -14,12 +14,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minWidth="700.0" prefHeight="400.0" prefWidth="1050.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.MatchViewController">
+<VBox minWidth="700.0" prefHeight="400.0" prefWidth="1050.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.MatchViewController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
    <HBox alignment="CENTER_LEFT" fillHeight="false" prefHeight="5.0" prefWidth="700.0" spacing="5.0">
-      <Button fx:id="printButton" mnemonicParsing="false" prefWidth="100.0" text="File output">
+      <Button fx:id="printButton" mnemonicParsing="false" prefWidth="100.0" text="Print match">
          <HBox.margin>
             <Insets />
          </HBox.margin>
@@ -82,14 +82,14 @@
                         <Insets />
                      </GridPane.margin>
                   </Label>
-                  <DatePicker fx:id="dateField" prefWidth="185.0" GridPane.columnIndex="1">
+                  <DatePicker fx:id="dateField" prefWidth="185.0" promptText="Date of the match" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </DatePicker>
-                  <TextField fx:id="opponentField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <ComboBox fx:id="typeField" onAction="#typeSelect" prefHeight="25.0" prefWidth="185.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="locationField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="opponentField" promptText="Opponent name or initials" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="typeField" onAction="#typeSelect" prefHeight="25.0" prefWidth="185.0" promptText="Match type settings" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="locationField" promptText="Location of the match" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
