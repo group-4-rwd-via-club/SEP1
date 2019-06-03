@@ -116,7 +116,7 @@ public class VIAClubManagement {
         }
     }
 
-
-
-
+    public void writeToHTML(Match match) {
+       fileAdapter.writeToHTML(match);
+    }
 }

@@ -249,7 +249,7 @@ public class MatchViewController
        * Event handler for print button - prints chosen match.
        */
       printButton.setOnAction(event -> {
-         // Code for print goes here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+         viaClubManagement.writeToHTML(match);
       });
    }
 

@@ -4,6 +4,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
 /**
  * Class to save and load files in the system
  * @author Group-4
@@ -95,8 +98,8 @@ public class FileAdapter
         return obj;
     }
 
-    public void writeToHTML(Match match) throws FileNotFoundException, IOException {
-       ArrayList<String> st = new ArrayList<>();
+    public void writeToHTML(Match match) {
+       ArrayList<String> template = new ArrayList<>();
        ArrayList<String> html = new ArrayList<>();
        ArrayList<Player> roster = new ArrayList<>();
        roster.addAll(match.getRoster().getAllPlayers());
@@ -116,45 +119,96 @@ public class FileAdapter
           System.exit(1);
        }
        while(read.hasNext()) {
-          st.add(read.nextLine());
+          template.add(read.nextLine());
        }
        read.close();
        
        String line = "";
        
-       for(int i=0; i<st.size(); i++) {
-          line = st.get(i);
+       for(int i=0; i<template.size(); i++) {
+          line = template.get(i);
           
+       // Check match for null values
+          String date, opponent, start, location, type;
+          if(match.getDate().toStringShort().equals("0-00-00")) {
+             date = ""; 
+          } else {
+             date = match.getDate().toStringShort();
+          }
+          if(match.getOpponent() == null) {
+             opponent = "";
+          } else {
+             opponent = match.getOpponent();
+          }
+          if(match.getDate().toStringTime().equals("00:00")) {
+             start = "";
+          } else {
+             start = match.getDate().toStringTime();
+          }
+          if(match.getLocation() == null) {
+             location = "";
+          } else {
+             location = match.getLocation();
+          }
+          if(match.getMatchType() == MatchType.none) {
+             type = "";
+          } else {
+             type = match.getMatchType().toString();
+          }
+          
+          // Replace values
           if(line.contains("$match")) {
              line = line.replace("$match",
-                   match.getDate().toStringShort() 
-                   + " - " + match.getOpponent());
+                   date + " - " + opponent);
              html.add(line);
           } else if(line.contains("$start")) {
-             line = line.replace("$start",
-                   match.getDate().toStringTime());
+             line = line.replace("$start", start);
              html.add(line);
           } else if(line.contains("$location")) {
-             line = line.replace("$start",
-                   match.getLocation());
+             line = line.replace("$location", location);
              html.add(line);
           } else if(line.contains("$type")) {
-             line = line.replace("$type",
-                   match.getMatchType().toString());
+             line = line.replace("$type", type);
              html.add(line);
           } else if(line.contains("$number")) {
+             
+             // Replace values for each player
              for(int j=0; j<roster.size(); j++) {
                 String temp = line;
-                
                 Player player = roster.get(j);
-                String name = player.getLastname() + ", " +
-                      player.getFirstname().charAt(0) +".";
+                String number, firstName=null, lastName, name="", position;
                 
-                temp = temp.replace("$number",
-                      Integer.toString(player.getNumber()));
+                // Check player for null values
+                if(player.getNumber() < 0) {
+                   number = "";
+                } else {
+                   number = Integer.toString(player.getNumber());
+                }
+                if(player.getLastname() == null) {
+                   lastName = "";   
+                } else {
+                   lastName = player.getLastname();
+                   name += lastName;
+                }
+                if(player.getFirstname() == null) {
+                   firstName = "";
+                } else {
+                   firstName = String.valueOf(player.getFirstname().charAt(0));
+                   if(!(lastName.equals(""))) {
+                      name += ", ";
+                   }
+                   name += firstName + ".";
+                }
+                if(player.getPreferredPosition() == PositionType.none) {
+                   position = "";
+                } else {
+                   position = player.getPreferredPosition().toString();
+                }
+                
+                // Replace values in temp line
+                temp = temp.replace("$number", number);
                 temp = temp.replace("$name", name);
-                temp = temp.replace("$position",
-                      player.getPreferredPosition().name());
+                temp = temp.replace("$position",position);
                 
                 html.add(temp);
              }           
@@ -179,5 +233,11 @@ public class FileAdapter
           System.exit(1);
        }
        write.close();
+       
+       Alert printAlert = new Alert(Alert.AlertType.INFORMATION, filePrint + " is ready", ButtonType.OK);
+       printAlert.setTitle("Print Information");
+       printAlert.setHeaderText(null);
+       printAlert.showAndWait();
+       if(printAlert.getResult() == ButtonType.OK);
     }
 }
