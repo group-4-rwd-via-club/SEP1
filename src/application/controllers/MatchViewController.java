@@ -248,7 +248,7 @@ public class MatchViewController
        * Event handler for print button - prints chosen match.
        */
       printButton.setOnAction(event -> {
-         // Code for print goes here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+         matchFileout();
       });
    }
 
@@ -327,15 +327,20 @@ public class MatchViewController
          viaClubManagement.getMatchList().updateMatch(match);
       }
       viaClubManagement.save();
-      Alert alert = new Alert(Alert.AlertType.INFORMATION,
-              "You have successfully saved the match details",
-              ButtonType.CLOSE);
-      alert.setTitle("Saved");
-      alert.setHeaderText(null);
+      Alert saveAlert = new Alert(Alert.AlertType.INFORMATION,
+              "You have successfully saved the match details \n" +
+                      "Do you want to create a file for printing?",
+              ButtonType.YES, ButtonType.NO);
+      saveAlert.setTitle("Position confirmation");
+      saveAlert.setHeaderText(null);
 
-      alert.showAndWait();
+      saveAlert.showAndWait();
 
-      if (alert.getResult() == ButtonType.CLOSE) {
+      if (saveAlert.getResult() == ButtonType.YES) {
+         matchFileout();
+         Stage stage = (Stage) saveButton.getScene().getWindow();
+         stage.close();
+      } else if (saveAlert.getResult() == ButtonType.NO) {
          Stage stage = (Stage) saveButton.getScene().getWindow();
          stage.close();
       }
@@ -358,9 +363,11 @@ public class MatchViewController
          viaClubManagement.save();
          Stage stage = (Stage) deleteButton.getScene().getWindow();
          stage.close();
-      } else {
-         return;
       }
+   }
+
+   public void matchFileout(){
+      //viaClubManagemen.writeToHTML(match);
    }
 
    /**
@@ -500,10 +507,8 @@ public class MatchViewController
    private void updateAssignedTableContent()
    {
       if (availablePlayers != null) {
-
          assignedData.clear();
          assignedData.addAll(assignedPlayers);
-
       }
    }
 
@@ -524,7 +529,7 @@ public class MatchViewController
     */
    private void unAssignPlayer(Player player){
       assignedPlayers.remove(player);
-      availablePlayers.add(viaClubManagement.getPlayerList().getPlayerById(player.getId()));
+      updateAvailablePlayers();
       updateAvailableTableContent();
       initializeAssignedView();
    }
@@ -542,11 +547,9 @@ public class MatchViewController
             if (player.getPreferredPosition().equals(PositionType.bench)){
                benchCount++;
                if (benchCount > numberOfBenchPlayers){
-                  unAssignPlayer(player);
+                  assignedPlayers.remove(player);
                }
-
             }
-
          }
       }
    }
@@ -589,7 +592,7 @@ public class MatchViewController
                            playerInList.setPreferredPosition(PositionType.bench);
                         }
                      }
-                  } else return;
+                  }
                }
             } else assignPlayer(player);
          } else {
@@ -601,7 +604,7 @@ public class MatchViewController
 
             benchOccAlert.showAndWait();
 
-            if (benchOccAlert.getResult() == ButtonType.OK) return;
+            if (benchOccAlert.getResult() == ButtonType.OK);
          }
       } else {
          if (fieldCount < numberOfPitchPlayers){
@@ -625,7 +628,7 @@ public class MatchViewController
                               playerInList.setPreferredPosition(PositionType.bench);
                            }
                         }
-                     } else return;
+                     }
                   } else {
                      Alert occAlert = new Alert(Alert.AlertType.INFORMATION,
                              "All positions are occupied for the chosen player",
@@ -635,7 +638,7 @@ public class MatchViewController
 
                      occAlert.showAndWait();
 
-                     if (occAlert.getResult() == ButtonType.CANCEL) return;
+                     if (occAlert.getResult() == ButtonType.CANCEL);
                   }
                }
             } else assignPlayer(player);
@@ -669,7 +672,7 @@ public class MatchViewController
 
                   allOccAlert.showAndWait();
 
-                  if (allOccAlert.getResult() == ButtonType.OK) return;
+                  if (allOccAlert.getResult() == ButtonType.OK);
                }
             }
          }
