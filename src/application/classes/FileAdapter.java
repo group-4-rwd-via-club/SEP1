@@ -8,11 +8,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
 /**
- * Class to save and load files in the system
+ * private class to save and load files in the system
  * @author Group-4
  * @version 1
  */
-public class FileAdapter
+class FileAdapter
 {
     private static final String FILE_NAME = "database.bin";
 
@@ -51,7 +51,7 @@ public class FileAdapter
 
     public String getFileName()
     {
-        return this.FILE_NAME;
+        return FILE_NAME;
     }
 
     /**

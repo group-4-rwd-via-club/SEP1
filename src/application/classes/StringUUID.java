@@ -21,7 +21,7 @@ public class StringUUID
     * Static string that returns the random unique id.
     * The method is static so it can be reached
     * from all methods
-    * @returns a random id as a string
+    * @return a random id as a String Objects
     */
 
    public static String generateId()

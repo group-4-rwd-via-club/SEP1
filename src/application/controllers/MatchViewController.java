@@ -6,16 +6,15 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import static application.classes.UnavailableType.*;
+import static application.classes.UnavailableType.available;
+import static application.classes.UnavailableType.suspended;
 
 /**
  * Controller for Match view
@@ -249,7 +248,7 @@ public class MatchViewController
        * Event handler for print button - prints chosen match.
        */
       printButton.setOnAction(event -> {
-         viaClubManagement.writeToHTML(match);
+         matchFileout();
       });
    }
 
@@ -274,7 +273,7 @@ public class MatchViewController
     * Saves match details if entered
     * @param match to get details from
     */
-   public void saveOptionalFields(Match match){
+   private void saveOptionalFields(Match match){
       match.setMatchType(typeField.getValue());
       if (dateField.getValue() != null){
          Date matchDate;
@@ -328,15 +327,20 @@ public class MatchViewController
          viaClubManagement.getMatchList().updateMatch(match);
       }
       viaClubManagement.save();
-      Alert alert = new Alert(Alert.AlertType.INFORMATION,
-              "You have successfully saved the match details",
-              ButtonType.CLOSE);
-      alert.setTitle("Saved");
-      alert.setHeaderText(null);
+      Alert saveAlert = new Alert(Alert.AlertType.INFORMATION,
+              "You have successfully saved the match details \n" +
+                      "Do you want to create a file for printing?",
+              ButtonType.YES, ButtonType.NO);
+      saveAlert.setTitle("Position confirmation");
+      saveAlert.setHeaderText(null);
 
-      alert.showAndWait();
+      saveAlert.showAndWait();
 
-      if (alert.getResult() == ButtonType.CLOSE) {
+      if (saveAlert.getResult() == ButtonType.YES) {
+         matchFileout();
+         Stage stage = (Stage) saveButton.getScene().getWindow();
+         stage.close();
+      } else if (saveAlert.getResult() == ButtonType.NO) {
          Stage stage = (Stage) saveButton.getScene().getWindow();
          stage.close();
       }
@@ -359,9 +363,14 @@ public class MatchViewController
          viaClubManagement.save();
          Stage stage = (Stage) deleteButton.getScene().getWindow();
          stage.close();
-      } else {
-         return;
       }
+   }
+
+   /**
+    * Calls method for HTML file output.
+    */
+   public void matchFileout(){
+      //viaClubManagemen.writeToHTML(match);
    }
 
    /**
@@ -377,9 +386,8 @@ public class MatchViewController
 
    /**
     * Action event listener to get the selected match type - Removes players if no type is selected
-    * @param e
     */
-   public void typeSelect(ActionEvent e) {
+   public void typeSelect() {
       getTypeSelected();
       updateAvailablePlayers();
       updateAssignedPlayers();
@@ -446,7 +454,7 @@ public class MatchViewController
    private void updateAssignedPlayers(){
       if (assignedPlayers.size() != 0){
          if (getTypeSelected().equals(MatchType.none))
-            assignedPlayers.removeAll(assignedPlayers);
+            assignedPlayers = new ArrayList<>();
 
          updateAvailableTableContent();
          initializeAssignedView();
@@ -464,7 +472,7 @@ public class MatchViewController
       availableNumber.setCellValueFactory(cellData -> new SimpleObjectProperty<Integer>(cellData.getValue().getNumber()));
       availableName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getShirtName()));
       availablePrefPosition.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPreferredPosition().toString()));
-      playedInRow.setCellValueFactory(cellData -> new SimpleObjectProperty<Integer>(cellData.getValue().getMatchesInRow()));
+      playedInRow.setCellValueFactory(cellData -> new SimpleObjectProperty<Integer>(cellData.getValue().getMatchesInRow(viaClubManagement.getMatchList())));
 
       availableField.setItems(availableData);
    }
@@ -502,10 +510,8 @@ public class MatchViewController
    private void updateAssignedTableContent()
    {
       if (availablePlayers != null) {
-
          assignedData.clear();
          assignedData.addAll(assignedPlayers);
-
       }
    }
 
@@ -526,7 +532,7 @@ public class MatchViewController
     */
    private void unAssignPlayer(Player player){
       assignedPlayers.remove(player);
-      availablePlayers.add(viaClubManagement.getPlayerList().getPlayerById(player.getId()));
+      updateAvailablePlayers();
       updateAvailableTableContent();
       initializeAssignedView();
    }
@@ -544,11 +550,9 @@ public class MatchViewController
             if (player.getPreferredPosition().equals(PositionType.bench)){
                benchCount++;
                if (benchCount > numberOfBenchPlayers){
-                  unAssignPlayer(player);
+                  assignedPlayers.remove(player);
                }
-
             }
-
          }
       }
    }
@@ -557,7 +561,7 @@ public class MatchViewController
     * Checks til players preferred position to determine if the position is available in the current lineup
     * @param player to be checked
     */
-   public void checkAssignedList(Player player){
+   private void checkAssignedList(Player player){
       int numberOfPitchPlayers = 11;
       int fieldCount = 0;
       int benchCount = 0;
@@ -575,7 +579,7 @@ public class MatchViewController
          if (benchCount < numberOfBenchPlayers){
             if (player.getPreferredPosition().equals(PositionType.none)) {
                Alert noneAlert = new Alert(Alert.AlertType.INFORMATION,
-                       "The player is not assgned a position + \n" +
+                       "The player is not assgned a position \n" +
                                "The player will be assigned to the bench",
                        ButtonType.OK);
                noneAlert.setTitle("Position Information");
@@ -591,7 +595,7 @@ public class MatchViewController
                            playerInList.setPreferredPosition(PositionType.bench);
                         }
                      }
-                  } else return;
+                  }
                }
             } else assignPlayer(player);
          } else {
@@ -603,7 +607,7 @@ public class MatchViewController
 
             benchOccAlert.showAndWait();
 
-            if (benchOccAlert.getResult() == ButtonType.OK) return;
+            if (benchOccAlert.getResult() == ButtonType.OK);
          }
       } else {
          if (fieldCount < numberOfPitchPlayers){
@@ -627,7 +631,7 @@ public class MatchViewController
                               playerInList.setPreferredPosition(PositionType.bench);
                            }
                         }
-                     } else return;
+                     }
                   } else {
                      Alert occAlert = new Alert(Alert.AlertType.INFORMATION,
                              "All positions are occupied for the chosen player",
@@ -637,7 +641,7 @@ public class MatchViewController
 
                      occAlert.showAndWait();
 
-                     if (occAlert.getResult() == ButtonType.CANCEL) return;
+                     if (occAlert.getResult() == ButtonType.CANCEL);
                   }
                }
             } else assignPlayer(player);
@@ -671,7 +675,7 @@ public class MatchViewController
 
                   allOccAlert.showAndWait();
 
-                  if (allOccAlert.getResult() == ButtonType.OK) return;
+                  if (allOccAlert.getResult() == ButtonType.OK);
                }
             }
          }

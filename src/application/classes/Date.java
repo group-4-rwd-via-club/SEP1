@@ -3,18 +3,22 @@ package application.classes;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Class containing date with methods to get current date
  * and current time.
+ *
+ * serialVersionUID is added to each serializable class to make sure different machines generate
+ * the same UID. https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html
+ *
  * @author GROUP-4
- * @version 2
+ * @version 3
  *
  */
 
 public class Date implements Serializable
 {
+   private static final long serialVersionUID = 6529685098267757690L;
 
    private int day, month, year, hour, minute, second;
    
@@ -23,9 +27,7 @@ public class Date implements Serializable
     * there already are an Date class in the java.util
     * library.
     */
-   public Date()
-   {
-   }
+   public Date(){}
    
    
    /**
@@ -50,7 +52,7 @@ public class Date implements Serializable
     * @param minute Sets the minute with an integer
     * @param second Sets the second with an integer
     */
-   public Date(int day, int month, int year, int hour, int minute, int second)
+   private Date(int day, int month, int year, int hour, int minute, int second)
    {
       this.day = day;
       this.month = month;
@@ -68,37 +70,12 @@ public class Date implements Serializable
       this.hour = hour;
       this.minute = minute;
    }
-   
-   
-   /**
-    * Gets the date as a new object based on the fields in the class.
-    * @returns day month year hour minute second as a new date.
-    */
-   public Date getDate()
-   {
-      return new Date(this.day, this.month, this.year, this.hour, this.minute, this.second);
-   }
-   
-   /**
-    * Gets current date from the imported lib LocalDateTime.now.
-    * Returns only day month year.
-    * @returns Day, month and year.
-    */
-   public Date getToday()
-   {
-      LocalDateTime now = LocalDateTime.now();
-      int year = now.getYear();
-      int month = now.getMonthValue();
-      int day = now.getDayOfMonth();
-      
-      return new Date(day, month, year);
-      
-   }
+
    
    /**
     * Gets current date and time as a new Date object with fields:
     * Day month year hour minute second
-    * @returns Day month year hour minute seconds
+    * @return Day month year hour minute seconds
     */
    public Date getNow()
    {
@@ -131,11 +108,8 @@ public class Date implements Serializable
         if (this.year <= other.year)
          {         
             if (this.month <= other.month)
-            {            
-               if (this.day < other.day || this.month < other.month )
-               {               
-                  return true;
-               }
+            {
+               return this.day < other.day || this.month < other.month;
             }
          }
          return false;
@@ -153,19 +127,9 @@ public class Date implements Serializable
 
 
    /**
-    * Checks if value stored in dateclass is today
-    * @returns boolean value based on if values represents today.
-    */
-   public boolean isToday()
-   {
-      LocalDateTime now = LocalDateTime.now();
-      return this.day == now.getDayOfMonth() && this.month == now.getMonthValue() && this.year == now.getYear();
-   }
-
-   /**
     * Returns current fields, except hour minute second, as norminal string in format:
     * yyyy-mm-dd
-    * @return
+    * @return tostring in format yyyy-MM-dd
     */
    public String toStringShort()
    {

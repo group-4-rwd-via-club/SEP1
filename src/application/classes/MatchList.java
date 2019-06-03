@@ -7,44 +7,27 @@ import java.util.Objects;
 /**
  * MatchList class represent a class with contains
  * all the matches included in the program.
+ *
+ * serialVersionUID is added to each serializable class to make sure different machines generate
+ * the same UID. https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html
  * 
  * @author Group-4
- * @version 2
+ * @version 3
  */
 
 
 public class MatchList implements Serializable
 {
-   private ArrayList<Match> matches;
+   private static final long serialVersionUID = 6529685098267757690L;
+
+   private  ArrayList<Match> matches;
    
    /**
     * Empty constructor which initialize matches array list.
     */
    public MatchList()
    {
-      matches = new ArrayList<Match>();
-   }
-   
-   /**
-    * Constructor that takes Array list with matches
-    * and add it to the matches field.
-    * @param matches as input.
-    */
-   public MatchList(ArrayList<Match> matches)
-   {
-      this.matches = matches;
-   }
-   
-   /**
-    * Get a match at a certain index and return as Match.
-    * @param index of the match
-    * @return the match at the index. If index is too large, it will return null.
-    */
-   public Match getMatch(int index)
-   {
-      if (index < matches.size())
-         return matches.get(index);
-      return null;
+      matches = new ArrayList<>();
    }
 
    /**
@@ -55,63 +38,27 @@ public class MatchList implements Serializable
    {
       return matches;
    }
-   
-   /**
-    * Get a array list of all previous matches from today.
-    * @return a array list with all previous matches.
-    */
-   public ArrayList<Match> getPreviousMatches()
-   {
-      ArrayList<Match> beforeMatches = new ArrayList<Match>();
-      for (Match match : matches)
-      {
-         Date nowDate = new Date().getToday();
-         if (match.getDate().isBefore(nowDate))
-         {
-            beforeMatches.add(match);
-         }
-      }
-      return beforeMatches;
-   }
-   
-   /**
-    * Gets a array list with all matches which has date today
-    * @return an array list with all matches which has today as date.
-    */
-   public ArrayList<Match> getTodayMatches()
-   {
-      ArrayList<Match> todayMatches = new ArrayList<Match>();
-      for(Match match : matches)
-      {
-         if(match.getDate().isToday())
-         {
-            todayMatches.add(match);
-         }
-      }
-      return todayMatches;
-   
-   }
 
+   /**
+    * Method to update matchList. Loops through all matches and find the match with equal ID
+    * before updating the match with input object.
+    * @param match as input
+    */
    public void updateMatch(Match match)
    {
-
-      try
+      for (int i = 0; i < matches.size(); i++)
       {
-         for (int i = 0; i < matches.size(); i++)
+         if (matches.get(i).getId().equals(match.getId()))
          {
-            if (matches.get(i).getId().equals(match.getId()))
-            {
-               matches.set(i, match);
-            }
+            matches.set(i, match);
          }
       }
-      catch (NullPointerException e)
-      {
-         System.out.println("Error closing file ");
-      }
-
    }
 
+   /**
+    * Removes input match from matchlist if it exists.
+    * @param match to remove
+    */
    public void removeMatch(Match match)
    {
       matches.remove(match);

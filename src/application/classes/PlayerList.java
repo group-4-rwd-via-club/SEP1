@@ -6,13 +6,16 @@ import java.util.ArrayList;
 /**
  * PlayerList class respresent a class with contains all the players included
  * in the program.
- *
+ * serialVersionUID is added to each serializable class to make sure different machines generate
+ * the same UID. https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html
  * @author Group 4
- * @Version 2
+ * @version 2
  */
 
 public class PlayerList implements Serializable
 {
+
+   private static final long serialVersionUID = 6529685098267757690L;
 
    private ArrayList<Player> players;
 
@@ -21,12 +24,12 @@ public class PlayerList implements Serializable
     */
    public PlayerList()
    {
-      players = new ArrayList<Player>();
+      players = new ArrayList<>();
    }
 
    /**
     * Adds a player to the list
-    * 
+    *
     * @param player
     *           the player to add to the list
     */
@@ -37,7 +40,7 @@ public class PlayerList implements Serializable
 
    /**
     * remove individual player
-    * 
+    *
     * @param player
     *           the player to remove to the list
     */
@@ -47,9 +50,9 @@ public class PlayerList implements Serializable
    }
 
    /**
-    * update and change individual player's detail TODO: make an exception class
+    * update and change individual player's detail
     * for update player
-    * 
+    *
     * @param player
     *           from Player class as input
     */
@@ -72,7 +75,7 @@ public class PlayerList implements Serializable
       }
 
    }
-   
+
 
    @Override
    public String toString()
@@ -90,72 +93,28 @@ public class PlayerList implements Serializable
    {
       return this.players;
    }
-   /**
-    * Get a player
-    * 
-    * @param keyword
-    *           search a player by keyword
-    * @return result with player's detail
-    */
-   public Player getPlayer(String keyword)
-   {
-      Player result = new Player();
-
-      for (int i = 0; i < players.size(); i++)
-      {
-         if ((keyword.equals(players)))
-         {
-            result = players.get(i);
-         }else {
-            System.out.println("Type the right name");
-         }
-
-      }
-      return result;
-   }
 
    /**
     * Finds a player with a matching ID and returns the object
     * @param id as a UUID String
-    * @returns Player object if found or null if not found
+    * @return Player object if found or null if not found
     */
    public Player getPlayerById(String id)
    {
       for (Player player : players)
       {
-         if (player.getId() == id)
+         if (player.getId().equals(id))
             return player;
       }
       return null;
    }
 
-   @Override
-   public boolean equals(Object obj)
-   {
-       
-      return super.equals(obj);
-   }
- public int getNumber() {
-    int n=0;
-    for (int i = 0; i < players.size(); i++)
-   {
-      n=players.get(i).getNumber();
-   }
-    return n;
- }
+   /**
+    * 
+    * @return size length  of players
+    */
    
-   public int[] getAllNumber() {
-       int[] n = new int[players.size()];
-      for (int i = 0; i < players.size(); i++)
-      {
-         n[i]= players.get(i).getNumber();
-      }
-      return n;
-   }
-
-   
-   public int size()
-   {
+   public int size() {
       return players.size();
    }
 

@@ -27,14 +27,14 @@ public class MatchViewClass extends Application {
      */
     public MatchViewClass(String id)
     {
-        this.matchId = id;
+        matchId = id;
     }
 
     private static String matchId;
 
     /**
      * Getter method to get matchId if any. Returns null if no match id is selected
-     * @returns match id as string or null if empty
+     * @return match id as string or null if empty
      */
     public static String getMatchId()
     {
@@ -43,10 +43,14 @@ public class MatchViewClass extends Application {
         return null;
     }
 
+    /**
+     * Method to generate and show primary stage. Takes a stage as argument.
+     * @param primaryStage argument stage as input
+     */
     @Override
     public void start(Stage primaryStage) {
         try {
-            VBox root = (VBox) FXMLLoader.load(getClass().getResource("MatchView.fxml"));
+            VBox root = FXMLLoader.load(getClass().getResource("MatchView.fxml"));
             Scene scene = new Scene(root);
             primaryStage.getIcons().add(new Image("application/logo_clear.png"));
             primaryStage.setTitle("VIAClub - Manage match");
@@ -61,5 +65,5 @@ public class MatchViewClass extends Application {
     }
 
 
-   
+
 }

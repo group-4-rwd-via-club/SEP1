@@ -16,14 +16,14 @@ public class PlayerListViewClass extends Application
 {
    /**
     * Default start method, which takes stage as argument.
-    * @param primaryStage
+    * @param primaryStage as input Object
     */
    @Override
    public void start(Stage primaryStage)
    {
       try
       {
-         VBox root = (VBox) FXMLLoader.load(getClass().getResource("PlayerListView.fxml"));
+         VBox root = FXMLLoader.load(getClass().getResource("PlayerListView.fxml"));
          Scene scene = new Scene(root);
          primaryStage.setScene(scene);
          primaryStage.show();

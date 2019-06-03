@@ -3,13 +3,19 @@ package application.classes;
 import java.io.Serializable;
 
 /**
- * Availability class containing the different types of injury and
+ * Availability class containing the different types of injury.
+ *
+ * serialVersionUID is added to each serializable class to make sure different machines generate
+ * the same UID. https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html
+ *
  * @author Group-4
- * @version 2
+ * @version 3
  *
  */
 public class Availability implements Serializable
 {
+   private static final long serialVersionUID = 6529685098267757690L;
+
    private UnavailableType injuryType;
    private Date availabilityDate;
 
@@ -18,18 +24,7 @@ public class Availability implements Serializable
     */
    public Availability()
    {
-      this.injuryType = injuryType.available;
-   }
-
-   /**
-    * Constructor taking injury type and a date
-    * @param injurytype
-    * @param date
-    */
-   public Availability(UnavailableType injurytype, Date date)
-   {
-      this.injuryType = injurytype;
-      this.availabilityDate = date;
+      this.injuryType = UnavailableType.available;
    }
 
 

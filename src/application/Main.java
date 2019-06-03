@@ -1,16 +1,11 @@
 package application;
 	
-import application.classes.VIAClubManagement;
 import javafx.application.Application;
-import javafx.scene.control.TabPane;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
-import javafx.stage.StageStyle;
 
 /**
  * Main method for the application. First view is being openened from here.
@@ -22,20 +17,19 @@ public class Main extends Application {
 
 	/**
 	 * default start method which loads MainView.fxml
-	 * @param primaryStage
+	 * @param primaryStage object type
 	 */
 	@Override
 	public void start(Stage primaryStage) {
-
 		try
 		{
-			VBox root = (VBox) FXMLLoader.load(getClass().getResource("views/MainView.fxml"));
+			VBox root = FXMLLoader.load(getClass().getResource("views/MainView.fxml"));
 			root.setFillWidth(true);
 			Scene scene = new Scene(root);
 			primaryStage.setTitle("VIA Club Management");
 			primaryStage.getIcons().add(new Image("application/logo_clear.png"));
 			primaryStage.setScene(scene);
-			primaryStage.setResizable(false); // Disallow resize of window
+			primaryStage.setResizable(false);
 
 			primaryStage.show();
 		}
@@ -44,10 +38,5 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void main(String[] args)
-	{
 
-		launch(args);
-	}
 }
