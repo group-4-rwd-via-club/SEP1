@@ -366,6 +366,9 @@ public class MatchViewController
       }
    }
 
+   /**
+    * Calls method for HTML file output.
+    */
    public void matchFileout(){
       //viaClubManagemen.writeToHTML(match);
    }
