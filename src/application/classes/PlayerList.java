@@ -75,7 +75,7 @@ public class PlayerList implements Serializable
       }
 
    }
- 
+
    /**
     * returns a list with all players in playerlist
     * @return returns an arraylist with all players
@@ -101,10 +101,10 @@ public class PlayerList implements Serializable
    }
 
    /**
-    * 
+    *
     * @return size length  of players
     */
-   
+
    public int size() {
       return players.size();
    }
