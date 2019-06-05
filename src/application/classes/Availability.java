@@ -1,7 +1,6 @@
 package application.classes;
 
 import java.io.Serializable;
-import java.util.StringJoiner;
 
 /**
  * Availability class containing the different types of injury.
