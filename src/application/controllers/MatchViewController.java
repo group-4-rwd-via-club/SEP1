@@ -418,10 +418,15 @@ public class MatchViewController
     * Updates and initializes the available player table
     */
    private void updateAvailablePlayers(){
+      //Gets all players from the player list
       ArrayList<Player> allPlayers = viaClubManagement.getPlayerList().getAllPlayers();
+      // new ArrayList to contain available players
       availablePlayers = new ArrayList<>();
+      // Goes through all players
       for (Player player : allPlayers){
+         //Checks Match type
          if (getTypeSelected().equals(MatchType.friendly)){
+            //Checks if a player is available or suspended and adds the player to available players if true
             if ((player.getAvailability().getUnavailableType().equals(available) || player.getAvailability().getUnavailableType().equals(suspended)) ){
                if (assignedPlayers.size() == 0){
                   availablePlayers.add(player);
@@ -430,7 +435,9 @@ public class MatchViewController
                }
             }
          } else if (getTypeSelected().equals(MatchType.cup) || getTypeSelected().equals(MatchType.league)){
+            //Removes suspended and excess bench players
             removeUnallowedPlayers();
+            //Checks if a player is available and adds the player to available players if true
             if (player.getAvailability().getUnavailableType().equals(available)){
                if (assignedPlayers.size() == 0){
                   availablePlayers.add(player);
@@ -440,11 +447,13 @@ public class MatchViewController
             }
          }
       }
+      //Checks assigned players and removes the players contained from available players compared by id
       for (Player playerInList : assignedPlayers){
          if (playerInList.idEquals(viaClubManagement.getPlayerList().getPlayerById(playerInList.getId()))){
             availablePlayers.remove(viaClubManagement.getPlayerList().getPlayerById(playerInList.getId()));
          }
       }
+      //initialises the available table view
       initializeAvailableView();
    }
 
