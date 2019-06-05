@@ -74,5 +74,14 @@ public class Availability implements Serializable
       this.availabilityDate = date;
    }
 
-
+   /**
+    * Public tostring to print out availability to a string. Which later can be used by search function.
+    * @return tostring with all set fields in availability.
+    */
+   public String toString() {
+      return "Availability{" +
+              "injuryType=" + injuryType +
+              ", availabilityDate=" + availabilityDate +
+              '}';
+   }
 }
