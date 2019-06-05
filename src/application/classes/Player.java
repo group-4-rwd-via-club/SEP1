@@ -249,17 +249,20 @@ public class Player implements Serializable
 
 
    /**
-    * output data as String
+    * Player class as a string ID have been omitted due to the search functionality is using toStrings().
     */
-   @Override
-   public String toString()
-   {
-      return     firstname +" "+ lastname + "  number:" + number + ", shirtName:" + shirtName
-            + ", Position:" + preferredPosition + ", matchesInRow="
-            + "\n";
+   public String toString() {
+      return "Player{" +
+              ", firstname='" + firstname + '\'' +
+              ", lastname='" + lastname + '\'' +
+              ", number=" + number +
+              ", shirtName='" + shirtName + '\'' +
+              ", preferredPosition=" + preferredPosition +
+              ", availability=" + availability +
+              '}';
    }
 
-/**
+   /**
  * Method to check if input argument and current object is the same.
  * @param obj as a Player object
  * @return boolean values based  if the object is equal to this.
