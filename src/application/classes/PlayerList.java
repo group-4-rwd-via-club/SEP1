@@ -76,8 +76,6 @@ public class PlayerList implements Serializable
 
    }
 
-   
-
    /**
     * returns a list with all players in playerlist
     * @return returns an arraylist with all players
