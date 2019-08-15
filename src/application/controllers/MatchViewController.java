@@ -550,21 +550,14 @@ public class MatchViewController
     * Unassigns an suspended player or too many bench players from a cup or league match
     */
    private void removeUnallowedPlayers(){
-      //keeps count of bench players
       int benchCount = 0;
-      //If there are assigned players
       if (assignedPlayers.size() > 0){
-         //loops through assigned players
          for (int i = 0; i < assignedPlayers.size(); i++){
-            //get player in index
             Player player = assignedPlayers.get(i);
-            //removes a player if not available e.g. supended
             if (!(viaClubManagement.getPlayerList().getPlayerById(player.getId()).getAvailability().isPlayerAvailable()))
                assignedPlayers.remove(player);
-            // if a player is assigned to bench the benccounter is increased
             if (player.getPreferredPosition().equals(PositionType.bench)){
                benchCount++;
-               // if counter is greater than number of allowed players, the player is removed
                if (benchCount > numberOfBenchPlayers){
                   assignedPlayers.remove(player);
                }

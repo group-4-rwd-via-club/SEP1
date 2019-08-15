@@ -1,6 +1,7 @@
 package application.controllers;
 
-import application.classes.*;
+import application.classes.Player;
+import application.classes.VIAClubManagement;
 import application.views.PlayerViewClass;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,8 +13,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 
 /**
@@ -63,7 +62,6 @@ public class PlayerListViewController
    @FXML
    private void initialize()
    {
-       updatePlayerAvailability();
       
      /**
       *  event handler for mouse click the add button to open player window to add a new player
@@ -122,29 +120,6 @@ public class PlayerListViewController
         textFieldMatches.setCellValueFactory(cellDate -> new SimpleObjectProperty<>(cellDate.getValue().getMatchesInRow(viaClubManagement.getMatchList())));
 
         table.setItems(masterData);
-   }
-
-    /**
-     * Whenever the playerListView is initialised the player list is checked.
-     * If a players unavailable period has ended the player is set as available.
-     */
-   private void updatePlayerAvailability(){
-       Date now = new Date().getNow();
-       ArrayList<Player> allplayers = viaClubManagement.getPlayerList().getAllPlayers();
-       if (allplayers != null){
-           for (Player playerInList : allplayers){
-               if (!playerInList.getAvailability().isPlayerAvailable()){
-                   if (playerInList.getAvailability().getUnavailableEnd() != null){
-                       if (!now.isBefore(playerInList.getAvailability().getUnavailableEnd())){
-                           Availability available = new Availability();
-                           available.setUnavailableType(UnavailableType.available);
-                           playerInList.setAvailability(available);
-                       }
-                   }
-
-               }
-           }
-       }
    }
    
    /**
